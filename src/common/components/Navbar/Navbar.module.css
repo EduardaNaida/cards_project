@@ -1,0 +1,14 @@
+.navBlock {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.item a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: #2156cb;
+}

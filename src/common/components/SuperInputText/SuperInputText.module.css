@@ -1,0 +1,23 @@
+.input:focus {
+}
+
+.input {
+}
+
+.inputWrapper {
+    padding-top: 10px;
+}
+
+.superInput {
+}
+
+.errorInput {
+    color: red;
+}
+
+.errorInput:focus {
+}
+
+.error {
+    color: red;
+}
