@@ -5,19 +5,19 @@
 }
 
 .inputWrapper {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .superInput {
 }
 
 .errorInput {
-    color: red;
+  color: red;
 }
 
 .errorInput:focus {
 }
 
 .error {
-    color: red;
+  color: red;
 }
