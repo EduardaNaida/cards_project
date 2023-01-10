@@ -1,5 +1,5 @@
 import { AppRootStateType, AppThunk } from '../../app/store'
-import { updateUserProfileType, userDataAPI } from '../../api/api'
+import { updateUserProfileType, userDataAPI } from '../../API/API'
 
 const initialState: InitialProfileType = {
   name: '',
