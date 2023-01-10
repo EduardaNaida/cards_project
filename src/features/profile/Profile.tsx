@@ -3,9 +3,7 @@ import { AppDispatch, UseAppSelector } from '../../app/store'
 import SuperButton from '../../common/components/SuperButton/SuperButton'
 import s from './Profile.module.css'
 import avatar from './../../assets/img/avatar.jpg'
-
 import EditableSpan from '../../common/components/EditableSpan/EditableSpan'
-
 import { Logout } from '@mui/icons-material'
 import { changeProfileTC, logoutTC } from '../userReducer'
 

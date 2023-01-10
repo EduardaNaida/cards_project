@@ -1,32 +1,31 @@
 import React from 'react'
 import s from './Navbar.module.css'
-
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { AppRootStateType } from '../../../app/store'
+import { UserType } from '../../../API/API'
 
 export const Navbar = () => {
+  const user = useSelector<AppRootStateType, UserType>((state) => state.user)
+
   return (
     <nav className={s.navBlock}>
-      <div className={s.item}>
-        <NavLink to={'/'}>Main</NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to={'/profile'}>Profile</NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to={'/login'}>Login</NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to={'/signup'}>Register</NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to={'/password'}>Password</NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to={'/newpassword'}>New Password</NavLink>
-      </div>
-      <div className={s.item}>
-        <NavLink to={'/404'}>Error404</NavLink>
-      </div>
+      {user.email !== null ? (
+        <>
+          <div className={s.item}>
+            <NavLink to={'/profile'}>Profile</NavLink>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={s.item}>
+            <NavLink to={'/login'}>Login</NavLink>
+          </div>
+          <div className={s.item}>
+            <NavLink to={'/signup'}>Register</NavLink>
+          </div>
+        </>
+      )}
     </nav>
   )
 }
