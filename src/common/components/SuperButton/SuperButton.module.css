@@ -1,8 +1,13 @@
 .button {
-  width: 60px;
-  height: 20px;
+  width: 347px;
+  height: 36px;
   margin-top: 10px;
   color: #ffffff;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  border-color: inherit;
 }
 
 .disabled {
@@ -13,7 +18,8 @@
 }
 
 .default {
-  background: #0066cc;
+  background: #366EFF;
+  box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
 
 .red {
