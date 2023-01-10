@@ -1,95 +1,113 @@
-import React, {ChangeEvent, useState} from 'react'
-import SuperInputText from "../../common/components/SuperInputText/SuperInputText";
+import React, {useState} from 'react'
 import SuperButton from "../../common/components/SuperButton/SuperButton";
 import style from './SignUp.module.css';
 import {setRegister} from "../../redux/authReducer";
 import {AppDispatch} from "../../app/store";
 import {NavLink} from "react-router-dom";
+import {useFormik} from "formik";
+import {Box, IconButton, Input, InputAdornment} from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 const SignUp = () => {
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [confirmPass, setConfirmPass] = useState<string>('')
     const [error, setError] = useState<string>('')
 
     const dispatch = AppDispatch();
 
-    const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.currentTarget.value)
-    }
-    const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.currentTarget.value)
-    }
-    const onChangeConfirmPassHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setConfirmPass(e.currentTarget.value)
-    }
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            confirmPassword: '',
+        },
+        onSubmit: values => {
+            if (values.password !== values.confirmPassword) {
+                setError('Password are not matching!')
+            } else {
+                dispatch(setRegister(values.email, values.password))
+            }
+        },
+    })
 
-    const onSubmit = () => {
-        if (password !== confirmPass) {
-            setError('Password are not matching!')
-            console.log('error')
-        } else {
-            dispatch(setRegister(email, password))
-        }
+    const [showPassword, setShowPassword] = React.useState(false)
+    const handleClickShowPassword = () => setShowPassword((show) => !show)
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
     }
-    // const formik = useFormik({
-    //     initialValues: {
-    //         email: '',
-    //         password: '',
-    //         confirmPassword: ''
-    //     },
-    //     onSubmit: values => {
-    //         alert(JSON.stringify(values));
-    //         dispatch(setRegister(values.email, values.password))
-    //         console.log(email, password)
-    //     },
-    // })
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show)
+    const handleMouseDownConfirmPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+    }
 
     return (
-        // <form onSubmit={formik.handleSubmit}>
-        //     <div>
-        //         <Field placeholder={'Email'}
-        //                name={'email'}
-        //                component={SuperInputText}
-        //                onChange={formik.handleChange}
-        //                value={formik.initialValues.email}
-        //         />
-        //     </div>
-        //     <div>
-        //         <Field placeholder={'Password'}
-        //                type={'password'}
-        //                name={'password'}
-        //                component={SuperInputText}
-        //
-        //                value={formik.initialValues.password}/>
-        //     </div>
-        //     <div>
-        //         <Field
-        //             type={'password'}
-        //             name={'confirmpassword'}
-        //             component={SuperInputText}
-        //             value={formik.initialValues.confirmPassword}/>
-        //     </div>
-        //     {error && <div className={style.error}>{error}</div>}
-        //     <div>
-        //         <SuperButton type="submit">Sign Up</SuperButton>
-        //     </div>
-        // </form>
-        <div className={style.signUpBlock}>
-            <h1>Sign Up</h1>
-            <SuperInputText placeholder={'Email'}
-                            onChange={onChangeEmailHandler}
-                            value={email}/>
-            <SuperInputText placeholder={'Password'}
-                            onChange={onChangePasswordHandler}
-                            value={password}/>
-            <SuperInputText placeholder={'Confirm password'}
-                            onChange={onChangeConfirmPassHandler}
-                            value={confirmPass}/>
-            {error && <div className={style.error}>{error}</div>}
-            <SuperButton onClick={onSubmit}>Sign Up</SuperButton>
-            <p className={style.text}>Already have an account?</p>
-            <NavLink to={'/login'}>Sign In</NavLink>
+        <div className={style.main}>
+            <div className={style.signUpBlock}>
+                <Box
+                    sx={{
+                        height: '500px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'space-evenly'
+                    }}
+                    component="form" onSubmit={formik.handleSubmit}>
+                    <h1>Sign Up</h1>
+                    <div className={style.inputBlock}>
+                        <Input placeholder={'Email'}
+                               id={'email'}
+                               name={'email'}
+                               onChange={formik.handleChange}
+                               value={formik.values.email}
+                               className={style.input}
+                        />
+                    </div>
+                    <div className={style.inputBlock}>
+                        <Input placeholder={'Password'}
+                               name={'password'}
+                               onChange={formik.handleChange}
+                               value={formik.values.password.trim()}
+                               className={style.input}
+                               type={showPassword ? 'text' : 'password'}
+                               endAdornment={
+                                   <InputAdornment position="end">
+                                       <IconButton
+                                           aria-label="toggle password visibility"
+                                           onClick={handleClickShowPassword}
+                                           onMouseDown={handleMouseDownPassword}
+                                       >
+                                           {showPassword ? <VisibilityOff /> : <Visibility />}
+                                       </IconButton>
+                                   </InputAdornment>
+                               }
+                        />
+                    </div>
+                    <div className={style.inputBlock}>
+                        <Input
+                            placeholder={'Confirm password'}
+                            name={'confirmPassword'}
+                            id={'confirmPassword'}
+                            onChange={formik.handleChange}
+                            value={formik.values.confirmPassword.trim()}
+                            className={style.input}
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowConfirmPassword}
+                                        onMouseDown={handleMouseDownConfirmPassword}
+                                    >
+                                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }/>
+                    </div>
+                    {error && <div className={style.error}>{error}</div>}
+                    <SuperButton type="submit">Sign Up</SuperButton>
+                    <p className={style.text}>Already have an account?</p>
+                    <NavLink to={'/login'}>Sign In</NavLink>
+                </Box>
+            </div>
         </div>
     )
 }
