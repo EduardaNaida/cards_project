@@ -4,8 +4,8 @@ import SuperButton from '../SuperButton/SuperButton'
 import s from './EditableSpan.module.css'
 
 type EditableSpanPropsType = {
-  name: string
-  changeName: (newName: string) => void
+  name: string | null
+  changeName: (newName: string | null) => void
 }
 
 const EditableSpan: React.FC<EditableSpanPropsType> = ({ name, changeName }) => {
@@ -31,7 +31,11 @@ const EditableSpan: React.FC<EditableSpanPropsType> = ({ name, changeName }) => 
     <div className={s.editableSpan}>
       {isEditMode ? (
         <>
-          <input value={newName} autoFocus onChange={onChangeEditHandler} />
+          <input
+            value={newName !== null ? newName : 'name'}
+            autoFocus
+            onChange={onChangeEditHandler}
+          />
           <SuperButton onClick={onClickEditHandler}>save</SuperButton>
         </>
       ) : (

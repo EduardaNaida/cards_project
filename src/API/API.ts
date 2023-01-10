@@ -63,8 +63,8 @@ export type ResponseRegisterAndUpdateUser = {
 } & ResponseDataType
 
 export type updateUserProfileType = {
-  name: string
-  avatar: string
+  name?: string | null
+  avatar?: string | null
 }
 
 export type PasswordRecoveryDataType = {

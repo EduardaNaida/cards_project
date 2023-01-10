@@ -3,20 +3,17 @@ import { AppDispatch, UseAppSelector } from '../../app/store'
 import SuperButton from '../../common/components/SuperButton/SuperButton'
 import s from './Profile.module.css'
 import avatar from './../../assets/img/avatar.jpg'
-import { changeProfileTC, logoutTC } from './profile-reducer'
+
 import EditableSpan from '../../common/components/EditableSpan/EditableSpan'
 
 import { Logout } from '@mui/icons-material'
+import { changeProfileTC, logoutTC } from '../userReducer'
 
 const Profile: FC = () => {
   const dispatch = AppDispatch()
   const user = UseAppSelector((s) => s.user)
 
-  /*  useEffect(() => {
-    dispatch(getDataProfileTC())
-  }, [])*/
-
-  const changeNameHandler = (name: string) => {
+  const changeNameHandler = (name: string | null) => {
     dispatch(changeProfileTC({ name }))
   }
 
