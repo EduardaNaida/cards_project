@@ -1,6 +1,6 @@
-import {registerAPI} from "./api";
 import axios, {AxiosError} from "axios";
 import {AppDispatchType} from "../app/store";
+import {userDataAPI} from "../API/API";
 
 export type authReducersActionType =
     | ReturnType<typeof setUserData>
@@ -40,7 +40,7 @@ export const setUserData = (email: string | null, password: string | null) => ({
 
 export const setRegister = (email: string, password: string) => async (dispatch: AppDispatchType) => {
     try {
-        let res = await registerAPI.signUp(email, password)
+        let res = await userDataAPI.registerUser({email, password})
         if (res) {
             dispatch(setUserData(email, password))
         }
