@@ -1,9 +1,42 @@
-import React from 'react'
+import React, { FC } from 'react'
+import { AppDispatch, UseAppSelector } from '../../app/store'
+import SuperButton from '../../common/components/SuperButton/SuperButton'
+import s from './Profile.module.css'
+import avatar from './../../assets/img/avatar.jpg'
+import { changeProfileTC, logoutTC } from './profile-reducer'
+import EditableSpan from '../../common/components/EditableSpan/EditableSpan'
 
-const Profile = () => {
+import { Logout } from '@mui/icons-material'
+
+const Profile: FC = () => {
+  const dispatch = AppDispatch()
+  const user = UseAppSelector((s) => s.user)
+
+  /*  useEffect(() => {
+    dispatch(getDataProfileTC())
+  }, [])*/
+
+  const changeNameHandler = (name: string) => {
+    dispatch(changeProfileTC({ name }))
+  }
+
+  const logoutHandler = () => {
+    dispatch(logoutTC())
+  }
+
   return (
     <div>
-      <h1>Profile</h1>
+      <h3 className={s.title}>Personal information</h3>
+      <img src={avatar} className={s.avatar} alt="avatar" />
+      <div>
+        <EditableSpan name={user.name} changeName={changeNameHandler} />
+      </div>
+      <div className={s.mail}>{user.email}</div>
+
+      <SuperButton onClick={logoutHandler} className={s.profileBtn}>
+        <Logout fontSize="small" style={{ verticalAlign: 'middle' }} />
+        log out
+      </SuperButton>
     </div>
   )
 }
