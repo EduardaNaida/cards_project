@@ -29,7 +29,7 @@ const Main = () => {
             <Route path={'/signup'} element={<SignUp />} />
             <Route path={'/login'} element={<Login />} />
             <Route path={'/password'} element={<Password />} />
-            <Route path={'/forgot'} element={<ForgotPassword />} />
+            <Route path={'/forgot-password'} element={<ForgotPassword />} />
             <Route path={'/newpassword'} element={<NewPassword />} />
             <Route path="*" element={<Navigate to="/login" replace />} />
           </>
