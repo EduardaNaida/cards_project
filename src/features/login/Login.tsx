@@ -126,7 +126,7 @@ const Login = () => {
               value={formik.values.rememberMe}
               onChange={formik.handleChange}
             />
-            <Link to="/forgot">Forgot Password?</Link>
+            <Link to="/forgot-password">Forgot Password?</Link>
           </div>
           <Button
             type="submit"

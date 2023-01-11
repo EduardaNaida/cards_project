@@ -29,6 +29,10 @@ export const userReducer = (state: UserType = initialState, action: UserActionsT
   return state
 }
 
+// ACTION CREATORS
+export const setUserDataAC = (userData: UserType) => ({ type: 'SET-USER-DATA', userData })
+
+// THUNK CREATORS
 export const changeProfileTC = (data: updateUserProfileType): AppThunk => {
   return (dispatch, getState: () => AppRootStateType) => {
     const user = getState().user
@@ -49,14 +53,11 @@ export const changeProfileTC = (data: updateUserProfileType): AppThunk => {
   }
 }
 
-export const setUserDataAC = (userData: UserType) => ({ type: 'SET-USER-DATA', userData })
-
 export const userLoginTC =
   (userData: createUserDataType): AppThunk =>
   (dispatch) => {
     userDataAPI.loginUser(userData).then((res) => {
       dispatch(setUserDataAC(res.data))
-      console.log(res.data)
     })
   }
 
@@ -74,6 +75,6 @@ export const logoutTC = (): AppThunk => (dispatch) => {
       verified: null,
       rememberMe: null,
     }
-    dispatch(changeProfileTC(resetState))
+    dispatch(setUserDataAC(resetState))
   })
 }
