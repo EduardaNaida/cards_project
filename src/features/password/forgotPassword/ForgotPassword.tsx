@@ -20,13 +20,13 @@ const ForgotPassword: FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      dispatch(forgotPassword(values.email))
+      dispatch(forgotPassword(values.email, navigate))
     },
   })
 
-  const toCheckEmailPage = () => {
+  /*  const toCheckEmailPage = () => {
     navigate('/check-email-page')
-  }
+  }*/
 
   return (
     <Container component="main" maxWidth="xs">
@@ -67,7 +67,6 @@ const ForgotPassword: FC = () => {
             type="submit"
             fullWidth
             variant="contained"
-            onClick={toCheckEmailPage}
             sx={{
               mt: 3,
               mb: 2,

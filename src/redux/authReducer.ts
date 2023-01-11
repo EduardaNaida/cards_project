@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { AppDispatchType, AppThunk } from '../app/store'
 import { newPasswordDataType, userDataAPI } from '../API/API'
+import { NavigateFunction } from 'react-router-dom'
 
 export type authReducersActionType = ReturnType<typeof setUserData>
 
@@ -9,11 +10,13 @@ const SET_USER_DATA = 'SET_USER_DATA'
 export type RegisterType = {
   email: string | null
   password: string | null
+  isPasswordSent: boolean
 }
 
 const initialState = {
   email: null,
   password: null,
+  isPasswordSent: false,
 }
 
 export const authReducer = (
@@ -26,6 +29,7 @@ export const authReducer = (
         ...state,
         ...action.payload,
       }
+
     default:
       return state
   }
@@ -55,24 +59,30 @@ export const setRegister =
   }
 
 export const forgotPassword =
-  (email: string): AppThunk =>
+  (email: string, navigate: NavigateFunction): AppThunk =>
   () => {
     const message = `<div style="padding: 15px">
                     Password recovery:<a href='http://localhost:3000/#/create-new-password/$token$'>link</a>
                     </div>`
-    userDataAPI.sendRecoveryPasswordLink({ email, message }).then(() => {})
-        .catch((e) => {
+    userDataAPI
+      .sendRecoveryPasswordLink({ email, message })
+      .then(() => {
+        navigate('/check-email-page')
+      })
+      .catch((e) => {
         console.log(e)
-    })
+      })
+      .finally()
   }
 
 export const createNewPassword =
-  (data: newPasswordDataType): AppThunk =>
+  (data: newPasswordDataType, navigate: NavigateFunction): AppThunk =>
   () => {
     userDataAPI
       .setNewPasswordUser(data)
       .then((res) => {
-       return res.data
+        navigate('/login')
+        return res.data
       })
       .catch((e) => {
         console.log(e)

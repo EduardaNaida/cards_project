@@ -34,7 +34,9 @@ const NewPassword = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (token)
-        dispatch(createNewPassword({ password: values.password, resetPasswordToken: token }))
+        dispatch(
+          createNewPassword({ password: values.password, resetPasswordToken: token }, navigate),
+        )
     },
   })
 
@@ -42,10 +44,6 @@ const NewPassword = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show)
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-  }
-
-  const toLogin = () => {
-    navigate('/login')
   }
 
   return (
@@ -103,7 +101,6 @@ const NewPassword = () => {
             type="submit"
             fullWidth
             variant="contained"
-            onClick={toLogin}
             sx={{
               mt: 3,
               mb: 2,
