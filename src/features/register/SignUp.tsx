@@ -3,7 +3,7 @@ import SuperButton from "../../common/components/SuperButton/SuperButton";
 import style from './SignUp.module.css';
 import {setRegister} from "../../redux/authReducer";
 import {AppDispatch} from "../../app/store";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {Box, IconButton, Input, InputAdornment} from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material'
@@ -12,6 +12,7 @@ const SignUp = () => {
     const [error, setError] = useState<string>('')
 
     const dispatch = AppDispatch();
+    // const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -23,7 +24,8 @@ const SignUp = () => {
             if (values.password !== values.confirmPassword) {
                 setError('Password are not matching!')
             } else {
-                dispatch(setRegister(values.email, values.password))
+                dispatch(setRegister(values.email, values.password));
+                // navigate('/login')
             }
         },
     })
