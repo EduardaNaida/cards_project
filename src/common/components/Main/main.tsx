@@ -10,6 +10,7 @@ import ForgotPassword from '../../../features/password/forgotPassword/ForgotPass
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../../app/store'
 import { UserType } from '../../../API/API'
+import CheckEmailPage from '../../../features/password/checkEmailPage/CheckEmailPage'
 
 const Main = () => {
   const user = useSelector<AppRootStateType, UserType>((state) => state.user)
@@ -30,6 +31,7 @@ const Main = () => {
             <Route path={'/login'} element={<Login />} />
             <Route path={'/password'} element={<Password />} />
             <Route path={'/forgot-password'} element={<ForgotPassword />} />
+            <Route path={'/check-email-page'} element={<CheckEmailPage />} />
             <Route path={'/create-new-password/:token'} element={<NewPassword />} />
             <Route path="*" element={<Navigate to="/login" replace />} />
           </>

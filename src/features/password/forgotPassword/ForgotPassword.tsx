@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Box, Button, Container, CssBaseline, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
@@ -8,6 +8,7 @@ import { forgotPassword } from '../../../redux/authReducer'
 
 const ForgotPassword: FC = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const validationSchema = yup.object({
     email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -22,6 +23,10 @@ const ForgotPassword: FC = () => {
       dispatch(forgotPassword(values.email))
     },
   })
+
+  const toCheckEmailPage = () => {
+    navigate('/check-email-page')
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -62,6 +67,7 @@ const ForgotPassword: FC = () => {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={toCheckEmailPage}
             sx={{
               mt: 3,
               mb: 2,

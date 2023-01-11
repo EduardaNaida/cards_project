@@ -16,11 +16,12 @@ import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useAppDispatch } from '../../../app/store'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { createNewPassword } from '../../../redux/authReducer'
 
 const NewPassword = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   let { token } = useParams()
   const validationSchema = yup.object({
     password: yup.string().min(7, 'Password is too short - should be 7 chars minimum.'),
@@ -41,6 +42,10 @@ const NewPassword = () => {
   const handleClickShowPassword = () => setShowPassword((show) => !show)
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+  }
+
+  const toLogin = () => {
+    navigate('/login')
   }
 
   return (
@@ -98,6 +103,7 @@ const NewPassword = () => {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={toLogin}
             sx={{
               mt: 3,
               mb: 2,
