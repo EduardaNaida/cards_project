@@ -69,7 +69,7 @@ export type updateUserProfileType = {
 
 export type PasswordRecoveryDataType = {
   email: string // почта получателя для восстановления пароля
-  from: string //test-front-admin <ai73a@yandex.by>, заголовок для письма и почта отправителя
+  from?: string //test-front-admin <ai73a@yandex.by>, заголовок для письма и почта отправителя
   message: string //сообщение, которое придёт на почту получателя
 }
 

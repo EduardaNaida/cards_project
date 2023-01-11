@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { AppDispatchType } from '../app/store'
+import { AppDispatchType, AppThunk } from '../app/store'
 import { userDataAPI } from '../API/API'
 
 export type authReducersActionType = ReturnType<typeof setUserData>
@@ -52,4 +52,13 @@ export const setRegister =
         console.log(error)
       }
     }
+  }
+
+export const forgot =
+  (email: string): AppThunk =>
+  (dispatch) => {
+    const message = `<div style="padding: 15px">
+                    Password recovery:<a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+                    </div>`
+    userDataAPI.sendRecoveryPasswordLink({ email, message }).then(() => {})
   }
