@@ -4,7 +4,7 @@ import { Box, Button, Container, CssBaseline, TextField, Typography } from '@mui
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { useAppDispatch } from '../../../app/store'
-import { forgot } from '../../../redux/authReducer'
+import { forgotPassword } from '../../../redux/authReducer'
 
 const ForgotPassword: FC = () => {
   const dispatch = useAppDispatch()
@@ -19,7 +19,7 @@ const ForgotPassword: FC = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      dispatch(forgot(values.email))
+      dispatch(forgotPassword(values.email))
     },
   })
 

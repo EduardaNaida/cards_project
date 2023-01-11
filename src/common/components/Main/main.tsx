@@ -30,7 +30,7 @@ const Main = () => {
             <Route path={'/login'} element={<Login />} />
             <Route path={'/password'} element={<Password />} />
             <Route path={'/forgot-password'} element={<ForgotPassword />} />
-            <Route path={'/newpassword'} element={<NewPassword />} />
+            <Route path={'/create-new-password/:token'} element={<NewPassword />} />
             <Route path="*" element={<Navigate to="/login" replace />} />
           </>
         )}
