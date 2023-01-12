@@ -38,6 +38,9 @@
 
 .error {
     color: darkred;
+    text-align: left;
+    font-size: 13px;
+    padding-top: 5px;
 }
 
 .button {
