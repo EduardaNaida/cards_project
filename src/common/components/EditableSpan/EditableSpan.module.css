@@ -1,0 +1,12 @@
+.editableSpan {
+  margin: 15px 0;
+}
+
+.editIcon {
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+.editIcon:hover {
+  color: #7c8385;
+}

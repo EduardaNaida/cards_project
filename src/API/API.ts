@@ -38,16 +38,16 @@ export type createUserDataType = {
 }
 
 export type UserType = {
-  _id: string
-  email: string
-  name: string
-  avatar?: string
-  publicCardPacksCount: number // количество колод
-  created: Date
-  updated: Date
-  isAdmin: boolean
-  verified: boolean // подтвердил ли почту
-  rememberMe: boolean
+  _id: string | null
+  email: string | null
+  name: string | null
+  avatar?: string | null
+  publicCardPacksCount: number | null // количество колод
+  created: Date | null
+  updated: Date | null
+  isAdmin: boolean | null
+  verified: boolean | null // подтвердил ли почту
+  rememberMe: boolean | null
 }
 
 export type ResponseDataType = {
@@ -63,13 +63,13 @@ export type ResponseRegisterAndUpdateUser = {
 } & ResponseDataType
 
 export type updateUserProfileType = {
-  name: string
-  avatar: string
+  name?: string | null
+  avatar?: string | null
 }
 
 export type PasswordRecoveryDataType = {
   email: string // почта получателя для восстановления пароля
-  from: string //test-front-admin <ai73a@yandex.by>, заголовок для письма и почта отправителя
+  from?: string //test-front-admin <ai73a@yandex.by>, заголовок для письма и почта отправителя
   message: string //сообщение, которое придёт на почту получателя
 }
 
