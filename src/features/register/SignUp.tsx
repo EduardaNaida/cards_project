@@ -6,13 +6,13 @@ import {AppDispatch} from "../../app/store";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {Box, IconButton, Input, InputAdornment} from "@mui/material";
-import { Visibility, VisibilityOff } from '@mui/icons-material'
+import {Visibility, VisibilityOff} from '@mui/icons-material'
 
 const SignUp = () => {
     const [error, setError] = useState<string>('')
 
     const dispatch = AppDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -24,8 +24,7 @@ const SignUp = () => {
             if (values.password !== values.confirmPassword) {
                 setError('Password are not matching!')
             } else {
-                dispatch(setRegister(values.email, values.password));
-                // navigate('/login')
+                dispatch(setRegister(values.email, values.password, navigate));
             }
         },
     })
@@ -77,7 +76,7 @@ const SignUp = () => {
                                            onClick={handleClickShowPassword}
                                            onMouseDown={handleMouseDownPassword}
                                        >
-                                           {showPassword ? <VisibilityOff /> : <Visibility />}
+                                           {showPassword ? <VisibilityOff/> : <Visibility/>}
                                        </IconButton>
                                    </InputAdornment>
                                }
@@ -99,7 +98,7 @@ const SignUp = () => {
                                         onClick={handleClickShowConfirmPassword}
                                         onMouseDown={handleMouseDownConfirmPassword}
                                     >
-                                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             }/>
