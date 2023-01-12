@@ -41,13 +41,14 @@ export const setUserData = (email: string | null, password: string | null) =>
     payload: { email, password },
   } as const)
 
-export const setRegister =
-  (email: string, password: string) => async (dispatch: AppDispatchType) => {
+
+export const setRegister = (email: string, password: string, navigate: any) => async (dispatch: AppDispatchType) => {
     try {
-      let res = await userDataAPI.registerUser({ email, password })
-      if (res) {
-        dispatch(setUserData(email, password))
-      }
+        let res = await userDataAPI.registerUser({email, password})
+        if (res) {
+            dispatch(setUserData(email, password));
+            navigate('/login')
+        }
     } catch (e) {
       if (axios.isAxiosError(e)) {
         const error = e.response
