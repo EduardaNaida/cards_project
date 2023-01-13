@@ -1,14 +1,72 @@
 .navBlock {
-  display: flex;
-  justify-content: space-around;
-  padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    height: 60px;
+    background: #FCFCFC;
+    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.item a {
-  color: #000000;
-  text-decoration: none;
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    Width: 113px;
+    Height: 36px;
+    background: #366EFF;
+    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+}
+
+.item > a {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+.item:hover {
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    color: #fff;
+    background-color: #1976d2;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.item:last-child {
+    margin-left: 10px;
 }
 
 .item a.active {
-  color: #2156cb;
+    color: #2156cb;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 83px;
+    height: 36px;
+}
+
+.profile a {
+    margin-right: 12px;
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 2px dashed #000000;
+}
+
+.wrapper {
+    width: 870px;
+    margin: 0 auto;
+    display: flex;
+    height: 100%;
+    padding: 12px 0 12px 0;
+    justify-content: flex-end;
 }
