@@ -5,7 +5,16 @@ import {setRegister} from "../../redux/authReducer";
 import {AppDispatch} from "../../app/store";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
-import {Box, FormHelperText, IconButton, Input, InputAdornment} from "@mui/material";
+import {
+    Box,
+    FormControl,
+    FormHelperText,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
+    TextField
+} from "@mui/material";
 import {Visibility, VisibilityOff} from '@mui/icons-material'
 import * as yup from 'yup'
 
@@ -62,45 +71,56 @@ const SignUp = () => {
                     component="form" onSubmit={formik.handleSubmit}>
                     <h1>Sign Up</h1>
                     <div className={style.inputBlock}>
-                        <Input placeholder={'Email'}
-                               id={'email'}
-                               name={'email'}
-                               onChange={formik.handleChange}
-                               value={formik.values.email.trim()}
-                               className={style.input}
-                               error={formik.touched.email && Boolean(formik.errors.email)}
+                        <TextField
+                            variant="standard"
+                            required
+                            margin="normal"
+                            label={'Email'}
+                            id={'email'}
+                            name={'email'}
+                            onChange={formik.handleChange}
+                            value={formik.values.email.trim()}
+                            className={style.input}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
                         />
                         {Boolean(formik.errors.email) && formik.touched.email ? (
                             <div className={style.error}>{formik.errors.email}</div>
                         ) : null}
                     </div>
                     <div className={style.inputBlock}>
-                        <Input placeholder={'Password'}
-                               name={'password'}
-                               onChange={formik.handleChange}
-                               value={formik.values.password.trim()}
-                               className={style.input}
-                               type={showPassword ? 'text' : 'password'}
-                               error={formik.touched.password && Boolean(formik.errors.password)}
-                               endAdornment={
-                                   <InputAdornment position="end">
-                                       <IconButton
-                                           aria-label="toggle password visibility"
-                                           onClick={handleClickShowPassword}
-                                           onMouseDown={handleMouseDownPassword}
-                                       >
-                                           {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                       </IconButton>
-                                   </InputAdornment>
-                               }
-                        />
-                        {formik.errors.password && formik.touched.password ? (
-                            <div className={style.error}>{formik.errors.password}</div>
-                        ) : null}
+                        <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
+                            <InputLabel htmlFor="password">Password *</InputLabel>
+                            <Input
+                                required
+                                id={'password'}
+                                name={'password'}
+                                onChange={formik.handleChange}
+                                value={formik.values.password.trim()}
+                                className={style.input}
+                                type={showPassword ? 'text' : 'password'}
+                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                        >
+                                            {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                            {formik.errors.password && formik.touched.password ? (
+                                <div className={style.error}>{formik.errors.password}</div>
+                            ) : null}
+                        </FormControl>
                     </div>
                     <div className={style.inputBlock}>
+                        <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
+                            <InputLabel htmlFor="'confirmPassword'">Confirm password *</InputLabel>
                         <Input
-                            placeholder={'Confirm password'}
+                            required
                             name={'confirmPassword'}
                             id={'confirmPassword'}
                             onChange={formik.handleChange}
@@ -122,6 +142,7 @@ const SignUp = () => {
                         {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
                             <div className={style.error}>{formik.errors.confirmPassword}</div>
                         ) : null}
+                        </FormControl>
                     </div>
                     <SuperButton type="submit">Sign Up</SuperButton>
                     <p className={style.text}>Already have an account?</p>
