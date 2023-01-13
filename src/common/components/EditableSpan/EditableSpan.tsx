@@ -36,7 +36,9 @@ const EditableSpan: React.FC<EditableSpanPropsType> = ({ name, changeName }) => 
             autoFocus
             onChange={onChangeEditHandler}
           />
-          <SuperButton onClick={onClickEditHandler}>save</SuperButton>
+          <SuperButton onClick={onClickEditHandler} className={s.saveButton}>
+            save
+          </SuperButton>
         </>
       ) : (
         <>

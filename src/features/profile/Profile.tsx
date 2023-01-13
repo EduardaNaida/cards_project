@@ -10,6 +10,7 @@ import { changeProfileTC, logoutTC } from '../userReducer'
 const Profile: FC = () => {
   const dispatch = AppDispatch()
   const user = UseAppSelector((s) => s.user)
+  const userAvatar = user.avatar ? user.avatar : avatar
 
   const changeNameHandler = (name: string | null) => {
     dispatch(changeProfileTC({ name }))
@@ -22,13 +23,13 @@ const Profile: FC = () => {
   return (
     <div>
       <h3 className={s.title}>Personal information</h3>
-      <img src={avatar} className={s.avatar} alt="avatar" />
+      <img src={userAvatar} className={s.avatar} alt="avatar" />
       <div>
         <EditableSpan name={user.name} changeName={changeNameHandler} />
       </div>
       <div className={s.mail}>{user.email}</div>
 
-      <SuperButton onClick={logoutHandler} className={s.profileBtn}>
+      <SuperButton onClick={logoutHandler} className={s.profileButton}>
         <Logout fontSize="small" style={{ verticalAlign: 'middle' }} />
         log out
       </SuperButton>

@@ -10,3 +10,9 @@
 .editIcon:hover {
   color: #7c8385;
 }
+
+.saveButton {
+  width: 55px;
+  height: 25px;
+  border-radius: 5px;
+}
