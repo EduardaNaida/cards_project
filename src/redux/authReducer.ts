@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { AppDispatchType, AppThunk } from '../app/store'
+import {AppDispatchType, AppThunk} from '../app/store'
 import { newPasswordDataType, userDataAPI } from '../API/API'
 import { NavigateFunction } from 'react-router-dom'
 
@@ -42,7 +42,7 @@ export const setUserData = (email: string | null, password: string | null) =>
   } as const)
 
 
-export const setRegister = (email: string, password: string, navigate: any) => async (dispatch: AppDispatchType) => {
+export const setRegister = (email: string, password: string, navigate: NavigateFunction) => async (dispatch: AppDispatchType) => {
     try {
         let res = await userDataAPI.registerUser({email, password})
         if (res) {
