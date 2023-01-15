@@ -23,6 +23,7 @@ import * as yup from 'yup'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {Title} from "../../common/components/Title/Title";
 import style from './Login.module.css';
+import styleC from "../../common/components/styles/Container.module.css";
 
 const Login = () => {
   const dispatch = useAppDispatch()
@@ -57,7 +58,7 @@ const Login = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box className={style.box}>
+      <Box className={`${styleC.container} ${style.box}`}>
         <Typography component="h2" variant="h5">
             <Title title={'Sign In'}/>
         </Typography>

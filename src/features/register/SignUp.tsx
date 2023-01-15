@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import SuperButton from "../../common/components/SuperButton/SuperButton";
 import style from './SignUp.module.css';
 import {setRegister} from "../../redux/authReducer";
@@ -18,6 +18,7 @@ import {
 import {Visibility, VisibilityOff} from '@mui/icons-material'
 import * as yup from 'yup'
 import {Title} from "../../common/components/Title/Title";
+import styleC from '../../common/components/styles/Container.module.css';
 
 const SignUp = () => {
 
@@ -60,7 +61,7 @@ const SignUp = () => {
     }
     return (
         <div className={style.main}>
-            <div className={style.signUpBlock}>
+            <div className={`${styleC.container} ${style.signUpBlock}`}>
                 <Box className={style.box} component="form" onSubmit={formik.handleSubmit}>
                     <Title title={'Sign Up'}/>
                     <div className={style.inputBlock}>
