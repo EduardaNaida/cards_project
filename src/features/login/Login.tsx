@@ -21,6 +21,8 @@ import {
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import {Title} from "../../common/components/Title/Title";
+import style from './Login.module.css';
 
 const Login = () => {
   const dispatch = useAppDispatch()
@@ -55,20 +57,9 @@ const Login = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '35px 33px 42px 33px',
-          background: '#FFFFFF',
-          boxShadow: '1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1)',
-          borderRadius: '2px',
-        }}
-      >
+      <Box className={style.box}>
         <Typography component="h2" variant="h5">
-          <b>Sign in</b>
+            <Title title={'Sign In'}/>
         </Typography>
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <TextField
@@ -137,8 +128,11 @@ const Login = () => {
               mb: 2,
               background: '#366EFF',
               boxShadow:
-                '0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3)',
+                  '0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3)',
               borderRadius: '30px',
+              textTransform: 'none',
+              fontSize: '16px',
+              fontFamily: `'Montserrat', sans-serif`
             }}
           >
             Sign In

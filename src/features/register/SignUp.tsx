@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import {Visibility, VisibilityOff} from '@mui/icons-material'
 import * as yup from 'yup'
+import {Title} from "../../common/components/Title/Title";
 
 const SignUp = () => {
 
@@ -60,16 +61,8 @@ const SignUp = () => {
     return (
         <div className={style.main}>
             <div className={style.signUpBlock}>
-                <Box
-                    sx={{
-                        height: '500px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly'
-                    }}
-                    component="form" onSubmit={formik.handleSubmit}>
-                    <h1>Sign Up</h1>
+                <Box className={style.box} component="form" onSubmit={formik.handleSubmit}>
+                    <Title title={'Sign Up'}/>
                     <div className={style.inputBlock}>
                         <TextField
                             variant="standard"
@@ -119,29 +112,29 @@ const SignUp = () => {
                     <div className={style.inputBlock}>
                         <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
                             <InputLabel htmlFor="'confirmPassword'">Confirm password *</InputLabel>
-                        <Input
-                            required
-                            name={'confirmPassword'}
-                            id={'confirmPassword'}
-                            onChange={formik.handleChange}
-                            value={formik.values.confirmPassword.trim()}
-                            className={style.input}
-                            type={showConfirmPassword ? 'text' : 'password'}
-                            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowConfirmPassword}
-                                        onMouseDown={handleMouseDownConfirmPassword}
-                                    >
-                                        {showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            }/>
-                        {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
-                            <div className={style.error}>{formik.errors.confirmPassword}</div>
-                        ) : null}
+                            <Input
+                                required
+                                name={'confirmPassword'}
+                                id={'confirmPassword'}
+                                onChange={formik.handleChange}
+                                value={formik.values.confirmPassword.trim()}
+                                className={style.input}
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowConfirmPassword}
+                                            onMouseDown={handleMouseDownConfirmPassword}
+                                        >
+                                            {showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }/>
+                            {formik.errors.confirmPassword && formik.touched.confirmPassword ? (
+                                <div className={style.error}>{formik.errors.confirmPassword}</div>
+                            ) : null}
                         </FormControl>
                     </div>
                     <SuperButton type="submit">Sign Up</SuperButton>

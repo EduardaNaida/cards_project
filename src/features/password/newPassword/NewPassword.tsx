@@ -18,6 +18,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { useAppDispatch } from '../../../app/store'
 import { useNavigate, useParams } from 'react-router-dom'
 import { createNewPassword } from '../../../redux/authReducer'
+import {Title} from "../../../common/components/Title/Title";
 
 const NewPassword = () => {
   const dispatch = useAppDispatch()
@@ -62,7 +63,7 @@ const NewPassword = () => {
         }}
       >
         <Typography component="h2" variant="h5">
-          <b>Created new password</b>
+            <Title title={'Created new password'}/>
         </Typography>
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <FormControl sx={{ width: '100% ' }} variant="standard" fullWidth>
