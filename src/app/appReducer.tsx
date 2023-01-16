@@ -43,12 +43,14 @@ export const setInitializedValueAppAC = (value: boolean) =>
 // THUNK CREATORS
 export const initializedAppTC = (): AppThunk => {
   return (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     userDataAPI
       .me()
       .then((res) => {
         dispatch(setUserDataAC(res.data))
       })
       .finally(() => {
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(setInitializedValueAppAC(true))
       })
   }

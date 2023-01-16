@@ -1,5 +1,7 @@
 import { createUserDataType, updateUserProfileType, userDataAPI, UserType } from '../API/API'
 import { AppRootStateType, AppThunk } from '../app/store'
+import { setAppErrorAC, setAppStatusAC } from '../app/appReducer'
+import { AxiosError } from 'axios'
 
 const initialState = {
   _id: null,
@@ -21,9 +23,6 @@ export const userReducer = (state: UserType = initialState, action: UserActionsT
     case 'SET-USER-DATA': {
       return { ...state, ...action.userData }
     }
-    case 'CHANGE-PROFILE-NAME': {
-      return { ...state, name: action.userData.name }
-    }
   }
 
   return state
@@ -41,14 +40,19 @@ export const changeProfileTC = (data: updateUserProfileType): AppThunk => {
       avatar: user.avatar,
       ...data,
     }
+    dispatch(setAppStatusAC('loading'))
     userDataAPI
       .updateUserProfile(model)
       .then((res) => {
-        console.log(res.data)
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(setUserDataAC(res.data.updatedUser))
       })
-      .catch((e) => {
-        console.log(e)
+      .catch((e: AxiosError<{ error: string }>) => {
+        dispatch(setAppStatusAC('failed'))
+        const error = e.response
+          ? e.response.data.error
+          : e.message + ', more details in the console'
+        dispatch(setAppErrorAC(error))
       })
   }
 }
@@ -56,25 +60,45 @@ export const changeProfileTC = (data: updateUserProfileType): AppThunk => {
 export const userLoginTC =
   (userData: createUserDataType): AppThunk =>
   (dispatch) => {
-    userDataAPI.loginUser(userData).then((res) => {
-      dispatch(setUserDataAC(res.data))
-    })
+    dispatch(setAppStatusAC('loading'))
+    userDataAPI
+      .loginUser(userData)
+      .then((res) => {
+        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setUserDataAC(res.data))
+      })
+      .catch((e: AxiosError<{ error: string }>) => {
+        dispatch(setAppStatusAC('failed'))
+        const error = e.response
+          ? e.response.data.error
+          : e.message + ', more details in the console'
+        dispatch(setAppErrorAC(error))
+      })
   }
 
 export const logoutTC = (): AppThunk => (dispatch) => {
-  userDataAPI.logoutUser().then(() => {
-    const resetState = {
-      _id: null,
-      email: null,
-      name: null,
-      avatar: null,
-      publicCardPacksCount: null,
-      created: null,
-      updated: null,
-      isAdmin: null,
-      verified: null,
-      rememberMe: null,
-    }
-    dispatch(setUserDataAC(resetState))
-  })
+  dispatch(setAppStatusAC('loading'))
+  userDataAPI
+    .logoutUser()
+    .then(() => {
+      const resetState = {
+        _id: null,
+        email: null,
+        name: null,
+        avatar: null,
+        publicCardPacksCount: null,
+        created: null,
+        updated: null,
+        isAdmin: null,
+        verified: null,
+        rememberMe: null,
+      }
+      dispatch(setUserDataAC(resetState))
+      dispatch(setAppStatusAC('succeeded'))
+    })
+    .catch((e: AxiosError<{ error: string }>) => {
+      dispatch(setAppStatusAC('failed'))
+      const error = e.response ? e.response.data.error : e.message + ', more details in the console'
+      dispatch(setAppErrorAC(error))
+    })
 }
