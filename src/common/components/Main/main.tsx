@@ -9,7 +9,7 @@ import NewPassword from '../../../features/password/newPassword/NewPassword'
 import ForgotPassword from '../../../features/password/forgotPassword/ForgotPassword'
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../../app/store'
-import { UserType } from '../../../API/API'
+import { UserType } from '../../../API/authApi/authApi'
 import CheckEmailPage from '../../../features/password/checkEmailPage/CheckEmailPage'
 
 const Main = () => {

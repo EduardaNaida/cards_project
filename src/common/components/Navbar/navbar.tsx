@@ -3,7 +3,7 @@ import s from './Navbar.module.css'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../../app/store'
-import { UserType } from '../../../API/API'
+import { UserType } from '../../../API/authApi/authApi'
 import { Avatar } from '@mui/material'
 import avatar from '../../../assets/img/avatar.jpg'
 

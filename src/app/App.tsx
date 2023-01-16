@@ -5,7 +5,7 @@ import { AppRootStateType, useAppDispatch } from './store'
 import { useSelector } from 'react-redux'
 import { initializedAppTC } from './appReducer'
 import { CircularProgress } from '@mui/material'
-import { UserType } from '../API/API'
+import { UserType } from '../API/authApi/authApi'
 
 function App() {
   const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.initialized)
