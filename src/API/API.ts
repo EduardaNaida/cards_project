@@ -36,13 +36,13 @@ export const cardsPackAPI = {
         })
     },
     postCardsPack(cardsPack: CardsPackType) {
-        return instance.post<ResponseCardsPacksType>('cards/pack', cardsPack)
+        return instance.post<ResponseCardsPacksType>('cards/pack', {cardsPack})
     },
     deleteCardsPack(id: string) {
         return instance.delete<ResponseCardsPacksType>(`cards/pack?id=${id}`)
     },
     updateCardsPack(cardsPack: CardPacksType) {
-        return instance.put<ResponseCardsPacksType>('cards/pack', cardsPack)
+        return instance.put<ResponseCardsPacksType>('cards/pack', {cardsPack})
     }
 }
 
@@ -53,7 +53,7 @@ export const cardsCardAPI = {
         })
     },
     postCardsCard(card: CardType) {
-        return instance.post<ResponseCardsType>('cards/card', card)
+        return instance.post<ResponseCardsType>('cards/card', {card})
     },
     deleteCardsCard(id: string){
         return instance.delete<ResponseCardsType>(`cards/card?${id}`)
