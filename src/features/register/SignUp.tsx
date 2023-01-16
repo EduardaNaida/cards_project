@@ -8,7 +8,6 @@ import {useFormik} from "formik";
 import {
     Box,
     FormControl,
-    FormHelperText,
     IconButton,
     Input,
     InputAdornment,
@@ -64,11 +63,11 @@ const SignUp = () => {
             <div className={`${styleC.container} ${style.signUpBlock}`}>
                 <Box className={style.box} component="form" onSubmit={formik.handleSubmit}>
                     <Title title={'Sign Up'}/>
-                    <div className={style.inputBlock}>
+                    <div>
                         <TextField
                             variant="standard"
                             required
-                            margin="normal"
+                            margin={'normal'}
                             label={'Email'}
                             id={'email'}
                             name={'email'}
@@ -81,7 +80,7 @@ const SignUp = () => {
                             <div className={style.error}>{formik.errors.email}</div>
                         ) : null}
                     </div>
-                    <div className={style.inputBlock}>
+                    <div>
                         <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
                             <InputLabel htmlFor="password">Password *</InputLabel>
                             <Input
@@ -110,7 +109,7 @@ const SignUp = () => {
                             ) : null}
                         </FormControl>
                     </div>
-                    <div className={style.inputBlock}>
+                    <div>
                         <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
                             <InputLabel htmlFor="'confirmPassword'">Confirm password *</InputLabel>
                             <Input

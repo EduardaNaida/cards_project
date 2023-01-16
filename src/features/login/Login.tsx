@@ -56,13 +56,13 @@ const Login = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" className={style.mainBlock}>
       <CssBaseline />
       <Box className={`${styleC.container} ${style.box}`}>
         <Typography component="h2" variant="h5">
             <Title title={'Sign In'}/>
         </Typography>
-        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+        <Box className={style.boxSecond} component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <TextField
             variant="standard"
             margin="normal"
