@@ -112,9 +112,9 @@ export type ParamsTypePacks = {
 }
 
 export type CardsPackType = {
-    name: string
+    name?: string
     deckCover?: string
-    private: boolean
+    private?: boolean
 }
 
 export type CardPacksUpdateType = {
