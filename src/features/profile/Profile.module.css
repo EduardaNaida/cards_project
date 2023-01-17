@@ -1,44 +1,44 @@
-.title {
-  font-family: 'Montserrat', serif;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 27px;
+.mainBlock {
+    font-family: 'Montserrat', serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 320px;
 }
 
 .avatar {
-  width: 96px;
+    width: 96px;
 }
 
 .name {
-  font-family: 'Montserrat', serif;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
+
 }
 
 .mail {
-  font-family: 'Montserrat', serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
+    font-weight: 400;
+    font-size: 14px;
 }
 
 .profileButton {
-  font-family: 'Montserrat', serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  background-color: white;
-  border: none;
-  color: black;
-  margin: 25px 0 0 0;
-  display: inline-block;
-  width: 90px;
+    font-family: 'Montserrat', serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    background-color: white;
+    border: none;
+    color: black;
+    margin: 25px 0 0 0;
+    display: inline-block;
+    width: 90px;
 }
 
 .profileBtn:hover {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-  background-color: white;
-  color: black;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    background-color: white;
+    color: black;
 }

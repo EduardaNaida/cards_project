@@ -1,7 +1,12 @@
 .imgContainer {
-  margin: 30px 0;
+    margin: 30px 0;
+}
+
+.container {
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .img {
-  width: 108px;
+    width: 108px;
 }

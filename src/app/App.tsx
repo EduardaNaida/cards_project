@@ -23,7 +23,7 @@ export function App() {
       </div>
     )
   }
-  console.log(process.env)
+
   return (
     <div className="App">
       {appStatus === 'loading' && (
@@ -34,3 +34,5 @@ export function App() {
     </div>
   )
 }
+
+export default App

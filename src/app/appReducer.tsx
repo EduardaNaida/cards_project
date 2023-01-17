@@ -1,5 +1,5 @@
 import { AppThunk } from './store'
-import { userDataAPI } from '../API/API'
+import { userDataAPI } from '../API/authApi/authApi'
 import { setUserDataAC } from '../features/userReducer'
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
