@@ -4,7 +4,7 @@ import { newPasswordDataType, userDataAPI } from '../API/API'
 import { NavigateFunction } from 'react-router-dom'
 import { setAppErrorAC, setAppStatusAC } from '../app/appReducer'
 
-export type authReducersActionType = ReturnType<typeof setUserData>
+export type AuthReducersActionType = ReturnType<typeof setUserData>
 
 const SET_USER_DATA = 'SET_USER_DATA'
 
@@ -22,7 +22,7 @@ const initialState = {
 
 export const authReducer = (
   state: RegisterType = initialState,
-  action: authReducersActionType,
+  action: AuthReducersActionType,
 ): RegisterType => {
   switch (action.type) {
     case SET_USER_DATA:
