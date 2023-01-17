@@ -1,7 +1,7 @@
-import axios, {AxiosError} from 'axios'
-import {AppThunk} from '../app/store'
-import {newPasswordDataType, userDataAPI} from '../API/API'
-import {NavigateFunction} from 'react-router-dom'
+import axios, { AxiosError } from 'axios'
+import { AppDispatchType, AppThunk } from '../app/store'
+import { newPasswordDataType, userDataAPI } from '../API/authApi/authApi'
+import { NavigateFunction } from 'react-router-dom'
 
 export type AuthReducersActionType = ReturnType<typeof setUserData>
 

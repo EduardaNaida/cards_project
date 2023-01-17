@@ -1,4 +1,4 @@
-import { createUserDataType, updateUserProfileType, userDataAPI, UserType } from '../API/API'
+import { createUserDataType, updateUserProfileType, userDataAPI, UserType } from '../API/authApi/authApi'
 import { AppRootStateType, AppThunk } from '../app/store'
 
 const initialState = {
