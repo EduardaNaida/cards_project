@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import { AppDispatchType, AppThunk } from '../app/store'
-import { newPasswordDataType, userDataAPI } from '../API/API'
+import { newPasswordDataType, userDataAPI } from '../API/authApi/authApi'
 import { NavigateFunction } from 'react-router-dom'
 import { setAppErrorAC, setAppStatusAC } from '../app/appReducer'
 
