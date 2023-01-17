@@ -6,7 +6,7 @@
 
 .signUpBlock {
     flex-direction: column;
-    height: 528px;
+    height: 500px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
 }
@@ -25,14 +25,11 @@
 }
 
 .text {
-    font-style: normal;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 24px;
     text-align: center;
-
     color: #000000;
-
-    opacity: 0.5;
 }
 
 .error {

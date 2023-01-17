@@ -7,6 +7,7 @@ import EditableSpan from '../../common/components/EditableSpan/EditableSpan'
 import {Logout} from '@mui/icons-material'
 import {changeProfileTC, logoutTC} from '../userReducer'
 import {Title} from "../../common/components/Title/Title";
+import styleC from "../../common/components/styles/Container.module.css";
 
 const Profile: FC = () => {
     const dispatch = AppDispatch()
@@ -22,7 +23,7 @@ const Profile: FC = () => {
     }
 
     return (
-        <div className={s.mainBlock}>
+        <div  className={`${styleC.container} ${s.mainBlock}`}>
             <Title title={'Personal Information'}/>
             <img src={userAvatar} className={s.avatar} alt="avatar"/>
             <div>

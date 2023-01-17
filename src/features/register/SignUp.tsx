@@ -138,8 +138,10 @@ const SignUp = () => {
                         </FormControl>
                     </div>
                     <SuperButton type="submit">Sign Up</SuperButton>
-                    <p className={style.text}>Already have an account?</p>
-                    <NavLink to={'/login'}>Sign In</NavLink>
+                    <div>
+                        <p className={style.text}>Already have an account?</p>
+                        <NavLink to={'/login'}>Sign In</NavLink>
+                    </div>
                 </Box>
             </div>
         </div>
