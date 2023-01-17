@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import SuperButton from "../../common/components/SuperButton/SuperButton";
 import style from './SignUp.module.css';
 import {setRegister} from "../../redux/authReducer";
@@ -8,7 +8,6 @@ import {useFormik} from "formik";
 import {
     Box,
     FormControl,
-    FormHelperText,
     IconButton,
     Input,
     InputAdornment,
@@ -60,16 +59,8 @@ const SignUp = () => {
     return (
         <div className={style.main}>
             <div className={style.signUpBlock}>
-                <Box
-                    sx={{
-                        height: '500px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly'
-                    }}
-                    component="form" onSubmit={formik.handleSubmit}>
-                    <h1>Sign Up</h1>
+                <Box className={style.box} component="form" onSubmit={formik.handleSubmit}>
+                    <p className={style.title}>Sign Up</p>
                     <div className={style.inputBlock}>
                         <TextField
                             variant="standard"
