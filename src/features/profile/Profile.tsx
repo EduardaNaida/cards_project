@@ -6,6 +6,8 @@ import avatar from './../../assets/img/avatar.jpg'
 import EditableSpan from '../../common/components/EditableSpan/EditableSpan'
 import {Logout} from '@mui/icons-material'
 import {changeProfileTC, logoutTC} from '../userReducer'
+import {Title} from "../../common/components/Title/Title";
+import styleC from "../../common/components/styles/Container.module.css";
 
 const Profile: FC = () => {
     const dispatch = AppDispatch()
@@ -21,8 +23,8 @@ const Profile: FC = () => {
     }
 
     return (
-        <div>
-            <h3 className={s.title}>Personal information</h3>
+        <div  className={`${styleC.container} ${s.mainBlock}`}>
+            <Title title={'Personal Information'}/>
             <img src={userAvatar} className={s.avatar} alt="avatar"/>
             <div>
                 <EditableSpan name={user.name} changeName={changeNameHandler}/>
