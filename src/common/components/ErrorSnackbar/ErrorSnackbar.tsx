@@ -4,13 +4,12 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert'
 import { setAppErrorAC } from '../../../app/appReducer'
 import { useAppDispatch, UseAppSelector } from '../../../app/store'
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
 export function ErrorSnackbar() {
-  const error = UseAppSelector(state => state.app.error)
+  const error = UseAppSelector((state) => state.app.error)
   const isOpen = error !== null
   const dispatch = useAppDispatch()
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -21,7 +20,7 @@ export function ErrorSnackbar() {
   }
   return (
     <Snackbar open={isOpen} autoHideDuration={3000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity='error' sx={{width: '100%'}}>
+      <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
         {error} 😠
       </Alert>
     </Snackbar>

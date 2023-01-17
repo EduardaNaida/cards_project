@@ -1,148 +1,148 @@
 import axios from 'axios'
 
 export const instance = axios.create({
-    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-    withCredentials: true,
+  baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
+  withCredentials: true,
 })
 
 export const packAPI = {
-    getPack(params: ParamsTypePacks) {
-        return instance.get<ResponseCardsPacksType>('cards/pack', {
-            params: params
-        })
-    },
-    postPack(cardsPack: CardsPackType) {
-        return instance.post<ResponsePostPackType>('cards/pack', {cardsPack})
-    },
-    deletePack(id: string) {
-        return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`)
-    },
-    updatePack(cardsPack: CardPacksUpdateType) {
-        return instance.put<ResponseUpdatedPackType>('cards/pack', {cardsPack})
-    }
+  getPack(params: ParamsTypePacks) {
+    return instance.get<ResponseCardsPacksType>('cards/pack', {
+      params: params,
+    })
+  },
+  postPack(cardsPack: CardsPackType) {
+    return instance.post<ResponsePostPackType>('cards/pack', { cardsPack })
+  },
+  deletePack(id: string) {
+    return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`)
+  },
+  updatePack(cardsPack: CardPacksUpdateType) {
+    return instance.put<ResponseUpdatedPackType>('cards/pack', { cardsPack })
+  },
 }
 
 export const cardsAPI = {
-    getCards(params: ParamsTypeCards) {
-        return instance.get<ResponseCardsType>('cards/card', {
-            params: params
-        })
-    },
-    postCards(card: CardType) {
-        return instance.post<ResponsePostCardsType>('cards/card', {card})
-    },
-    deleteCards(id: string){
-        return instance.delete<ResponseDeleteCardsType>(`cards/card?${id}`)
-    },
-    updateCards(_id: string, question: string){
-        return instance.put<ResponseUpdatedCardsType>('cards/card', {_id, question})
-    }
+  getCards(params: ParamsTypeCards) {
+    return instance.get<ResponseCardsType>('cards/card', {
+      params: params,
+    })
+  },
+  postCards(card: CardType) {
+    return instance.post<ResponsePostCardsType>('cards/card', { card })
+  },
+  deleteCards(id: string) {
+    return instance.delete<ResponseDeleteCardsType>(`cards/card?${id}`)
+  },
+  updateCards(_id: string, question: string) {
+    return instance.put<ResponseUpdatedCardsType>('cards/card', { _id, question })
+  },
 }
 
 // TYPES
 
 //Cards
 export type CardType = {
-    cardsPack_id: string
-    question: string
-    answer: string
-    grade?: number
-    shots?: number
-    answerImg?: string
-    questionImg?: string
-    questionVideo?: string
-    answerVideo?: string
+  cardsPack_id: string
+  question: string
+  answer: string
+  grade?: number
+  shots?: number
+  answerImg?: string
+  questionImg?: string
+  questionVideo?: string
+  answerVideo?: string
 }
 
 export type ParamsTypeCards = {
-    cardAnswer?: string,
-    cardQuestion?: string,
-    cardsPack_id?: string,
-    min?: number,
-    max?: number,
-    sortCards?: string,
-    page?: number,
-    pageCount?: number
+  cardAnswer?: string
+  cardQuestion?: string
+  cardsPack_id?: string
+  min?: number
+  max?: number
+  sortCards?: string
+  page?: number
+  pageCount?: number
 }
 
 export type CardsType = {
-    answer: number
-    question: string
-    cardsPack_id: string
-    grade: number
-    shots: number
-    user_id: string
-    created: string
-    updated: string
-    _id: string
+  answer: number
+  question: string
+  cardsPack_id: string
+  grade: number
+  shots: number
+  user_id: string
+  created: string
+  updated: string
+  _id: string
 }
 
 export type ResponseCardsType = {
-    cards: Array<CardsType>
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    page: number
-    pageCount: number
-    packUserId: string
+  cards: Array<CardsType>
+  cardsTotalCount: number
+  maxGrade: number
+  minGrade: number
+  page: number
+  pageCount: number
+  packUserId: string
 }
 
 export type ResponsePostCardsType = {
-    newCard: CardsType
+  newCard: CardsType
 }
 
 export type ResponseDeleteCardsType = {
-    deleteCard: CardsType
+  deleteCard: CardsType
 }
 
 export type ResponseUpdatedCardsType = {
-    updatedCard: CardsType
+  updatedCard: CardsType
 }
 
 //Packs
 
 export type ParamsTypePacks = {
-    packName?: string
-    min?: number
-    max?: number
-    sortPacks?: string
-    page?: number
-    pageCount?: number
-    user_id?: string
+  packName?: string
+  min?: number
+  max?: number
+  sortPacks?: string
+  page?: number
+  pageCount?: number
+  user_id?: string
 }
 
 export type CardsPackType = {
-    name?: string
-    deckCover?: string
-    private?: boolean
+  name?: string
+  deckCover?: string
+  private?: boolean
 }
 
 export type CardPacksUpdateType = {
-    _id: string
-    user_id?: string
-    name: string
-    cardsCount?: number
-    created?: string
-    updated?: string
+  _id: string
+  user_id?: string
+  name: string
+  cardsCount?: number
+  created?: string
+  updated?: string
 }
 
 export type ResponseCardsPacksType = {
-    cardPacks: Array<CardPacksUpdateType>
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
+  cardPacks: Array<CardPacksUpdateType>
+  cardPacksTotalCount: number
+  maxCardsCount: number
+  minCardsCount: number
+  page: number
+  pageCount: number
 }
 
 export type ResponsePostPackType = {
-    newCardsPack: CardPacksUpdateType
+  newCardsPack: CardPacksUpdateType
 }
 
 export type ResponseDeletePackType = {
-    deletedCardsPack: CardPacksUpdateType
+  deletedCardsPack: CardPacksUpdateType
 }
 
 export type ResponseUpdatedPackType = {
-    updatedCardsPack: CardPacksUpdateType
+  updatedCardsPack: CardPacksUpdateType
 }

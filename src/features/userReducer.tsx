@@ -1,4 +1,9 @@
-import { createUserDataType, updateUserProfileType, userDataAPI, UserType } from '../API/authApi/authApi'
+import {
+  createUserDataType,
+  updateUserProfileType,
+  userDataAPI,
+  UserType,
+} from '../API/authApi/authApi'
 import { AppRootStateType, AppThunk } from '../app/store'
 import { setAppErrorAC, setAppStatusAC } from '../app/appReducer'
 import { AxiosError } from 'axios'
