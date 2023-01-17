@@ -1,10 +1,10 @@
 import React from 'react'
-import {Title} from "../../common/components/Title/Title";
+import { Title } from '../../common/components/Title/Title'
 
 const Password = () => {
   return (
     <div>
-        <Title title={'Password'}/>
+      <Title title={'Password'} />
     </div>
   )
 }

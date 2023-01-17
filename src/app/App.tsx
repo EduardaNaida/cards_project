@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react'
 import './App.css'
 import Main from '../common/components/Main/main'
-import { AppRootStateType, useAppDispatch } from './store'
-import { useSelector } from 'react-redux'
+import { useAppDispatch, UseAppSelector } from './store'
 import { initializedAppTC } from './appReducer'
-import { CircularProgress } from '@mui/material'
-import { UserType } from '../API/authApi/authApi'
+import { CircularProgress, LinearProgress } from '@mui/material'
+import { ErrorSnackbar } from '../common/components/ErrorSnackbar/ErrorSnackbar'
 
-function App() {
-  const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.initialized)
-  const isLoggedIn = useSelector<AppRootStateType, UserType>((state) => state.user)
-  console.log(isLoggedIn)
+export function App() {
+  const isInitialized = UseAppSelector((state) => state.app.initialized)
+  const isLoggedIn = UseAppSelector((state) => state.user.email)
+  const appStatus = UseAppSelector((state) => state.app.status)
+
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(initializedAppTC())
-  }, [isLoggedIn.email])
+  }, [dispatch, isLoggedIn])
 
   if (!isInitialized) {
     return (
@@ -26,6 +26,10 @@ function App() {
 
   return (
     <div className="App">
+      {appStatus === 'loading' && (
+        <LinearProgress sx={{ position: 'absolute', zIndex: '100', width: '100%', left: '0' }} />
+      )}
+      <ErrorSnackbar />
       <Main />
     </div>
   )
