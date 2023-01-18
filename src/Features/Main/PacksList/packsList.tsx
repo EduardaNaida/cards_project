@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import { CardPacksUpdateType, packAPI } from '../../../API/CardsApi/cardsApi'
+import { CardPacksUpdateType, cardsAPI, packAPI } from '../../../API/CardsApi/cardsApi'
 import {
   IconButton,
   Paper,
@@ -25,13 +25,15 @@ export const PacksList = () => {
       setRows(res.data.cardPacks)
       console.log(res.data.cardPacks)
     })
+    cardsAPI.getCards({ cardsPack_id: '63c5752d1a649e2a70686311' }).then((res) => {
+      console.log(res.data)
+    })
   }, [])
 
   return (
     <div>
       <div className={s.wrapper}>
         <TableSearchBar onChange={setTest} />
-        {test}
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
             <TableHead>
