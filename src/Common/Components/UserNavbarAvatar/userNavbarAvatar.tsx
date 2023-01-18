@@ -28,6 +28,7 @@ export const UserNavbarAvatar = () => {
 
   const handleNavigateProfile = () => {
     navigate('/profile')
+    handleClose()
   }
 
   const open = Boolean(anchorEl)

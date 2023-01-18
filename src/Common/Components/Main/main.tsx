@@ -11,7 +11,9 @@ import { useSelector } from 'react-redux'
 import { AppRootStateType } from '../../../App/store'
 import { UserType } from '../../../API/AuthApi/authApi'
 import CheckEmailPage from '../../../Features/Password/CheckEmailPage/checkEmailPage'
-import { PacksList } from '../../../Features/Main/packsList'
+import { PacksList } from '../../../Features/Main/PacksList/packsList'
+import { FriendsPack } from '../../../Features/Main/FriendsPack/friendsPack'
+import { MyPack } from '../../../Features/Main/MyPack/myPack'
 
 const Main = () => {
   const user = useSelector<AppRootStateType, UserType>((state) => state.user)
@@ -24,7 +26,8 @@ const Main = () => {
           <>
             <Route path={'/Profile'} element={<Profile />} />
             <Route path={'/packs-list'} element={<PacksList />} />
-
+            <Route path={'/friends-pack'} element={<FriendsPack />} />
+            <Route path={'/my-pack'} element={<MyPack />} />
             <Route path="/login" element={<Navigate to="/profile" replace />} />
             <Route path="*" element={<Navigate to="/profile" replace />} />
           </>

@@ -1,12 +1,7 @@
-import axios from 'axios'
-
-export const instance = axios.create({
-  baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-  withCredentials: true,
-})
+import { instance } from '../axiosSettings'
 
 export const packAPI = {
-  getPack(params: ParamsTypePacks) {
+  getPack(params?: ParamsTypePacks) {
     return instance.get<ResponseCardsPacksType>('cards/pack', {
       params: params,
     })
@@ -57,7 +52,7 @@ export type CardType = {
 export type ParamsTypeCards = {
   cardAnswer?: string
   cardQuestion?: string
-  cardsPack_id?: string
+  cardsPack_id: string
   min?: number
   max?: number
   sortCards?: string
@@ -120,6 +115,7 @@ export type CardsPackType = {
 export type CardPacksUpdateType = {
   _id: string
   user_id?: string
+  user_name?: string
   name: string
   cardsCount?: number
   created?: string
