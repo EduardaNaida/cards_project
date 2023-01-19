@@ -36,6 +36,7 @@ export type PacksListActionsType =
   | ReturnType<typeof setPageAC>
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setPacksChooseAC>
+  | ReturnType<typeof setSearchAC>
 
 export const packsListReducer = (
   state: PacksListType = initialState,
@@ -55,6 +56,9 @@ export const packsListReducer = (
     }
     case 'PACKS-LIST/SET-PACKS-CHOOSE': {
       return { ...state, packsChoose: action.packsChoose }
+    }
+    case 'PACKS-LIST/SET-SEARCH': {
+      return { ...state, search: action.searchValue }
     }
     default: {
       return state
@@ -87,12 +91,18 @@ export const setPacksChooseAC = (packsChoose: 'all' | 'my') =>
     packsChoose,
   } as const)
 
+export const setSearchAC = (searchValue: string) =>
+  ({
+    type: 'PACKS-LIST/SET-SEARCH',
+    searchValue,
+  } as const)
+
 // THUNK CREATORS
 export const getPacksDataTC = (): AppThunk => {
   return (dispatch, getState) => {
     const user_id = getState().user._id
-    const { page, pageCount, packsChoose } = getState().packsList
-    const ParamsObj: ParamsTypePacks = { page, pageCount }
+    const { page, pageCount, packsChoose, search } = getState().packsList
+    const ParamsObj: ParamsTypePacks = { page, pageCount, packName: search }
     if (user_id !== null && packsChoose === 'my') {
       ParamsObj['user_id'] = user_id
     }

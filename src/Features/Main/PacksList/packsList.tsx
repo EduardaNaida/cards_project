@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Paper,
@@ -21,12 +21,13 @@ import {
   setPacksChooseAC,
   setPageAC,
   setPageCountAC,
+  setSearchAC,
 } from './packsListReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
 import { PacksListTableRow } from './PacksListTableRow'
 
-const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(() => ({
   '& .MuiToggleButtonGroup-grouped': {
     border: '1px solid #D9D9D9',
     borderRadius: '2px',
@@ -44,12 +45,13 @@ export const PacksList = () => {
   const page = UseAppSelector((state) => state.packsList.page)
   const pageCount = UseAppSelector((state) => state.packsList.pageCount)
   const cardPacksTotalCount = UseAppSelector((state) => state.packsList.cardPacksTotalCount)
+  const searchVal = UseAppSelector((state) => state.packsList.search)
 
   const packsChoose = UseAppSelector((state) => state.packsList.packsChoose)
-  const [test, setTest] = useState('')
+
   useEffect(() => {
     dispatch(getPacksDataTC())
-  }, [page, pageCount, packsChoose])
+  }, [page, pageCount, packsChoose, searchVal, dispatch])
 
   const handleAddNewPack = () => {
     dispatch(addNewPackTC())
@@ -76,6 +78,10 @@ export const PacksList = () => {
     }
   }
 
+  const hanldeSetSearchValue = (e: string) => {
+    dispatch(setSearchAC(e))
+  }
+
   return (
     <div>
       <div className={s.wrapper}>
@@ -84,7 +90,7 @@ export const PacksList = () => {
           <SuperButton onClick={handleAddNewPack}>Add new pack</SuperButton>
         </div>
         <div className={s.toolbar}>
-          <TableSearchBar onChange={setTest} />
+          <TableSearchBar onChange={hanldeSetSearchValue} />
           <StyledToggleButtonGroup
             color="primary"
             value={packsChoose}
