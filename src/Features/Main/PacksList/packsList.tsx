@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import { CardPacksUpdateType, cardsAPI, packAPI } from '../../../API/CardsApi/cardsApi'
 import {
   IconButton,
   Paper,
+  SelectChangeEvent,
   Table,
   TableBody,
   TableContainer,
@@ -12,27 +12,105 @@ import {
 } from '@mui/material'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import { formatingDate } from '../../../utils/formatDate'
-import s from '../Main.module.css'
+import s from '../main.module.css'
 import SchoolIcon from '@mui/icons-material/School'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import SuperButton from '../../../Common/Components/SuperButton/superButton'
+import {
+  addNewPackTC,
+  deletePackTC,
+  getPacksDataTC,
+  setPageAC,
+  setPageCountAC,
+  updatePackTC,
+} from './packsListReducer'
+import { useAppDispatch, UseAppSelector } from '../../../App/store'
+import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
 
 export const PacksList = () => {
+  const dispatch = useAppDispatch()
+  const cardPacks = UseAppSelector((state) => state.packsList.cardPacks)
+  const packsList = UseAppSelector((state) => state.packsList)
+  const page = UseAppSelector((state) => state.packsList.page)
+  const pageCount = UseAppSelector((state) => state.packsList.pageCount)
+  const cardPacksTotalCount = UseAppSelector((state) => state.packsList.cardPacksTotalCount)
+
+  const userId = UseAppSelector((state) => state.user._id)
+
   const [test, setTest] = useState('')
-  const [rows, setRows] = useState<CardPacksUpdateType[] | []>([])
   useEffect(() => {
-    packAPI.getPack().then((res) => {
-      setRows(res.data.cardPacks)
-      console.log(res.data.cardPacks)
-    })
-    cardsAPI.getCards({ cardsPack_id: '63c5752d1a649e2a70686311' }).then((res) => {
-      console.log(res.data)
-    })
-  }, [])
+    if (userId !== null) {
+      dispatch(getPacksDataTC())
+    }
+  }, [page, pageCount])
+
+  const handleAddNewPack = () => {
+    if (userId !== null) {
+      dispatch(addNewPackTC(userId))
+    }
+  }
+  const handleDeletePack = (pack_id: string) => {
+    if (userId !== null) {
+      dispatch(deletePackTC(pack_id, userId))
+    }
+  }
+  const handleUpdateTask = (pack_id: string) => {
+    if (userId !== null) {
+      dispatch(updatePackTC({ _id: pack_id, name: '!UPDATED!' }, userId))
+    }
+  }
+
+  const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
+    dispatch(setPageAC(value))
+  }
+
+  const handleSetPageCount = (event: SelectChangeEvent) => {
+    dispatch(setPageCountAC(+event.target.value))
+  }
+
+  console.log('packs', packsList)
+
+  const mappedPacks = cardPacks.map((row) => {
+    const formattedDate = formatingDate(row.updated)
+    return (
+      <TableRow key={row._id}>
+        <StyledTableCell component="th" scope="row">
+          {row.name}
+        </StyledTableCell>
+        <StyledTableCell align="right">{row.cardsCount}</StyledTableCell>
+        <StyledTableCell align="right">{formattedDate}</StyledTableCell>
+        <StyledTableCell align="right">{row.user_name}</StyledTableCell>
+        <StyledTableCell align="right">
+          <IconButton>
+            <SchoolIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              handleUpdateTask(row._id)
+            }}
+          >
+            <BorderColorIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              handleDeletePack(row._id)
+            }}
+          >
+            <DeleteForeverIcon />
+          </IconButton>
+        </StyledTableCell>
+      </TableRow>
+    )
+  })
 
   return (
     <div>
       <div className={s.wrapper}>
+        <div className={s.title}>
+          <h2>Packs list</h2>
+          <SuperButton onClick={handleAddNewPack}>Add new pack</SuperButton>
+        </div>
         <TableSearchBar onChange={setTest} />
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
@@ -45,34 +123,16 @@ export const PacksList = () => {
                 <StyledTableCell align="right">Actions</StyledTableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {rows.map((row) => {
-                const formattedDate = formatingDate(row.updated)
-                return (
-                  <TableRow key={row.name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.cardsCount}</StyledTableCell>
-                    <StyledTableCell align="right">{formattedDate}</StyledTableCell>
-                    <StyledTableCell align="right">{row.user_name}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      <IconButton>
-                        <SchoolIcon />
-                      </IconButton>
-                      <IconButton>
-                        <BorderColorIcon />
-                      </IconButton>
-                      <IconButton>
-                        <DeleteForeverIcon />
-                      </IconButton>
-                    </StyledTableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
+            <TableBody>{mappedPacks}</TableBody>
           </Table>
         </TableContainer>
+        <TablePaginationCustom
+          pageCount={pageCount}
+          totalCountItems={cardPacksTotalCount}
+          handleSetPage={handleSetPage}
+          handleSetPageCount={handleSetPageCount}
+          page={page}
+        />
       </div>
     </div>
   )
