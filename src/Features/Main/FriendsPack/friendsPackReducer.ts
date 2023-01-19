@@ -28,6 +28,9 @@ export const friendsPackReducer = (
     case 'FRIENDS-PACK/ADD-CARD': {
       return { ...state, cards: [action.card, ...state.cards] }
     }
+    case 'FRIENDS-PACK/PAGINATION-SWITCH': {
+      return { ...state, page: action.page }
+    }
   }
   return state
 }
@@ -42,6 +45,11 @@ export const addFriendCardAC = (card: CardsType) =>
   ({
     type: 'FRIENDS-PACK/ADD-CARD',
     card,
+  } as const)
+export const addFriendPaginationSwitchAC = (page: number) =>
+  ({
+    type: 'FRIENDS-PACK/PAGINATION-SWITCH',
+    page,
   } as const)
 
 // THUNK CREATORS
@@ -76,3 +84,4 @@ type InitialStateType = typeof initialState
 export type FriendsPackActionsType =
   | ReturnType<typeof setFriendCardsAC>
   | ReturnType<typeof addFriendCardAC>
+  | ReturnType<typeof addFriendPaginationSwitchAC>
