@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.css'
-import { App } from './app/App'
+import { App } from './App/app'
 import { HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { store } from './app/store'
+import { store } from './App/store'
 import { createRoot } from 'react-dom/client'
 
 const container = document.getElementById('root') as HTMLElement
