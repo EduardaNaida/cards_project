@@ -1,64 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
-  IconButton,
   Paper,
   SelectChangeEvent,
+  styled,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   TableRow,
+  ToggleButton,
+  ToggleButtonGroup,
 } from '@mui/material'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { formatingDate } from '../../../utils/formatDate'
 import s from '../main.module.css'
-import SchoolIcon from '@mui/icons-material/School'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import SuperButton from '../../../Common/Components/SuperButton/superButton'
 import {
   addNewPackTC,
-  deletePackTC,
   getPacksDataTC,
+  setPacksChooseAC,
   setPageAC,
   setPageCountAC,
-  updatePackTC,
 } from './packsListReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
+import { PacksListTableRow } from './PacksListTableRow'
+
+const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
+  '& .MuiToggleButtonGroup-grouped': {
+    border: '1px solid #D9D9D9',
+    borderRadius: '2px',
+    '&.Mui-selected': {
+      background: '#366EFF',
+      color: '#FFFFFF',
+      borderRadius: '0px 2px 2px 0px',
+    },
+  },
+}))
 
 export const PacksList = () => {
   const dispatch = useAppDispatch()
   const cardPacks = UseAppSelector((state) => state.packsList.cardPacks)
-  const packsList = UseAppSelector((state) => state.packsList)
   const page = UseAppSelector((state) => state.packsList.page)
   const pageCount = UseAppSelector((state) => state.packsList.pageCount)
   const cardPacksTotalCount = UseAppSelector((state) => state.packsList.cardPacksTotalCount)
 
-  const userId = UseAppSelector((state) => state.user._id)
-
+  const packsChoose = UseAppSelector((state) => state.packsList.packsChoose)
   const [test, setTest] = useState('')
   useEffect(() => {
-    if (userId !== null) {
-      dispatch(getPacksDataTC())
-    }
-  }, [page, pageCount])
+    dispatch(getPacksDataTC())
+  }, [page, pageCount, packsChoose])
 
   const handleAddNewPack = () => {
-    if (userId !== null) {
-      dispatch(addNewPackTC(userId))
-    }
-  }
-  const handleDeletePack = (pack_id: string) => {
-    if (userId !== null) {
-      dispatch(deletePackTC(pack_id, userId))
-    }
-  }
-  const handleUpdateTask = (pack_id: string) => {
-    if (userId !== null) {
-      dispatch(updatePackTC({ _id: pack_id, name: '!UPDATED!' }, userId))
-    }
+    dispatch(addNewPackTC())
   }
 
   const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -69,40 +63,18 @@ export const PacksList = () => {
     dispatch(setPageCountAC(+event.target.value))
   }
 
-  console.log('packs', packsList)
-
-  const mappedPacks = cardPacks.map((row) => {
-    const formattedDate = formatingDate(row.updated)
-    return (
-      <TableRow key={row._id}>
-        <StyledTableCell component="th" scope="row">
-          {row.name}
-        </StyledTableCell>
-        <StyledTableCell align="right">{row.cardsCount}</StyledTableCell>
-        <StyledTableCell align="right">{formattedDate}</StyledTableCell>
-        <StyledTableCell align="right">{row.user_name}</StyledTableCell>
-        <StyledTableCell align="right">
-          <IconButton>
-            <SchoolIcon />
-          </IconButton>
-          <IconButton
-            onClick={() => {
-              handleUpdateTask(row._id)
-            }}
-          >
-            <BorderColorIcon />
-          </IconButton>
-          <IconButton
-            onClick={() => {
-              handleDeletePack(row._id)
-            }}
-          >
-            <DeleteForeverIcon />
-          </IconButton>
-        </StyledTableCell>
-      </TableRow>
-    )
+  const mappedPacks = cardPacks.map((packData) => {
+    return <PacksListTableRow packData={packData} />
   })
+
+  const handleSetPacksChoose = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: 'all' | 'my',
+  ) => {
+    if (newAlignment !== null) {
+      dispatch(setPacksChooseAC(newAlignment))
+    }
+  }
 
   return (
     <div>
@@ -111,7 +83,20 @@ export const PacksList = () => {
           <h2>Packs list</h2>
           <SuperButton onClick={handleAddNewPack}>Add new pack</SuperButton>
         </div>
-        <TableSearchBar onChange={setTest} />
+        <div className={s.toolbar}>
+          <TableSearchBar onChange={setTest} />
+          <StyledToggleButtonGroup
+            color="primary"
+            value={packsChoose}
+            exclusive
+            onChange={handleSetPacksChoose}
+            aria-label="Platform"
+          >
+            <ToggleButton value="my">my</ToggleButton>
+            <ToggleButton value="all">all</ToggleButton>
+          </StyledToggleButtonGroup>
+        </div>
+
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
             <TableHead>

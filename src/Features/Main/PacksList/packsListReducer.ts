@@ -1,6 +1,7 @@
 import {
   CardPacksUpdateType,
   packAPI,
+  ParamsTypePacks,
   ResponseCardsPacksType,
 } from '../../../API/CardsApi/cardsApi'
 import { AppThunk } from '../../../App/store'
@@ -16,6 +17,7 @@ type PacksListType = {
   pageCount: number
   search: string
   isMyPacks: boolean
+  packsChoose: 'all' | 'my'
 }
 
 const initialState: PacksListType = {
@@ -27,11 +29,13 @@ const initialState: PacksListType = {
   pageCount: 5,
   search: '',
   isMyPacks: false,
+  packsChoose: 'all',
 }
 export type PacksListActionsType =
   | ReturnType<typeof setPacksAC>
   | ReturnType<typeof setPageAC>
   | ReturnType<typeof setPageCountAC>
+  | ReturnType<typeof setPacksChooseAC>
 
 export const packsListReducer = (
   state: PacksListType = initialState,
@@ -48,6 +52,9 @@ export const packsListReducer = (
     }
     case 'PACKS-LIST/SET-PAGE-COUNT': {
       return { ...state, pageCount: action.pageCount }
+    }
+    case 'PACKS-LIST/SET-PACKS-CHOOSE': {
+      return { ...state, packsChoose: action.packsChoose }
     }
     default: {
       return state
@@ -74,13 +81,24 @@ export const setPageCountAC = (pageCount: number) =>
     pageCount,
   } as const)
 
+export const setPacksChooseAC = (packsChoose: 'all' | 'my') =>
+  ({
+    type: 'PACKS-LIST/SET-PACKS-CHOOSE',
+    packsChoose,
+  } as const)
+
 // THUNK CREATORS
-export const getPacksDataTC = (user_id?: string): AppThunk => {
+export const getPacksDataTC = (): AppThunk => {
   return (dispatch, getState) => {
-    const { page, pageCount } = getState().packsList
+    const user_id = getState().user._id
+    const { page, pageCount, packsChoose } = getState().packsList
+    const ParamsObj: ParamsTypePacks = { page, pageCount }
+    if (user_id !== null && packsChoose === 'my') {
+      ParamsObj['user_id'] = user_id
+    }
     dispatch(setAppStatusAC('loading'))
     packAPI
-      .getPack({ user_id, page, pageCount })
+      .getPack(ParamsObj)
       .then((res) => {
         dispatch(setPacksAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
@@ -95,13 +113,13 @@ export const getPacksDataTC = (user_id?: string): AppThunk => {
   }
 }
 
-export const addNewPackTC = (user_id?: string): AppThunk => {
+export const addNewPackTC = (): AppThunk => {
   return (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packAPI
       .postPack({ name: 'dsds' })
       .then(() => {
-        dispatch(getPacksDataTC(user_id))
+        dispatch(getPacksDataTC())
         dispatch(setAppStatusAC('succeeded'))
       })
       .catch((e: AxiosError<{ error: string }>) => {
@@ -114,13 +132,13 @@ export const addNewPackTC = (user_id?: string): AppThunk => {
   }
 }
 
-export const deletePackTC = (id: string, user_id?: string): AppThunk => {
+export const deletePackTC = (id: string): AppThunk => {
   return (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packAPI
       .deletePack(id)
       .then(() => {
-        dispatch(getPacksDataTC(user_id))
+        dispatch(getPacksDataTC())
         dispatch(setAppStatusAC('succeeded'))
       })
       .catch((e: AxiosError<{ error: string }>) => {
@@ -133,13 +151,13 @@ export const deletePackTC = (id: string, user_id?: string): AppThunk => {
   }
 }
 
-export const updatePackTC = (cardsPack: CardPacksUpdateType, user_id?: string): AppThunk => {
+export const updatePackTC = (cardsPack: CardPacksUpdateType): AppThunk => {
   return (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packAPI
       .updatePack(cardsPack)
       .then(() => {
-        dispatch(getPacksDataTC(user_id))
+        dispatch(getPacksDataTC())
         dispatch(setAppStatusAC('succeeded'))
       })
       .catch((e: AxiosError<{ error: string }>) => {
