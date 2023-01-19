@@ -5,6 +5,7 @@ import {
     CardType,
     ResponseCardsType, UpdateCardType,
 } from "../API/cardsApi/cardsApi";
+import {AxiosError} from "axios";
 
 type GetCardActionType = ReturnType<typeof getCardsAC>
 type SetNewQuestionType = ReturnType<typeof setNewQuestion>
@@ -57,8 +58,11 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(getCardsAC(res.data.cards))
         })
-        .catch((e) => {
-            console.log(e)
+        .catch((e: AxiosError<{ error: string }>) => {
+            const error = e.response
+                ? e.response.data.error
+                : e.message + ', more details in the console'
+            console.log(error)
         })
 }
 
@@ -67,8 +71,11 @@ export const addCardsTC = (card: CardType): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(getCardsTC(res.data.newCard.cardsPack_id))
         })
-        .catch((e) => {
-            console.log(e)
+        .catch((e: AxiosError<{ error: string }>) => {
+            const error = e.response
+                ? e.response.data.error
+                : e.message + ', more details in the console'
+            console.log(error)
         })
 }
 
@@ -77,19 +84,24 @@ export const removeCardsTC = (id: string): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(getCardsTC(res.data.deleteCard.cardsPack_id))
         })
-        .catch((e) => {
-            console.log(e)
+        .catch((e: AxiosError<{ error: string }>) => {
+            const error = e.response
+                ? e.response.data.error
+                : e.message + ', more details in the console'
+            console.log(error)
         })
 }
 
 export const updateCardsTC = (card: UpdateCardType): AppThunk => (dispatch) => {
     cardsAPI.updateCards(card)
         .then((res) => {
-            // dispatch(getCardsTC(res.data.updatedCard.cardsPack_id))
             console.log(res)
             dispatch(setNewQuestion(res.data.updatedCard, res.data.updatedCard._id, res.data.updatedCard.question))
         })
-        .catch((e) => {
-            console.log(e)
+        .catch((e: AxiosError<{ error: string }>) => {
+            const error = e.response
+                ? e.response.data.error
+                : e.message + ', more details in the console'
+            console.log(error)
         })
 }
