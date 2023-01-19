@@ -6,6 +6,7 @@ import { addCardTC, setCardsTC } from './friendsPackReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { formatingDate } from '../../../utils/formatDate'
 import { useParams } from 'react-router-dom'
+import { useDebounce } from '../../../Common/Hooks/useDebounce'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
@@ -14,12 +15,12 @@ export const FriendsPack = () => {
   const { packId } = useParams()
   const packIdParams = packId ? packId : ''
 
-  const [test, setTest] = useState('')
+  const [search, setSearch] = useState('')
+  const debouncedValue = useDebounce<string>(search, 500)
 
   useEffect(() => {
-    //const params = { cardsPack_id: '63c987cc6918f33932223df8' }
-    dispatch(setCardsTC({ cardsPack_id: packIdParams }))
-  }, [])
+    dispatch(setCardsTC({ cardsPack_id: packIdParams, cardQuestion: search }))
+  }, [debouncedValue])
 
   const addNewPack = () => {
     dispatch(addCardTC({ cardsPack_id: packIdParams, answer: '1', question: '2' }))
@@ -27,7 +28,7 @@ export const FriendsPack = () => {
 
   return (
     <div>
-      <TableSearchBar onChange={setTest} />
+      <TableSearchBar onChange={setSearch} />
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
