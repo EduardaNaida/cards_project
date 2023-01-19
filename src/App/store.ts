@@ -4,11 +4,16 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { appReducer, AppReducerActionsType } from './appReducer'
 import { UserActionsType, userReducer } from '../Features/userReducer'
 import { authReducer, AuthReducersActionType } from '../Features/authReducer'
+import {
+  friendsPackReducer,
+  FriendsPackActionsType,
+} from '../Features/Main/FriendsPack/friendsPackReducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   user: userReducer,
+  friendsCards: friendsPackReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -21,7 +26,11 @@ export const UseAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 export const AppDispatch = () => useDispatch<AppDispatchType>()
 
 export const useAppDispatch: () => ThunkDispatch<AppRootStateType, any, AnyAction> = useDispatch
-export type AppActionsType = UserActionsType | AppReducerActionsType | AuthReducersActionType
+export type AppActionsType =
+  | UserActionsType
+  | AppReducerActionsType
+  | AuthReducersActionType
+  | FriendsPackActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
