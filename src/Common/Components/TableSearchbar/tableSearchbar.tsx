@@ -26,7 +26,7 @@ export const TableSearchBar: FC<tableSearchBarType> = ({ onChange }) => {
   const searchBarIcons =
     searchBarValue.length > 0 ? <CloseIcon onClick={handleCloseSearching} /> : <SearchIcon />
   return (
-    <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+    <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
       <InputLabel htmlFor="table-search-bar">Search</InputLabel>
       <Input
         id="table-search-bar"

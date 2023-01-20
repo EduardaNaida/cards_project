@@ -1,10 +1,10 @@
-import {AppThunk} from "../App/store";
+import {AppThunk} from "../../../App/store";
 import {
     cardsAPI,
     CardsType,
     CardType,
     ResponseCardsType, UpdateCardType,
-} from "../API/CardsApi/cardsApi";
+} from "../../../API/CardsApi/cardsApi";
 import {AxiosError} from "axios";
 
 type GetCardActionType = ReturnType<typeof getCardsAC>
@@ -24,12 +24,12 @@ const initialState: InitialStateType = {
 
 export type InitialStateType = ResponseCardsType
 
-export const cardReducer = (state: InitialStateType = initialState, action: CardReducerActionType): any => {
+export const cardReducer = (state: InitialStateType = initialState, action: CardReducerActionType): InitialStateType => {
     switch (action.type) {
         case 'CARDS/GET-CARDS': {
             return {
                 ...state,
-                cards: [...action.cards]
+                cards: [...action.payload.cards]
             }
         }
         case "CARDS/SET-NEW-QUESTION": {
@@ -44,8 +44,8 @@ export const cardReducer = (state: InitialStateType = initialState, action: Card
     return state
 }
 
-const getCardsAC = (cards: CardsType[]) => ({type: 'CARDS/GET-CARDS', cards} as const)
-const setNewQuestion = (cards: CardsType, _id: string, question: string) => ({
+const getCardsAC = (cards: CardsType[] ) => ({type: 'CARDS/GET-CARDS', payload: {cards}} as const)
+const setNewQuestion = (cards: CardsType, _id: string , question: string ) => ({
     type: 'CARDS/SET-NEW-QUESTION',
     _id,
     question,

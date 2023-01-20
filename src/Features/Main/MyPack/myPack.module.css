@@ -1,0 +1,22 @@
+.container {
+    padding: 10px 136px 10px 136px;
+}
+
+.back {
+    color: black;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+}
+.text{
+    font-size: 14px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    width: 184px;
+}

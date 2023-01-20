@@ -1,42 +1,41 @@
 import {AppThunk} from "../../../App/store";
-import {
-    cardsAPI,
-    CardsType,
-    CardType,
-    ResponseCardsType, UpdateCardType,
-} from "../../../API/CardsApi/cardsApi";
 import {AxiosError} from "axios";
+import {
+    CardPacksUpdateType,
+    CardsPackType,
+    packAPI,
+    ResponseCardsPacksType
+} from "../../../API/CardsApi/cardsApi";
 
-type GetCardActionType = ReturnType<typeof getCardsAC>
-type SetNewQuestionType = ReturnType<typeof setNewQuestion>
 
-export type CardReducerActionType = GetCardActionType | SetNewQuestionType
+type GetPackType = ReturnType<typeof getPackAC>
+type UpdatePackType = ReturnType<typeof setNewPackName>
+
+export type PackReducerActionType = GetPackType | UpdatePackType
 
 const initialState: InitialStateType = {
-    cards: [],
-    cardsTotalCount: 0,
-    maxGrade: 5,
-    minGrade: 0,
+    cardPacks: [],
+    cardPacksTotalCount: 0,
+    maxCardsCount: 5,
+    minCardsCount: 0,
     page: 1,
     pageCount: 2,
-    packUserId: '',
 }
 
-export type InitialStateType = ResponseCardsType
+export type InitialStateType = ResponseCardsPacksType
 
-export const cardReducer = (state: InitialStateType = initialState, action: CardReducerActionType): any => {
+export const packReducer = (state: InitialStateType = initialState, action: PackReducerActionType): InitialStateType => {
     switch (action.type) {
-        case 'CARDS/GET-CARDS': {
+        case "PACK/GET-PACK":{
             return {
-                ...state,
-                cards: [...action.cards]
+                ...state, cardPacks: [...action.cardsPacks]
             }
         }
-        case "CARDS/SET-NEW-QUESTION": {
+        case "PACK/SET-NEW-NAME": {
             return {
                 ...state,
-                cards: state.cards.map(card => card._id === action._id ?
-                    {...card, question: action.question}
+                cardPacks: state.cardPacks.map(card => card._id === action._id ?
+                    {...card, question: action.name}
                     : card)
             }
         }
@@ -44,19 +43,18 @@ export const cardReducer = (state: InitialStateType = initialState, action: Card
     return state
 }
 
-const getCardsAC = (cards: CardsType[]) => ({type: 'CARDS/GET-CARDS', cards} as const)
-const setNewQuestion = (cards: CardsType, _id: string, question: string) => ({
-    type: 'CARDS/SET-NEW-QUESTION',
+const getPackAC = (cardsPacks: CardPacksUpdateType[]) => ({type: 'PACK/GET-PACK', cardsPacks} as const)
+const setNewPackName = (updatedCardsPack: CardPacksUpdateType, _id: string, name: string) => ({
+    type: 'PACK/SET-NEW-NAME',
     _id,
-    question,
-    cards
+    name,
+    updatedCardsPack
 } as const)
 
-
-export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch) => {
-    cardsAPI.getCards({cardsPack_id})
+export const getPackTC = (user_id: string): AppThunk => (dispatch) => {
+    packAPI.getPack({user_id})
         .then((res) => {
-            dispatch(getCardsAC(res.data.cards))
+            dispatch(getPackAC(res.data.cardPacks))
         })
         .catch((e: AxiosError<{ error: string }>) => {
             const error = e.response
@@ -66,10 +64,10 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch) => {
         })
 }
 
-export const addCardsTC = (card: CardType): AppThunk => (dispatch) => {
-    cardsAPI.postCards(card)
+export const addPackTC = (card: CardsPackType): AppThunk => (dispatch) => {
+    packAPI.postPack(card)
         .then((res) => {
-            dispatch(getCardsTC(res.data.newCard.cardsPack_id))
+           dispatch(getPackTC(res.data.newCardsPack._id))
         })
         .catch((e: AxiosError<{ error: string }>) => {
             const error = e.response
@@ -79,10 +77,10 @@ export const addCardsTC = (card: CardType): AppThunk => (dispatch) => {
         })
 }
 
-export const removeCardsTC = (id: string): AppThunk => (dispatch) => {
-    cardsAPI.deleteCards(id)
+export const removePackTC = (id: string): AppThunk => (dispatch) => {
+    packAPI.deletePack(id)
         .then((res) => {
-            dispatch(getCardsTC(res.data.deleteCard.cardsPack_id))
+            dispatch(getPackTC(res.data.deletedCardsPack._id))
         })
         .catch((e: AxiosError<{ error: string }>) => {
             const error = e.response
@@ -92,11 +90,11 @@ export const removeCardsTC = (id: string): AppThunk => (dispatch) => {
         })
 }
 
-export const updateCardsTC = (card: UpdateCardType): AppThunk => (dispatch) => {
-    cardsAPI.updateCards(card)
+export const updatePackTC = (card: CardPacksUpdateType): AppThunk => (dispatch) => {
+   packAPI.updatePack(card)
         .then((res) => {
             console.log(res)
-            dispatch(setNewQuestion(res.data.updatedCard, res.data.updatedCard._id, res.data.updatedCard.question))
+            dispatch(setNewPackName(res.data.updatedCardsPack, res.data.updatedCardsPack._id, res.data.updatedCardsPack.name))
         })
         .catch((e: AxiosError<{ error: string }>) => {
             const error = e.response

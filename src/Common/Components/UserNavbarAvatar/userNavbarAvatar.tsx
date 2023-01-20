@@ -27,7 +27,7 @@ export const UserNavbarAvatar = () => {
   }
 
   const handleNavigateProfile = () => {
-    navigate('/profile')
+    navigate('/Profile')
     handleClose()
   }
 
