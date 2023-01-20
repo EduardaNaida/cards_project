@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Button,
@@ -10,13 +10,16 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import s from '../Main.module.css'
+import sMain from '../Main.module.css'
+import s from './friendsPack.module.css'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { addCardTC, addFriendPaginationSwitchAC, setCardsTC } from './friendsPackReducer'
+import { addFriendPaginationSwitchAC, setCardsTC } from './friendsPackReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { formatingDate } from '../../../utils/formatDate'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { useDebounce } from '../../../Common/Hooks/useDebounce'
+import { Title } from '../../../Common/Components/Title/title'
+import { KeyboardBackspace } from '@mui/icons-material'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
@@ -35,16 +38,21 @@ export const FriendsPack = () => {
     dispatch(setCardsTC({ cardsPack_id: packIdParams, cardQuestion: search, page }))
   }, [debouncedValue, page])
 
-  const addNewPack = () => {
-    dispatch(addCardTC({ cardsPack_id: packIdParams, answer: '1', question: '2' }))
-  }
-
-  const handleChangePage = (event: ChangeEvent<unknown>, page: number) => {
+  const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
     dispatch(addFriendPaginationSwitchAC(page))
   }
 
   return (
-    <div className={s.wrapper}>
+    <div className={sMain.wrapper}>
+      <NavLink to={'/packs-list'} className={s.backLink}>
+        <KeyboardBackspace />
+        Back to Packs List
+      </NavLink>
+      <div className={s.titleWrapper}>
+        <Title title="Friend’s Pack" />
+        <Button variant="contained">Learn to pack</Button>
+      </div>
+
       <TableSearchBar onChange={setSearch} />
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
@@ -81,7 +89,6 @@ export const FriendsPack = () => {
         shape="rounded"
         color="primary"
       />
-      <Button onClick={addNewPack}>Add new pack</Button>
     </div>
   )
 }

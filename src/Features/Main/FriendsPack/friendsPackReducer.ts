@@ -1,11 +1,11 @@
 import {
   cardsAPI,
   CardsType,
-  CardType,
   ParamsTypeCards,
   ResponseCardsType,
 } from '../../../API/CardsApi/cardsApi'
 import { AppThunk } from '../../../App/store'
+import { AxiosError } from 'axios'
 
 const initialState = {
   cards: [] as Array<CardsType>,
@@ -25,9 +25,6 @@ export const friendsPackReducer = (
     case 'FRIENDS-PACK/SET-CARDS': {
       return { ...action.data }
     }
-    case 'FRIENDS-PACK/ADD-CARD': {
-      return { ...state, cards: [action.card, ...state.cards] }
-    }
     case 'FRIENDS-PACK/PAGINATION-SWITCH': {
       return { ...state, page: action.page }
     }
@@ -41,11 +38,7 @@ export const setFriendCardsAC = (data: ResponseCardsType) =>
     type: 'FRIENDS-PACK/SET-CARDS',
     data,
   } as const)
-export const addFriendCardAC = (card: CardsType) =>
-  ({
-    type: 'FRIENDS-PACK/ADD-CARD',
-    card,
-  } as const)
+
 export const addFriendPaginationSwitchAC = (page: number) =>
   ({
     type: 'FRIENDS-PACK/PAGINATION-SWITCH',
@@ -60,21 +53,11 @@ export const setCardsTC = (params: ParamsTypeCards): AppThunk => {
       .then((res) => {
         dispatch(setFriendCardsAC(res.data))
       })
-      .catch((e) => {
-        console.log(e)
-      })
-  }
-}
-
-export const addCardTC = (data: CardType): AppThunk => {
-  return (dispatch) => {
-    cardsAPI
-      .postCards(data)
-      .then((res) => {
-        dispatch(addFriendCardAC(res.data.newCard))
-      })
-      .catch((e) => {
-        console.log(e)
+      .catch((e: AxiosError<{ error: string }>) => {
+        const error = e.response
+          ? e.response.data.error
+          : e.message + ', more details in the console'
+        console.log(error)
       })
   }
 }
@@ -83,5 +66,4 @@ export const addCardTC = (data: CardType): AppThunk => {
 type InitialStateType = typeof initialState
 export type FriendsPackActionsType =
   | ReturnType<typeof setFriendCardsAC>
-  | ReturnType<typeof addFriendCardAC>
   | ReturnType<typeof addFriendPaginationSwitchAC>
