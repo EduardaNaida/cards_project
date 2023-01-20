@@ -15,6 +15,10 @@ type PacksListType = {
   minCardsCount: number
   page: number
   pageCount: number
+  searchParams: {
+    max: number
+    min: number
+  }
   search: string
   packsChoose: 'all' | 'my'
 }
@@ -26,6 +30,10 @@ const initialState: PacksListType = {
   minCardsCount: 0,
   page: 1,
   pageCount: 5,
+  searchParams: {
+    max: 0,
+    min: 0,
+  },
   search: '',
   packsChoose: 'all',
 }
@@ -36,6 +44,7 @@ export type PacksListActionsType =
   | ReturnType<typeof setPacksChooseAC>
   | ReturnType<typeof setSearchAC>
   | ReturnType<typeof setCurrentCardsCountAC>
+  | ReturnType<typeof setSearchParamsCardsCountAC>
 
 export const packsListReducer = (
   state: PacksListType = initialState,
@@ -58,6 +67,16 @@ export const packsListReducer = (
     }
     case 'PACKS-LIST/SET-SEARCH': {
       return { ...state, search: action.searchValue }
+    }
+    case 'PACKS-LIST/SET-SEARCH-PARAMS-CURRENT-CARDS-COUNT': {
+      return {
+        ...state,
+        searchParams: {
+          ...state.searchParams,
+          max: action.cardsCount.max,
+          min: action.cardsCount.min,
+        },
+      }
     }
     case 'PACKS-LIST/SET-CURRENT-CARDS-COUNT': {
       return {
@@ -103,6 +122,12 @@ export const setSearchAC = (searchValue: string) =>
     searchValue,
   } as const)
 
+export const setSearchParamsCardsCountAC = (cardsCount: { max: number; min: number }) =>
+  ({
+    type: 'PACKS-LIST/SET-SEARCH-PARAMS-CURRENT-CARDS-COUNT',
+    cardsCount,
+  } as const)
+
 export const setCurrentCardsCountAC = (cardsCount: { max: number; min: number }) =>
   ({
     type: 'PACKS-LIST/SET-CURRENT-CARDS-COUNT',
@@ -114,15 +139,15 @@ export const getPacksDataTC = (): AppThunk => {
   return (dispatch, getState) => {
     const user_id = getState().user._id
 
-    const { page, pageCount, packsChoose, search, maxCardsCount, minCardsCount } =
-      getState().packsList
+    const { page, pageCount, packsChoose, search } = getState().packsList
+    const { max, min } = getState().packsList.searchParams
 
     const ParamsObj: ParamsTypePacks = {
       page,
       pageCount,
       packName: search,
-      max: maxCardsCount,
-      min: minCardsCount,
+      max,
+      min,
     }
 
     if (user_id !== null && packsChoose === 'my') {

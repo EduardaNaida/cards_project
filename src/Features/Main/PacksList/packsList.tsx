@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from 'react'
+import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Box,
@@ -22,11 +22,11 @@ import SuperButton from '../../../Common/Components/SuperButton/superButton'
 import {
   addNewPackTC,
   getPacksDataTC,
-  setCurrentCardsCountAC,
   setPacksChooseAC,
   setPageAC,
   setPageCountAC,
   setSearchAC,
+  setSearchParamsCardsCountAC,
 } from './packsListReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
@@ -58,9 +58,12 @@ export const PacksList = () => {
   const maxCardsCount = UseAppSelector((state) => state.packsList.maxCardsCount)
   const minCardsCount = UseAppSelector((state) => state.packsList.minCardsCount)
 
+  const searchParamsMin = UseAppSelector((state) => state.packsList.searchParams.min)
+  const searchParamsMax = UseAppSelector((state) => state.packsList.searchParams.max)
+
   useEffect(() => {
     dispatch(getPacksDataTC())
-  }, [page, pageCount, packsChoose, searchVal, dispatch, maxCardsCount, minCardsCount])
+  }, [page, pageCount, packsChoose, searchVal, dispatch, searchParamsMin, searchParamsMax])
 
   const handleAddNewPack = () => {
     dispatch(addNewPackTC())
@@ -91,18 +94,32 @@ export const PacksList = () => {
     dispatch(setSearchAC(e))
   }
 
+  useEffect(() => {
+    setSliderValue([minCardsCount, maxCardsCount])
+  }, [maxCardsCount, minCardsCount])
+
+  const [sliderValue, setSliderValue] = useState<number[]>([minCardsCount, maxCardsCount])
+
   const handleSetRangeSliderValue = (
     event: Event | SyntheticEvent<Element, Event>,
     value: number | number[],
   ) => {
     if (Array.isArray(value)) {
-      const maxValue: number = Number(value[1])
-      const minValue: number = Number(value[0])
-      dispatch(setCurrentCardsCountAC({ max: maxValue, min: minValue }))
+      const maxValue: number = value[1]
+      const minValue: number = value[0]
+      dispatch(setSearchParamsCardsCountAC({ max: maxValue, min: minValue }))
     }
   }
-  const packsList = UseAppSelector((state) => state.packsList)
-  console.log(packsList)
+
+  const hanldeChangeSlider = (event: Event, value: number | number[]) => {
+    if (Array.isArray(value)) {
+      setSliderValue(value)
+    }
+  }
+
+  console.log(maxCardsCount)
+  console.log(minCardsCount)
+
   return (
     <div>
       <div className={s.wrapper}>
@@ -129,11 +146,11 @@ export const PacksList = () => {
             <Grid container spacing={2} alignItems="center">
               <Grid item>
                 <OutlinedInput
-                  value={minCardsCount}
+                  value={sliderValue[0]}
                   sx={{ width: 60 }}
                   size="small"
                   inputProps={{
-                    step: 10,
+                    step: 1,
                     min: minCardsCount,
                     max: maxCardsCount,
                     type: 'number',
@@ -143,17 +160,17 @@ export const PacksList = () => {
               </Grid>
               <Grid item xs>
                 <Slider
-                  value={[minCardsCount, maxCardsCount]}
+                  value={sliderValue}
                   max={maxCardsCount}
                   min={minCardsCount}
-                  // onChange={handleSetRangeSliderValue}
+                  onChange={hanldeChangeSlider}
                   onChangeCommitted={handleSetRangeSliderValue}
                   aria-labelledby="input-slider"
                 />
               </Grid>
               <Grid item>
                 <OutlinedInput
-                  value={maxCardsCount}
+                  value={sliderValue[1]}
                   sx={{ width: 60 }}
                   size="small"
                   inputProps={{
