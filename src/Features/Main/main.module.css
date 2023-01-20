@@ -22,3 +22,9 @@
     font-size: 22px;
     line-height: 27px;
 }
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

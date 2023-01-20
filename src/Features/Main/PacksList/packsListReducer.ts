@@ -16,7 +16,6 @@ type PacksListType = {
   page: number
   pageCount: number
   search: string
-  isMyPacks: boolean
   packsChoose: 'all' | 'my'
 }
 
@@ -28,7 +27,6 @@ const initialState: PacksListType = {
   page: 1,
   pageCount: 5,
   search: '',
-  isMyPacks: false,
   packsChoose: 'all',
 }
 export type PacksListActionsType =
@@ -37,6 +35,7 @@ export type PacksListActionsType =
   | ReturnType<typeof setPageCountAC>
   | ReturnType<typeof setPacksChooseAC>
   | ReturnType<typeof setSearchAC>
+  | ReturnType<typeof setCurrentCardsCountAC>
 
 export const packsListReducer = (
   state: PacksListType = initialState,
@@ -59,6 +58,13 @@ export const packsListReducer = (
     }
     case 'PACKS-LIST/SET-SEARCH': {
       return { ...state, search: action.searchValue }
+    }
+    case 'PACKS-LIST/SET-CURRENT-CARDS-COUNT': {
+      return {
+        ...state,
+        maxCardsCount: action.cardsCount.max,
+        minCardsCount: action.cardsCount.min,
+      }
     }
     default: {
       return state
@@ -97,12 +103,28 @@ export const setSearchAC = (searchValue: string) =>
     searchValue,
   } as const)
 
+export const setCurrentCardsCountAC = (cardsCount: { max: number; min: number }) =>
+  ({
+    type: 'PACKS-LIST/SET-CURRENT-CARDS-COUNT',
+    cardsCount,
+  } as const)
+
 // THUNK CREATORS
 export const getPacksDataTC = (): AppThunk => {
   return (dispatch, getState) => {
     const user_id = getState().user._id
-    const { page, pageCount, packsChoose, search } = getState().packsList
-    const ParamsObj: ParamsTypePacks = { page, pageCount, packName: search }
+
+    const { page, pageCount, packsChoose, search, maxCardsCount, minCardsCount } =
+      getState().packsList
+
+    const ParamsObj: ParamsTypePacks = {
+      page,
+      pageCount,
+      packName: search,
+      max: maxCardsCount,
+      min: minCardsCount,
+    }
+
     if (user_id !== null && packsChoose === 'my') {
       ParamsObj['user_id'] = user_id
     }
