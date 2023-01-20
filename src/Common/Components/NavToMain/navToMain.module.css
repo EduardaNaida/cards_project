@@ -1,26 +1,25 @@
 .navToMain {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 24px;
-    margin-bottom: 27px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 27px;
 }
 
 .navToMain > a {
-    display: flex;
-    text-decoration: none;
-    color: black;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
+  display: flex;
+  text-decoration: none;
+  color: black;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .navToMain > a:hover {
-    color: rgba(132,137,154,0.85);
+  color: rgba(132, 137, 154, 0.85);
 }
 
 .navToMain > a > svg {
-    margin-right: 12px;
+  margin-right: 12px;
 }

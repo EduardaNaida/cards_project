@@ -1,18 +1,18 @@
-import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from 'redux'
-import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk'
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux'
-import {appReducer, AppReducerActionsType} from './appReducer'
-import {UserActionsType, userReducer} from '../Features/userReducer'
-import {authReducer, AuthReducersActionType} from '../Features/authReducer'
-import {cardReducer, CardReducerActionType} from "../Features/Main/MyPack/cardReducer";
-import {packReducer, PackReducerActionType} from "../Features/Main/MyPack/packReducer";
+import { AnyAction, applyMiddleware, combineReducers, legacy_createStore } from 'redux'
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { appReducer, AppReducerActionsType } from './appReducer'
+import { UserActionsType, userReducer } from '../Features/userReducer'
+import { authReducer, AuthReducersActionType } from '../Features/authReducer'
+import { cardReducer, CardReducerActionType } from '../Features/Main/MyPack/cardReducer'
+import { packReducer, PackReducerActionType } from '../Features/Main/MyPack/packReducer'
 
 const rootReducer = combineReducers({
-    app: appReducer,
-    auth: authReducer,
-    user: userReducer,
-    cards: cardReducer,
-    pack: packReducer
+  app: appReducer,
+  auth: authReducer,
+  user: userReducer,
+  cards: cardReducer,
+  pack: packReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -25,7 +25,12 @@ export const UseAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 export const AppDispatch = () => useDispatch<AppDispatchType>()
 
 export const useAppDispatch: () => ThunkDispatch<AppRootStateType, any, AnyAction> = useDispatch
-export type AppActionsType = UserActionsType | AppReducerActionsType | AuthReducersActionType | CardReducerActionType | PackReducerActionType
+export type AppActionsType =
+  | UserActionsType
+  | AppReducerActionsType
+  | AuthReducersActionType
+  | CardReducerActionType
+  | PackReducerActionType
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

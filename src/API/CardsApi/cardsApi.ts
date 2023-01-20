@@ -18,35 +18,35 @@ export const packAPI = {
 }
 
 export const cardsAPI = {
-    getCards(params: ParamsTypeCards) {
-        return instance.get<ResponseCardsType>('cards/card', {
-            params: params,
-        })
-    },
-    postCards(card: CardType) {
-        return instance.post<ResponsePostCardsType>('cards/card', {card})
-    },
-    deleteCards(id: string) {
-        return instance.delete<ResponseDeleteCardsType>(`cards/card?id=${id}`)
-    },
-    updateCards(card: UpdateCardType) {
-        return instance.put<ResponseUpdatedCardsType>('cards/card', {card})
-    },
+  getCards(params: ParamsTypeCards) {
+    return instance.get<ResponseCardsType>('cards/card', {
+      params: params,
+    })
+  },
+  postCards(card: CardType) {
+    return instance.post<ResponsePostCardsType>('cards/card', { card })
+  },
+  deleteCards(id: string) {
+    return instance.delete<ResponseDeleteCardsType>(`cards/card?id=${id}`)
+  },
+  updateCards(card: UpdateCardType) {
+    return instance.put<ResponseUpdatedCardsType>('cards/card', { card })
+  },
 }
 
 // TYPES
 
 //Cards
 export type CardType = {
-    cardsPack_id: string | null
-    question: string | null
-    answer: string | null
-    grade?: number | null
-    shots?: number | null
-    answerImg?: string | null
-    questionImg?: string | null
-    questionVideo?: string | null
-    answerVideo?: string | null
+  cardsPack_id: string | null
+  question: string | null
+  answer: string | null
+  grade?: number | null
+  shots?: number | null
+  answerImg?: string | null
+  questionImg?: string | null
+  questionVideo?: string | null
+  answerVideo?: string | null
 }
 
 export type ParamsTypeCards = {
@@ -73,8 +73,8 @@ export type CardsType = {
 }
 
 export type UpdateCardType = {
-    _id: string,
-    question: string
+  _id: string
+  question: string
 }
 export type ResponseCardsType = {
   cards: Array<CardsType>
@@ -136,13 +136,13 @@ export type ResponseCardsPacksType = {
 }
 
 export type ResponsePostPackType = {
-    newCardsPack: CardPacksUpdateType
+  newCardsPack: CardPacksUpdateType
 }
 
 export type ResponseDeletePackType = {
-    deletedCardsPack: CardPacksUpdateType
+  deletedCardsPack: CardPacksUpdateType
 }
 
 export type ResponseUpdatedPackType = {
-    updatedCardsPack: CardPacksUpdateType
+  updatedCardsPack: CardPacksUpdateType
 }
