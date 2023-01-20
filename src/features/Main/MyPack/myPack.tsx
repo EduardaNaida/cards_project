@@ -18,6 +18,7 @@ import SuperButton from '../../../Common/Components/SuperButton/superButton'
 import style from './myPack.module.css'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
+import {Title} from "../../../Common/Components/Title/title";
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
@@ -61,7 +62,7 @@ export const MyPack = () => {
         <p className={style.text}>Back to Packs List</p>
       </IconButton>
       <div className={style.main}>
-        <h2>My Pack</h2>
+        <Title title={'My Pack'}/>
         <SuperButton className={style.button} onClick={addCard}>
           Add new card
         </SuperButton>
