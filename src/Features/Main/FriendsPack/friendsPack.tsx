@@ -20,13 +20,19 @@ import { NavLink, useParams } from 'react-router-dom'
 import { useDebounce } from '../../../Common/Hooks/useDebounce'
 import { Title } from '../../../Common/Components/Title/title'
 import { KeyboardBackspace } from '@mui/icons-material'
+import {
+  selectFriendsCards,
+  selectFriendsCardsPage,
+  selectFriendsCardsPageCount,
+  selectFriendsCardsTotalCount,
+} from '../../../Common/Selectors/friendsPackSelector'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
-  const cards = UseAppSelector((s) => s.friendsCards.cards)
-  const page = UseAppSelector((s) => s.friendsCards.page)
-  const pageCount = UseAppSelector((s) => s.friendsCards.pageCount)
-  const cardsTotalCount = UseAppSelector((s) => s.friendsCards.cardsTotalCount)
+  const cards = UseAppSelector(selectFriendsCards)
+  const page = UseAppSelector(selectFriendsCardsPage)
+  const pageCount = UseAppSelector(selectFriendsCardsPageCount)
+  const cardsTotalCount = UseAppSelector(selectFriendsCardsTotalCount)
 
   const { packId } = useParams()
   const packIdParams = packId ? packId : ''
