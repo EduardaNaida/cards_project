@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { formatingDate } from '../../../utils/formatDate'
-import { IconButton, TableRow } from '@mui/material'
+import { IconButton, TableRow, Tooltip } from '@mui/material'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import SchoolIcon from '@mui/icons-material/School'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
@@ -30,38 +30,53 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) 
       navigate('/friends-pack/' + packData.user_id)
     }
   }
+  const hanldeNavigateToLearn = () => {
+    alert('Learn in developing')
+  }
 
   const myUserId = UseAppSelector((state) => state.user._id)
   const formattedDate = formatingDate(packData.updated)
   const isMyPack = packData.user_id === myUserId
+
+  const tooltipName = packData.user_id === myUserId ? 'go to my pack' : 'go to friend pack'
+  const tooltipLearn = packData.user_id === myUserId ? 'go learn my pack' : 'go learn friend pack'
+
   return (
     <TableRow key={packData._id}>
-      <StyledTableCell component="th" scope="row">
-        {packData.name}
+      <StyledTableCell component="th" scope="row" onClick={handleNavigateToPack}>
+        <Tooltip title={tooltipName}>
+          <b>{packData.name}</b>
+        </Tooltip>
       </StyledTableCell>
       <StyledTableCell align="right">{packData.cardsCount}</StyledTableCell>
       <StyledTableCell align="right">{formattedDate}</StyledTableCell>
       <StyledTableCell align="right">{packData.user_name}</StyledTableCell>
       <StyledTableCell align="right">
-        <IconButton onClick={handleNavigateToPack}>
-          <SchoolIcon />
-        </IconButton>
+        <Tooltip title={tooltipLearn}>
+          <IconButton onClick={hanldeNavigateToLearn}>
+            <SchoolIcon />
+          </IconButton>
+        </Tooltip>
         {isMyPack && (
           <>
-            <IconButton
-              onClick={() => {
-                handleUpdateTask(packData._id)
-              }}
-            >
-              <BorderColorIcon />
-            </IconButton>
-            <IconButton
-              onClick={() => {
-                handleDeletePack(packData._id)
-              }}
-            >
-              <DeleteForeverIcon />
-            </IconButton>
+            <Tooltip title="update pack name">
+              <IconButton
+                onClick={() => {
+                  handleUpdateTask(packData._id)
+                }}
+              >
+                <BorderColorIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="delete my pack">
+              <IconButton
+                onClick={() => {
+                  handleDeletePack(packData._id)
+                }}
+              >
+                <DeleteForeverIcon />
+              </IconButton>
+            </Tooltip>
           </>
         )}
       </StyledTableCell>

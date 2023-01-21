@@ -152,6 +152,7 @@ export const getPacksDataTC = (): AppThunk => {
 
     if (user_id !== null && packsChoose === 'my') {
       ParamsObj['user_id'] = user_id
+      ParamsObj['min'] = 0
     }
     dispatch(setAppStatusAC('loading'))
     packAPI

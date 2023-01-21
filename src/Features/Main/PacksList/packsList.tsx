@@ -2,7 +2,10 @@ import React, { SyntheticEvent, useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Box,
+  FormControl,
+  FormLabel,
   Grid,
+  IconButton,
   OutlinedInput,
   Paper,
   SelectChangeEvent,
@@ -14,6 +17,7 @@ import {
   TableRow,
   ToggleButton,
   ToggleButtonGroup,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
@@ -30,8 +34,9 @@ import {
 } from './packsListReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import { PacksListTableRow } from './PacksListTableRow'
+import { PacksListTableRow } from './packsListTableRow'
 import Slider from '@mui/material/Slider'
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(() => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -77,6 +82,7 @@ export const PacksList = () => {
     dispatch(setPageCountAC(+event.target.value))
   }
 
+  console.log(cardPacks)
   const mappedPacks = cardPacks.map((packData) => {
     return <PacksListTableRow packData={packData} />
   })
@@ -96,7 +102,7 @@ export const PacksList = () => {
 
   useEffect(() => {
     setSliderValue([minCardsCount, maxCardsCount])
-  }, [maxCardsCount, minCardsCount])
+  }, [maxCardsCount, minCardsCount, packsChoose])
 
   const [sliderValue, setSliderValue] = useState<number[]>([minCardsCount, maxCardsCount])
 
@@ -117,9 +123,6 @@ export const PacksList = () => {
     }
   }
 
-  console.log(maxCardsCount)
-  console.log(minCardsCount)
-
   return (
     <div>
       <div className={s.wrapper}>
@@ -129,16 +132,21 @@ export const PacksList = () => {
         </div>
         <div className={s.toolbar}>
           <TableSearchBar onChange={hanldeSetSearchValue} />
-          <StyledToggleButtonGroup
-            color="primary"
-            value={packsChoose}
-            exclusive
-            onChange={handleSetPacksChoose}
-            aria-label="Platform"
-          >
-            <ToggleButton value="my">my</ToggleButton>
-            <ToggleButton value="all">all</ToggleButton>
-          </StyledToggleButtonGroup>
+          <FormControl variant="standard">
+            <FormLabel component="legend" sx={{ color: '#000000', marginBottom: '9px' }}>
+              Show packs cards
+            </FormLabel>
+            <StyledToggleButtonGroup
+              color="primary"
+              value={packsChoose}
+              exclusive
+              onChange={handleSetPacksChoose}
+              aria-label="Platform"
+            >
+              <ToggleButton value="my">my</ToggleButton>
+              <ToggleButton value="all">all</ToggleButton>
+            </StyledToggleButtonGroup>
+          </FormControl>
           <Box sx={{ width: 300 }}>
             <Typography id="input-slider" gutterBottom align={'left'}>
               Number of cards
@@ -183,6 +191,19 @@ export const PacksList = () => {
               </Grid>
             </Grid>
           </Box>
+          <Tooltip title="clear filters">
+            <IconButton
+              sx={{
+                background: '#FFFFFF',
+                border: '1px solid #E8E8E8',
+                borderRadius: '2px',
+                width: '50px',
+                height: '50px',
+              }}
+            >
+              <FilterAltOffIcon />
+            </IconButton>
+          </Tooltip>
         </div>
 
         <TableContainer component={Paper}>
