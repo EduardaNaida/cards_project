@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Button,
@@ -9,6 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TableSortLabel,
 } from '@mui/material'
 import sMain from '../Main.module.css'
 import s from './friendsPack.module.css'
@@ -38,14 +39,22 @@ export const FriendsPack = () => {
   const packIdParams = packId ? packId : ''
 
   const [search, setSearch] = useState('')
+  const [sort, setSort] = useState('')
+
   const debouncedValue = useDebounce<string>(search, 500)
 
   useEffect(() => {
-    dispatch(setCardsTC({ cardsPack_id: packIdParams, cardQuestion: search, page }))
-  }, [debouncedValue, page])
+    dispatch(
+      setCardsTC({ cardsPack_id: packIdParams, cardQuestion: search, page, sortCards: sort }),
+    )
+  }, [debouncedValue, page, sort])
 
-  const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handleChangePage = (event: ChangeEvent<unknown>, page: number) => {
     dispatch(addFriendPaginationSwitchAC(page))
+  }
+
+  const handleSortCards = (property: string) => {
+    setSort(sort === `0${property}` ? `1${property}` : `0${property}`)
   }
 
   return (
@@ -64,9 +73,21 @@ export const FriendsPack = () => {
         <Table aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Question</StyledTableCell>
+              <StyledTableCell onClick={() => handleSortCards('question')}>
+                <TableSortLabel
+                  active={sort === '0question' || sort === '1question'}
+                  direction={sort === '1question' ? 'asc' : 'desc'}
+                />
+                Question
+              </StyledTableCell>
               <StyledTableCell>Answer</StyledTableCell>
-              <StyledTableCell>Last Updated</StyledTableCell>
+              <StyledTableCell onClick={() => handleSortCards('updated')}>
+                <TableSortLabel
+                  active={sort === '0updated' || sort === '1updated'}
+                  direction={sort === '1updated' ? 'asc' : 'desc'}
+                />
+                Last Updated
+              </StyledTableCell>
               <StyledTableCell>Grade</StyledTableCell>
             </TableRow>
           </TableHead>
