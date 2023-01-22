@@ -84,6 +84,7 @@ export const PacksList = () => {
 
   console.log(cardPacks)
   const mappedPacks = cardPacks.map((packData) => {
+    console.log(packData)
     return <PacksListTableRow packData={packData} />
   })
 
