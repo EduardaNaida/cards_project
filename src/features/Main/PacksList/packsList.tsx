@@ -69,6 +69,7 @@ export const PacksList = () => {
   useEffect(() => {
     dispatch(getPacksDataTC())
   }, [page, pageCount, packsChoose, searchVal, dispatch, searchParamsMin, searchParamsMax])
+  console.log(searchParamsMin)
 
   const handleAddNewPack = () => {
     dispatch(addNewPackTC())

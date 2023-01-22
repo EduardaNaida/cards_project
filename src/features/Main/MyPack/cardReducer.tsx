@@ -13,12 +13,14 @@ type SetNewQuestionType = ReturnType<typeof setNewQuestion>
 type SetNewPageType = ReturnType<typeof setCardsPageAC>
 type SetPageCountType = ReturnType<typeof setCardsPageCountAC>
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>
+type SetSearchCardType = ReturnType<typeof setSearchCardAC>
 
 export type CardReducerActionType = GetCardActionType
     | SetNewQuestionType
     | SetNewPageType
     | SetPageCountType
     | SetCardsTotalCountType
+    | SetSearchCardType
 
 const initialState: InitialStateType = {
     cards: [],
@@ -28,9 +30,14 @@ const initialState: InitialStateType = {
     page: 1,
     pageCount: 5,
     packUserId: '',
+    search: ''
 }
 
-export type InitialStateType = ResponseCardsType
+type SearchType = {
+    search: string
+}
+
+export type InitialStateType = ResponseCardsType & SearchType
 
 export const cardReducer = (
     state: InitialStateType = initialState,
@@ -66,6 +73,11 @@ export const cardReducer = (
                 ...state, cardsTotalCount: action.cardsTotalCount
             }
         }
+        case "CARDS/SET-SEARCH-CARD": {
+            return {
+                ...state, search: action.searchValue
+            }
+        }
     }
     return state
 }
@@ -87,11 +99,14 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
     cardsTotalCount
 } as const)
 
+export const setSearchCardAC = (searchValue: string) => ({type: 'CARDS/SET-SEARCH-CARD', searchValue} as const)
+
 export const getCardsTC =
     (cardsPack_id: string): AppThunk =>
         (dispatch, getState) => {
-            const {page, pageCount} = getState().cards
+            const {page, pageCount, search} = getState().cards
 
+            console.log(search)
             cardsAPI
                 .getCards({cardsPack_id, page, pageCount})
                 .then((res) => {

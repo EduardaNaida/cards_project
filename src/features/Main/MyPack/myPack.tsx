@@ -4,7 +4,7 @@ import {
     getCardsTC,
     removeCardsTC,
     setCardsPageAC,
-    setCardsPageCountAC,
+    setCardsPageCountAC, setSearchCardAC,
     updateCardsTC
 } from './cardReducer'
 import {AppDispatch, UseAppSelector} from '../../../App/store'
@@ -40,6 +40,8 @@ export const MyPack = () => {
     const pageCount = UseAppSelector((state) => state.cards.pageCount)
     const cardTotalCount = UseAppSelector((state) => state.cards.cardsTotalCount)
     const cards = UseAppSelector((state) => state.cards.cards)
+    const searchValue = UseAppSelector((state) => state.cards.search)
+
 
 
     useEffect(() => {
@@ -47,7 +49,7 @@ export const MyPack = () => {
             dispatch(getCardsTC(packId))
             setRows(cards)
         }
-    }, [dispatch, packId, page, pageCount])
+    }, [dispatch, packId, page, pageCount, searchValue])
 
     const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setCardsPageAC(value))
@@ -75,6 +77,11 @@ export const MyPack = () => {
     const updateCard = (id: string) => {
         dispatch(updateCardsTC({_id: id, question: 'hwwwwwww'}))
     }
+
+    const searchHandler = (value: string) => {
+        console.log(value)
+        dispatch(setSearchCardAC(value))
+    }
     return (
         <div className={style.container}>
             <IconButton
@@ -96,8 +103,7 @@ export const MyPack = () => {
                 <div>My pack is empty</div>
             ) : (
                 <div className={style.tableContainer}>
-                    <TableSearchBar onChange={() => {
-                    }}/>
+                    <TableSearchBar onChange={searchHandler}/>
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 700}} aria-label="customized table">
                             <TableHead>
@@ -130,16 +136,16 @@ export const MyPack = () => {
                                             </StyledTableCell>
                                             <StyledTableCell align="right">
                                                 <IconButton
-                                                    onClick={() => {
-                                                        updateCard(row._id)
-                                                    }}
+                                                    // onClick={() => {
+                                                    //     updateCard(row._id)
+                                                    // }}
                                                 >
                                                     <BorderColorIcon/>
                                                 </IconButton>
                                                 <IconButton
-                                                    onClick={() => {
-                                                        removeCard(row._id)
-                                                    }}
+                                                    // onClick={() => {
+                                                    //     removeCard(row._id)
+                                                    // }}
                                                 >
                                                     <DeleteForeverIcon/>
                                                 </IconButton>
