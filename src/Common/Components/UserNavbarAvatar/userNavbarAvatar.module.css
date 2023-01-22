@@ -1,38 +1,37 @@
 .avatar {
-
 }
 
 .avatar:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
-.buttonWrapper{
-    display: flex;
-    flex-direction: column;
-    padding: 22px 20px 18px 22px;
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 20px 18px 22px;
 }
 
-.profileLink{
-    background-color: white;
-    border: none;
-    margin-bottom: 16px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 0;
+.profileLink {
+  background-color: white;
+  border: none;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0;
 }
-.profileLink:hover{
-    cursor: pointer;
-    color: rgba(132,137,154,0.85);
+.profileLink:hover {
+  cursor: pointer;
+  color: rgba(132, 137, 154, 0.85);
 }
-.logoutLink{
-    background-color: white;
-    border: none;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 0;
+.logoutLink {
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0;
 }
-.logoutLink:hover{
-    cursor: pointer;
-    color: rgba(132,137,154,0.85);
+.logoutLink:hover {
+  cursor: pointer;
+  color: rgba(132, 137, 154, 0.85);
 }

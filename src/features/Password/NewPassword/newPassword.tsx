@@ -26,6 +26,7 @@ const NewPassword = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   let { token } = useParams()
+  console.log(token)
   const validationSchema = yup.object({
     password: yup.string().min(7, 'Password is too short - should be 7 chars minimum.'),
   })

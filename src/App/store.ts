@@ -4,12 +4,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { appReducer, AppReducerActionsType } from './appReducer'
 import { UserActionsType, userReducer } from '../Features/userReducer'
 import { authReducer, AuthReducersActionType } from '../Features/authReducer'
+import { cardReducer, CardReducerActionType } from '../Features/Main/MyPack/cardReducer'
 import { PacksListActionsType, packsListReducer } from '../Features/Main/PacksList/packsListReducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   user: userReducer,
+  cards: cardReducer,
   packsList: packsListReducer,
 })
 
@@ -27,6 +29,7 @@ export type AppActionsType =
   | UserActionsType
   | AppReducerActionsType
   | AuthReducersActionType
+  | CardReducerActionType
   | PacksListActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<
