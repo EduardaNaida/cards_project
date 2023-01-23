@@ -33,23 +33,21 @@ export const MyPack = () => {
     const {packId} = useParams()
     const navigate = useNavigate()
 
-    const [rows, setRows] = useState<CardsType[] | []>([])
     const [value, setValue] = useState<number | null>()
+
 
     const page = UseAppSelector((state) => state.cards.page)
     const pageCount = UseAppSelector((state) => state.cards.pageCount)
     const cardTotalCount = UseAppSelector((state) => state.cards.cardsTotalCount)
     const cards = UseAppSelector((state) => state.cards.cards)
-    const searchValue = UseAppSelector((state) => state.cards.search)
-
+    const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
 
 
     useEffect(() => {
         if (packId) {
             dispatch(getCardsTC(packId))
-            setRows(cards)
         }
-    }, [dispatch, packId, page, pageCount, searchValue])
+    }, [dispatch, packId, page, pageCount, cardQuestion])
 
     const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setCardsPageAC(value))
@@ -71,6 +69,7 @@ export const MyPack = () => {
         }
     }
 
+
     const removeCard = (id: string) => {
         dispatch(removeCardsTC(id))
     }
@@ -78,10 +77,12 @@ export const MyPack = () => {
         dispatch(updateCardsTC({_id: id, question: 'hwwwwwww'}))
     }
 
+
     const searchHandler = (value: string) => {
         console.log(value)
         dispatch(setSearchCardAC(value))
     }
+
     return (
         <div className={style.container}>
             <IconButton
@@ -94,7 +95,7 @@ export const MyPack = () => {
                 <p className={style.text}>Back to Packs List</p>
             </IconButton>
             <div className={style.main}>
-                <Title title={'My Pack'}/>
+                <Title title={'My pack'}/>
                 <SuperButton className={style.button} onClick={addCard}>
                     Add new card
                 </SuperButton>
@@ -116,19 +117,19 @@ export const MyPack = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {rows.map((row) => {
-                                    const formattedDate = formatingDate(row.updated)
+                                {cards.map((cards) => {
+                                    const formattedDate = formatingDate(cards.updated)
                                     return (
-                                        <TableRow key={row._id}>
+                                        <TableRow key={cards._id}>
                                             <StyledTableCell component="th" scope="row">
-                                                {row.question}
+                                                {cards.question}
                                             </StyledTableCell>
-                                            <StyledTableCell align="right">{row.answer}</StyledTableCell>
+                                            <StyledTableCell align="right">{cards.answer}</StyledTableCell>
                                             <StyledTableCell align="right">{formattedDate}</StyledTableCell>
                                             <StyledTableCell align="right">
                                                 <Rating
                                                     name="simple-controlled"
-                                                    value={row.grade}
+                                                    value={cards.grade}
                                                     onChange={(event, newValue) => {
                                                         setValue(newValue)
                                                     }}
@@ -136,16 +137,16 @@ export const MyPack = () => {
                                             </StyledTableCell>
                                             <StyledTableCell align="right">
                                                 <IconButton
-                                                    // onClick={() => {
-                                                    //     updateCard(row._id)
-                                                    // }}
+                                                    onClick={() => {
+                                                        updateCard(cards._id)
+                                                    }}
                                                 >
                                                     <BorderColorIcon/>
                                                 </IconButton>
                                                 <IconButton
-                                                    // onClick={() => {
-                                                    //     removeCard(row._id)
-                                                    // }}
+                                                    onClick={() => {
+                                                        removeCard(cards._id)
+                                                    }}
                                                 >
                                                     <DeleteForeverIcon/>
                                                 </IconButton>

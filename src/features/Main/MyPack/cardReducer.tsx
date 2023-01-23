@@ -30,11 +30,11 @@ const initialState: InitialStateType = {
     page: 1,
     pageCount: 5,
     packUserId: '',
-    search: ''
+    cardQuestion: ''
 }
 
 type SearchType = {
-    search: string
+    cardQuestion: string
 }
 
 export type InitialStateType = ResponseCardsType & SearchType
@@ -73,9 +73,9 @@ export const cardReducer = (
                 ...state, cardsTotalCount: action.cardsTotalCount
             }
         }
-        case "CARDS/SET-SEARCH-CARD": {
+        case "CARDS/SET-SEARCH-QUESTION": {
             return {
-                ...state, search: action.searchValue
+                ...state, cardQuestion: action.searchQuestion
             }
         }
     }
@@ -99,16 +99,15 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
     cardsTotalCount
 } as const)
 
-export const setSearchCardAC = (searchValue: string) => ({type: 'CARDS/SET-SEARCH-CARD', searchValue} as const)
+export const setSearchCardAC = (searchQuestion: string) => ({type: 'CARDS/SET-SEARCH-QUESTION', searchQuestion} as const)
 
 export const getCardsTC =
     (cardsPack_id: string): AppThunk =>
         (dispatch, getState) => {
-            const {page, pageCount, search} = getState().cards
+            const {page, pageCount, cardQuestion} = getState().cards
 
-            console.log(search)
             cardsAPI
-                .getCards({cardsPack_id, page, pageCount})
+                .getCards({cardsPack_id, page, pageCount, cardQuestion})
                 .then((res) => {
                     dispatch(getCardsAC(res.data.cards))
                     dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
@@ -143,7 +142,7 @@ export const removeCardsTC =
             cardsAPI
                 .deleteCards(id)
                 .then((res) => {
-                    dispatch(getCardsTC(res.data.deleteCard.cardsPack_id))
+                    dispatch(getCardsTC(res.data.deletedCard.cardsPack_id))
                 })
                 .catch((e: AxiosError<{ error: string }>) => {
                     const error = e.response
