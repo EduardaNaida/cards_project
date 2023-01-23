@@ -51,8 +51,8 @@ export type CardType = {
 
 export type ParamsTypeCards = {
   cardAnswer?: string
-  cardQuestion?: string
-  cardsPack_id?: string
+  cardQuestion: string
+  cardsPack_id: string
   min?: number
   max?: number
   sortCards?: string
@@ -91,7 +91,7 @@ export type ResponsePostCardsType = {
 }
 
 export type ResponseDeleteCardsType = {
-  deleteCard: CardsType
+  deletedCard: CardsType
 }
 
 export type ResponseUpdatedCardsType = {

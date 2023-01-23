@@ -7,7 +7,7 @@ import { UserNavbarAvatar } from '../UserNavbarAvatar/userNavbarAvatar'
 export const Navbar = () => {
   const userName = UseAppSelector((state) => state.user.name)
   const userId = UseAppSelector((state) => state.user._id)
-  const packId = '63c5752d1a649e2a70686311'
+  const packId = useParams()
 
   const userNavLinks =
     userId !== null ? (

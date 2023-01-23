@@ -25,7 +25,7 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) 
   }
   const handleNavigateToPack = () => {
     if (packData.user_id === myUserId) {
-      navigate('/my-pack/' + packData.user_id)
+      navigate('/my-pack/' + packData._id)
     } else {
       navigate('/friends-pack/' + packData.user_id)
     }
