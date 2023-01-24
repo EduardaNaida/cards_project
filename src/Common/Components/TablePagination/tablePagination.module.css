@@ -1,14 +1,13 @@
-.pagination{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 32px;
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 32px;
 }
-.pagination >div>div>div {
-    padding: 5px;
-    align-items: center;
+.pagination > div > div > div {
+  padding: 5px;
+  align-items: center;
 }
-.pagination >div {
-    justify-content: center;
-
+.pagination > div {
+  justify-content: center;
 }

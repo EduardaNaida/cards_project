@@ -2,11 +2,14 @@ import { AnyAction, applyMiddleware, combineReducers, legacy_createStore } from 
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { appReducer, AppReducerActionsType } from './appReducer'
-import { authReducer, AuthReducersActionType } from '../features/authReducer'
-import { cardReducer, CardReducerActionType } from '../features/Main/MyPack/cardReducer'
-import { PacksListActionsType, packsListReducer } from '../features/Main/PacksList/packsListReducer'
-import {UserActionsType, userReducer} from '../features/userReducer';
-import {FriendsPackActionsType, friendsPackReducer} from '../features/Main/FriendsPack/friendsPackReducer';
+import { authReducer, AuthReducersActionType } from '../Features/authReducer'
+import { cardReducer, CardReducerActionType } from '../Features/Main/MyPack/cardReducer'
+import { PacksListActionsType, packsListReducer } from '../Features/Main/PacksList/packsListReducer'
+import { UserActionsType, userReducer } from '../Features/userReducer'
+import {
+  FriendsPackActionsType,
+  friendsPackReducer,
+} from '../Features/Main/FriendsPack/friendsPackReducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
