@@ -5,6 +5,7 @@ type AddModalType = {
     title: string
     callback: () => void
 }
+
 export const AddModal = (props: AddModalType) => {
     return (
         <BasicModal title={props.title}>

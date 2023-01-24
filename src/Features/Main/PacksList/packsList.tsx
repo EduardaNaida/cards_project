@@ -22,7 +22,6 @@ import {
 } from '@mui/material'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import s from '../main.module.css'
-import SuperButton from '../../../Common/Components/SuperButton/superButton'
 import {
   addNewPackTC,
   getPacksDataTC,
