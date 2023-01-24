@@ -16,7 +16,6 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { CardsType } from '../../../API/CardsApi/cardsApi'
 import { formatingDate } from '../../../utils/formatDate'
 import { IconButton, Rating, SelectChangeEvent } from '@mui/material'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
@@ -28,6 +27,7 @@ import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableS
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { Title } from '../../../Common/Components/Title/title'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
+import {AddModal} from "../../../Common/Components/BasicModals/AddModal/addModal";
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
@@ -92,9 +92,7 @@ export const MyPack = () => {
       </IconButton>
       <div className={style.main}>
         <Title title={'My pack'} />
-        <SuperButton className={style.button} onClick={addCard}>
-          Add new card
-        </SuperButton>
+        <AddModal title={'Add new card'} callback={addCard}/>
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
