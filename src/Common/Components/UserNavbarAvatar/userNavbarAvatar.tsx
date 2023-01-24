@@ -5,7 +5,7 @@ import avatar from '../../../Assets/Img/avatar.jpg'
 import s from './userNavbarAvatar.module.css'
 import LogoutIcon from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
-import { logoutTC } from '../../../features/userReducer'
+import { logoutTC } from '../../../Features/userReducer'
 import { useNavigate } from 'react-router-dom'
 
 export const UserNavbarAvatar = () => {
