@@ -11,7 +11,7 @@ import {
   TableRow,
   TableSortLabel,
 } from '@mui/material'
-import sMain from '../Main.module.css'
+import sMain from '../main.module.css'
 import s from './friendsPack.module.css'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import { addFriendPaginationSwitchAC, setCardsTC } from './friendsPackReducer'
