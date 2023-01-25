@@ -1,6 +1,6 @@
 .navToMain {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   margin-top: 24px;
   margin-bottom: 27px;
