@@ -15,7 +15,7 @@ import {
 import sMain from '../main.module.css'
 import s from './friendsPack.module.css'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { setCardsTC, setFriendPageAC, setFriendPageCountAC } from './friendsPackReducer'
+import { setFriendsCardsTC, setFriendPageAC, setFriendPageCountAC } from './friendsPackReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { formatingDate } from '../../../utils/formatDate'
 import { NavLink, useParams } from 'react-router-dom'
@@ -47,7 +47,7 @@ export const FriendsPack = () => {
 
   useEffect(() => {
     dispatch(
-      setCardsTC({
+      setFriendsCardsTC({
         cardsPack_id: packIdParams,
         cardQuestion: search,
         page,

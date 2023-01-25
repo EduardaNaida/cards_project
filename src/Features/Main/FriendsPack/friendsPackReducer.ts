@@ -6,6 +6,7 @@ import {
 } from '../../../API/CardsApi/cardsApi'
 import { AppThunk } from '../../../App/store'
 import { AxiosError } from 'axios'
+import { setAppErrorAC, setAppStatusAC } from '../../../App/appReducer'
 
 const initialState = {
   cards: [] as Array<CardsType>,
@@ -45,18 +46,24 @@ export const setFriendPageCountAC = (pageCount: number) =>
   ({ type: 'FRIENDS-PACK/SET-PAGE-COUNT', pageCount } as const)
 
 // THUNK CREATORS
-export const setCardsTC = (params: ParamsTypeCards): AppThunk => {
+export const setFriendsCardsTC = (params: ParamsTypeCards): AppThunk => {
   return (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     cardsAPI
       .getCards(params)
       .then((res) => {
         dispatch(setFriendCardsAC(res.data))
+        dispatch(setAppStatusAC('succeeded'))
       })
       .catch((e: AxiosError<{ error: string }>) => {
+        dispatch(setAppStatusAC('failed'))
         const error = e.response
           ? e.response.data.error
           : e.message + ', more details in the console'
-        console.log(error)
+        dispatch(setAppErrorAC(error))
+      })
+      .finally(() => {
+        dispatch(setAppStatusAC('idle'))
       })
   }
 }
