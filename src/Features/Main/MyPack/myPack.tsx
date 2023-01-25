@@ -27,9 +27,9 @@ import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableS
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { Title } from '../../../Common/Components/Title/title'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import {AddModal} from "../../../Common/Components/BasicModals/AddModal/addModal";
-import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal";
-import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal";
+import { AddModal } from '../../../Common/Components/BasicModals/AddModal/addModal'
+import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
@@ -94,7 +94,7 @@ export const MyPack = () => {
       </IconButton>
       <div className={style.main}>
         <Title title={'My pack'} />
-        <AddModal title={'Add new card'} callback={addCard}/>
+        <AddModal title={'Add new card'} callback={addCard} />
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
@@ -132,16 +132,19 @@ export const MyPack = () => {
                         />
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        <EditModal name={cards.question}
-                                   text={'Edit Card'}
-                                   callback={updateCard}
-                                   id={cards._id}
-                                   type={'card'}
+                        <EditModal
+                          name={cards.question}
+                          text={'Edit Card'}
+                          callback={updateCard}
+                          id={cards._id}
+                          type={'card'}
                         />
-                        <DeleteModal name={cards.question}
-                                     text={'Delete Card'}
-                                     callback={removeCard}
-                                     id={cards._id}/>
+                        <DeleteModal
+                          name={cards.question}
+                          text={'Delete Card'}
+                          callback={removeCard}
+                          id={cards._id}
+                        />
                       </StyledTableCell>
                     </TableRow>
                   )

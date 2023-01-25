@@ -36,7 +36,7 @@ import { TablePaginationCustom } from '../../../Common/Components/TablePaginatio
 import { PacksListTableRow } from './packsListTableRow'
 import Slider from '@mui/material/Slider'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
-import {AddModal} from "../../../Common/Components/BasicModals/AddModal/addModal";
+import { AddModal } from '../../../Common/Components/BasicModals/AddModal/addModal'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(() => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -130,7 +130,7 @@ export const PacksList = () => {
       <div className={s.wrapper}>
         <div className={s.title}>
           <h2>Packs list</h2>
-          <AddModal title={'Add new pack'} callback={handleAddNewPack}/>
+          <AddModal title={'Add new pack'} callback={handleAddNewPack} />
         </div>
         <div className={s.toolbar}>
           <TableSearchBar onChange={hanldeSetSearchValue} />
