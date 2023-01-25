@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from "react"
 import {
   addCardsTC,
   getCardsTC,
@@ -7,34 +7,30 @@ import {
   setCardsPageCountAC,
   setSearchCardAC,
   updateCardsTC,
-} from './cardReducer'
-import { AppDispatch, UseAppSelector } from '../../../App/store'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { formatingDate } from '../../../utils/formatDate'
-import { IconButton, Rating, SelectChangeEvent } from '@mui/material'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { useNavigate, useParams } from 'react-router-dom'
-import SuperButton from '../../../Common/Components/SuperButton/superButton'
-import style from './myPack.module.css'
-import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
-import { Title } from '../../../Common/Components/Title/title'
-import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import { AddModal } from '../../../Common/Components/BasicModals/AddModal/addModal'
-import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
-import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+} from "./cardReducer"
+import {AppDispatch, UseAppSelector} from "../../../App/store"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import Paper from "@mui/material/Paper"
+import {StyledTableCell} from "../../../Common/Components/StyledTableComponents/styledTableCell"
+import {formatingDate} from "../../../utils/formatDate"
+import {Rating, SelectChangeEvent} from "@mui/material"
+import {useParams} from "react-router-dom"
+import style from "./myPack.module.css"
+import {TableSearchBar} from "../../../Common/Components/TableSearchbar/tableSearchbar"
+import {Title} from "../../../Common/Components/Title/title"
+import {TablePaginationCustom} from "../../../Common/Components/TablePagination/tablePaginationCustom"
+import {AddPackModal} from "../../../Common/Components/BasicModals/AddPackModal/addPackModal"
+import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal"
+import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal"
+import {NavToMain} from "../../../Common/Components/NavToMain/navToMain";
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
   const { packId } = useParams()
-  const navigate = useNavigate()
 
   const [value, setValue] = useState<number | null>()
 
@@ -83,18 +79,10 @@ export const MyPack = () => {
 
   return (
     <div className={style.container}>
-      <IconButton
-        sx={{ display: 'flex', justifyContent: 'flex-start', color: 'black' }}
-        onClick={() => {
-          navigate('/packs-list')
-        }}
-      >
-        <KeyboardBackspaceIcon />
-        <p className={style.text}>Back to Packs List</p>
-      </IconButton>
+      <NavToMain/>
       <div className={style.main}>
         <Title title={'My pack'} />
-        <AddModal title={'Add new card'} callback={addCard} />
+        <AddPackModal title={'Add new card'} callback={addCard} />
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>

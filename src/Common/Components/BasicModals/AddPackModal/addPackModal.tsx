@@ -2,10 +2,11 @@ import React from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import SuperButton from '../../SuperButton/superButton'
+import {Button, TextField} from "@mui/material";
 
 type AddModalType = {
   title: string
-  callback: () => void
+  callback: (newValue: string) => void
 }
 const style = {
   position: 'absolute' as 'absolute',
@@ -19,10 +20,22 @@ const style = {
   p: 4,
 }
 
-export const AddModal = (props: AddModalType) => {
+export const AddPackModal = (props: AddModalType) => {
   const [open, setOpen] = React.useState(false)
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const [inputValue, setInputValue] = React.useState('')
+
+  const handleChangeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.currentTarget.value)
+  }
+  const handleButtonSubmit = () => {
+    props.callback(inputValue)
+    handleClose()
+    setInputValue('')
+  }
   return (
     <>
       <SuperButton onClick={handleOpen}>{props.title}</SuperButton>
@@ -34,8 +47,15 @@ export const AddModal = (props: AddModalType) => {
       >
         <Box sx={style}>
           <h2>{props.title}</h2>
-          <input type="text" />
-          <button onClick={props.callback}>Save</button>
+          <TextField
+           fullWidth
+           value={inputValue}
+           onChange={handleChangeInputValue}
+           id="standard-basic"
+           label="Standard"
+           variant="standard"
+          />
+          <Button onClick={handleButtonSubmit}>Save</Button>
         </Box>
       </Modal>
     </>

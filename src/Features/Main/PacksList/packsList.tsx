@@ -36,7 +36,7 @@ import { TablePaginationCustom } from '../../../Common/Components/TablePaginatio
 import { PacksListTableRow } from './packsListTableRow'
 import Slider from '@mui/material/Slider'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
-import { AddModal } from '../../../Common/Components/BasicModals/AddModal/addModal'
+import { AddPackModal } from '../../../Common/Components/BasicModals/AddPackModal/addPackModal'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(() => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -71,8 +71,8 @@ export const PacksList = () => {
   }, [page, pageCount, packsChoose, searchVal, dispatch, searchParamsMin, searchParamsMax])
   console.log(searchParamsMin)
 
-  const handleAddNewPack = () => {
-    dispatch(addNewPackTC())
+  const handleAddNewPack = (newPackName: string) => {
+    dispatch(addNewPackTC(newPackName))
   }
 
   const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -83,9 +83,7 @@ export const PacksList = () => {
     dispatch(setPageCountAC(+event.target.value))
   }
 
-  console.log(cardPacks)
   const mappedPacks = cardPacks.map((packData) => {
-    console.log(packData)
     return <PacksListTableRow packData={packData} />
   })
 
@@ -130,7 +128,7 @@ export const PacksList = () => {
       <div className={s.wrapper}>
         <div className={s.title}>
           <h2>Packs list</h2>
-          <AddModal title={'Add new pack'} callback={handleAddNewPack} />
+          <AddPackModal title={'Add new pack'} callback={handleAddNewPack} />
         </div>
         <div className={s.toolbar}>
           <TableSearchBar onChange={hanldeSetSearchValue} />
