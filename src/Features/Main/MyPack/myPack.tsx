@@ -28,6 +28,8 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { Title } from '../../../Common/Components/Title/title'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
 import {AddModal} from "../../../Common/Components/BasicModals/AddModal/addModal";
+import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal";
+import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal";
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
@@ -130,20 +132,14 @@ export const MyPack = () => {
                         />
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        <IconButton
-                          onClick={() => {
-                            updateCard(cards._id)
-                          }}
-                        >
-                          <BorderColorIcon />
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            removeCard(cards._id)
-                          }}
-                        >
-                          <DeleteForeverIcon />
-                        </IconButton>
+                        <EditModal name={cards.question}
+                                   title={'Edit Card'}
+                                   callback={updateCard}
+                                   id={cards._id}/>
+                        <DeleteModal name={cards.question}
+                                     title={'Delete Card'}
+                                     callback={removeCard}
+                                     id={cards._id}/>
                       </StyledTableCell>
                     </TableRow>
                   )

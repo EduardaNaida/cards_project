@@ -13,9 +13,10 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px',
+    borderRadius: '2px',
     boxShadow: 24,
-    p: 4,
+    p: 2,
 };
 
 export const BasicModal: FC<BasicModalType> = ({children, type}) => {

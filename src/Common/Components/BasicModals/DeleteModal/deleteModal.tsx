@@ -1,5 +1,7 @@
 import React from 'react';
 import {BasicModal} from "../basicModal";
+import style from "./deleteModal.module.css";
+import {Button} from "@mui/material";
 
 type DeleteModalType = {
     title: string
@@ -15,10 +17,18 @@ export const DeleteModal = (props: DeleteModalType) => {
     }
     return (
         <BasicModal type={'delete'}>
-            <div>
-                <h2>{props.title}</h2>
-                <p>Do you really want to delete {props.name} ?</p>
-                <button onClick={deleteHandler}>Delete</button>
+            <div className={style.deleteBlock}>
+                <div className={style.description}>
+                    <div className={style.title}>
+                        <p>{props.title}</p>
+                    </div>
+                    <div className={style.question}>
+                        <p>Do you really want to delete<span> {props.name}</span>?</p>
+                    </div>
+                </div>
+                <div className={style.buttonBlock}>
+                    <Button onClick={deleteHandler} className={style.button}>Delete</Button>
+                </div>
             </div>
         </BasicModal>
     );
