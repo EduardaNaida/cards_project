@@ -4,12 +4,12 @@ import {IconButton, TableRow, Tooltip} from '@mui/material'
 import {StyledTableCell} from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import SchoolIcon from '@mui/icons-material/School'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import {CardPacksUpdateType} from '../../../API/CardsApi/cardsApi'
 import {deletePackTC, updatePackTC} from './packsListReducer'
 import {useAppDispatch, UseAppSelector} from '../../../App/store'
 import {useNavigate} from 'react-router-dom'
 import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal";
+import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal";
 
 export type PacksListTableRowPropsType = {
     packData: CardPacksUpdateType
@@ -60,24 +60,20 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
                 </Tooltip>
                 {isMyPack && (
                     <>
-                        <Tooltip title="update pack name">
-                            <IconButton
-                                onClick={() => {
-                                    handleUpdateTask(packData._id)
-                                }}
-                            >
-                                <BorderColorIcon/>
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="delete my pack">
-                            <IconButton onClick={() => {
-                                handleDeletePack(packData._id)
-                            }}>
-                                <DeleteForeverIcon/>
-                            </IconButton>
-                        </Tooltip>
+                    <Tooltip title="update pack name">
+                        <EditModal name={packData.name}
+                                   title={'Edit pack'}
+                                   callback={handleUpdateTask}
+                                   id={packData._id}/>
+                    </Tooltip>
+                    <Tooltip title="delete my pack">
+                        <DeleteModal name={packData.name}
+                                     title={'Delete pack'}
+                                     callback={handleDeletePack}
+                                     id={packData._id}/>
+                    </Tooltip>
                     </>
-                )}
+                    )}
             </StyledTableCell>
         </TableRow>
     )

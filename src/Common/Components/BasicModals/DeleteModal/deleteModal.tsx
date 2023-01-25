@@ -1,12 +1,11 @@
 import React from 'react';
 import {BasicModal} from "../basicModal";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import {IconButton} from "@mui/material";
 
 type DeleteModalType = {
     title: string
     callback: (id: string) => void
     id: string
+    name: string
 }
 
 export const DeleteModal = (props: DeleteModalType) => {
@@ -15,13 +14,11 @@ export const DeleteModal = (props: DeleteModalType) => {
       props.callback(props.id)
     }
     return (
-        <BasicModal title={props.title}>
+        <BasicModal type={'delete'}>
             <div>
-                <p>Do you really want to delete {props.title} ?</p>
-                <IconButton>
-                    <DeleteForeverIcon onClick={deleteHandler} />
-                    Delete
-                </IconButton>
+                <h2>{props.title}</h2>
+                <p>Do you really want to delete {props.name} ?</p>
+                <button onClick={deleteHandler}>Delete</button>
             </div>
         </BasicModal>
     );

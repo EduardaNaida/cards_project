@@ -1,10 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {FC, ReactElement} from "react";
-import SuperButton from "../SuperButton/superButton";
+import {IconButton} from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import BorderColorIcon from "@mui/icons-material/BorderColor";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -18,19 +18,24 @@ const style = {
     p: 4,
 };
 
-type BasicModalType = {
-    children: ReactElement
-    title: string
-}
-
-export const BasicModal: FC<BasicModalType> = ({children, title}) => {
+export const BasicModal: FC<BasicModalType> = ({children, type}) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     return (
-        <div>
-            <SuperButton onClick={handleOpen}>{title}</SuperButton>
+        <>
+            {type === 'delete' ? (
+                    <IconButton onClick={handleOpen}>
+                        <DeleteForeverIcon/>
+                    </IconButton>
+                )
+                : (
+                    <IconButton onClick={handleOpen}>
+                        <BorderColorIcon/>
+                    </IconButton>
+                )}
+
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -41,6 +46,11 @@ export const BasicModal: FC<BasicModalType> = ({children, title}) => {
                     {children}
                 </Box>
             </Modal>
-        </div>
+        </>
     );
+}
+
+type BasicModalType = {
+    children: ReactElement
+    type: string
 }
