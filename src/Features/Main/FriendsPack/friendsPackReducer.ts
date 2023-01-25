@@ -5,8 +5,8 @@ import {
   ResponseCardsType,
 } from '../../../API/CardsApi/cardsApi'
 import { AppThunk } from '../../../App/store'
-import { AxiosError } from 'axios'
-import { setAppErrorAC, setAppStatusAC } from '../../../App/appReducer'
+import { setAppStatusAC } from '../../../App/appReducer'
+import { handleError } from '../../../utils/errorUtils'
 
 const initialState = {
   cards: [] as Array<CardsType>,
@@ -55,12 +55,8 @@ export const setFriendsCardsTC = (params: ParamsTypeCards): AppThunk => {
         dispatch(setFriendCardsAC(res.data))
         dispatch(setAppStatusAC('succeeded'))
       })
-      .catch((e: AxiosError<{ error: string }>) => {
-        dispatch(setAppStatusAC('failed'))
-        const error = e.response
-          ? e.response.data.error
-          : e.message + ', more details in the console'
-        dispatch(setAppErrorAC(error))
+      .catch((e) => {
+        handleError(e, dispatch)
       })
       .finally(() => {
         dispatch(setAppStatusAC('idle'))
