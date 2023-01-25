@@ -2,8 +2,9 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Button,
-  Pagination,
   Paper,
+  Rating,
+  SelectChangeEvent,
   Table,
   TableBody,
   TableContainer,
@@ -14,7 +15,7 @@ import {
 import sMain from '../main.module.css'
 import s from './friendsPack.module.css'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { addFriendPaginationSwitchAC, setCardsTC } from './friendsPackReducer'
+import { setCardsTC, setFriendPageAC, setFriendPageCountAC } from './friendsPackReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { formatingDate } from '../../../utils/formatDate'
 import { NavLink, useParams } from 'react-router-dom'
@@ -27,6 +28,7 @@ import {
   selectFriendsCardsPageCount,
   selectFriendsCardsTotalCount,
 } from '../../../Common/Selectors/friendsPackSelector'
+import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
@@ -45,16 +47,26 @@ export const FriendsPack = () => {
 
   useEffect(() => {
     dispatch(
-      setCardsTC({ cardsPack_id: packIdParams, cardQuestion: search, page, sortCards: sort }),
+      setCardsTC({
+        cardsPack_id: packIdParams,
+        cardQuestion: search,
+        page,
+        pageCount,
+        sortCards: sort,
+      }),
     )
-  }, [debouncedValue, page, sort])
+  }, [debouncedValue, page, pageCount, sort])
 
   const handleChangePage = (event: ChangeEvent<unknown>, page: number) => {
-    dispatch(addFriendPaginationSwitchAC(page))
+    dispatch(setFriendPageAC(page))
   }
 
   const handleSortCards = (property: string) => {
     setSort(sort === `0${property}` ? `1${property}` : `0${property}`)
+  }
+
+  const handleSetPageCount = (event: SelectChangeEvent) => {
+    dispatch(setFriendPageCountAC(+event.target.value))
   }
 
   return (
@@ -74,21 +86,27 @@ export const FriendsPack = () => {
           <TableHead>
             <TableRow>
               <StyledTableCell onClick={() => handleSortCards('question')}>
+                Question
                 <TableSortLabel
                   active={sort === '0question' || sort === '1question'}
                   direction={sort === '1question' ? 'asc' : 'desc'}
                 />
-                Question
               </StyledTableCell>
               <StyledTableCell>Answer</StyledTableCell>
               <StyledTableCell onClick={() => handleSortCards('updated')}>
+                Last Updated
                 <TableSortLabel
                   active={sort === '0updated' || sort === '1updated'}
                   direction={sort === '1updated' ? 'asc' : 'desc'}
                 />
-                Last Updated
               </StyledTableCell>
-              <StyledTableCell>Grade</StyledTableCell>
+              <StyledTableCell onClick={() => handleSortCards('grade')}>
+                Grade
+                <TableSortLabel
+                  active={sort === '0grade' || sort === '1grade'}
+                  direction={sort === '1grade' ? 'asc' : 'desc'}
+                />
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -101,20 +119,21 @@ export const FriendsPack = () => {
                   </StyledTableCell>
                   <StyledTableCell>{row.answer}</StyledTableCell>
                   <StyledTableCell>{formattedDate}</StyledTableCell>
-                  <StyledTableCell>{row.grade}</StyledTableCell>
+                  <StyledTableCell>
+                    <Rating value={row.grade} />
+                  </StyledTableCell>
                 </TableRow>
               )
             })}
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination
-        count={Math.ceil(cardsTotalCount / pageCount)}
+      <TablePaginationCustom
+        pageCount={pageCount}
+        totalCountItems={cardsTotalCount}
+        handleSetPage={handleChangePage}
+        handleSetPageCount={handleSetPageCount}
         page={page}
-        onChange={handleChangePage}
-        variant="text"
-        shape="rounded"
-        color="primary"
       />
     </div>
   )
