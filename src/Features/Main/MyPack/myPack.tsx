@@ -133,11 +133,13 @@ export const MyPack = () => {
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         <EditModal name={cards.question}
-                                   title={'Edit Card'}
+                                   text={'Edit Card'}
                                    callback={updateCard}
-                                   id={cards._id}/>
+                                   id={cards._id}
+                                   type={'card'}
+                        />
                         <DeleteModal name={cards.question}
-                                     title={'Delete Card'}
+                                     text={'Delete Card'}
                                      callback={removeCard}
                                      id={cards._id}/>
                       </StyledTableCell>

@@ -38,18 +38,3 @@
 .description span {
     font-weight: 600;
 }
-
-.button {
-    background-color: #FF3636;
-    color: white;
-    border-radius: 30px;
-    width: 111px;
-    height: 36px;
-    font-size: 15px;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: none;
-}
-
-.button:hover {
-    color: #FF3636;
-}

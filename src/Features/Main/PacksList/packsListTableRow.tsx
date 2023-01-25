@@ -18,6 +18,7 @@ export type PacksListTableRowPropsType = {
 export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+
     const handleDeletePack = (pack_id: string) => {
         dispatch(deletePackTC(pack_id))
     }
@@ -62,13 +63,14 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
                     <>
                     <Tooltip title="update pack name">
                         <EditModal name={packData.name}
-                                   title={'Edit pack'}
-                                   callback={handleUpdateTask}
-                                   id={packData._id}/>
+                                   text={'Edit pack'}
+                                   callback={()=>{}}
+                                   id={packData._id}
+                                   type={'pack'}/>
                     </Tooltip>
                     <Tooltip title="delete my pack">
                         <DeleteModal name={packData.name}
-                                     title={'Delete pack'}
+                                     text={'Delete pack'}
                                      callback={handleDeletePack}
                                      id={packData._id}/>
                     </Tooltip>
