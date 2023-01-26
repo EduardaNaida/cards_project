@@ -1,14 +1,14 @@
-import React, {FC} from "react"
-import {formatingDate} from "../../../utils/formatDate"
-import {IconButton, TableRow, Tooltip} from "@mui/material"
-import {StyledTableCell} from "../../../Common/Components/StyledTableComponents/styledTableCell"
-import SchoolIcon from "@mui/icons-material/School"
-import {CardPacksUpdateType} from "../../../API/CardsApi/cardsApi"
-import {deletePackTC, updatePackTC} from "./packsListReducer"
-import {useAppDispatch, UseAppSelector} from "../../../App/store"
-import {useNavigate} from "react-router-dom"
-import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal"
-import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal"
+import React, { FC } from 'react'
+import { formatingDate } from '../../../utils/formatDate'
+import { IconButton, TableRow, Tooltip } from '@mui/material'
+import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import SchoolIcon from '@mui/icons-material/School'
+import { CardPacksUpdateType } from '../../../API/CardsApi/cardsApi'
+import { deletePackTC, updatePackTC } from './packsListReducer'
+import { useAppDispatch, UseAppSelector } from '../../../App/store'
+import { useNavigate } from 'react-router-dom'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
