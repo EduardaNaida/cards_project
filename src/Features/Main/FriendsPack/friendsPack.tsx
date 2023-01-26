@@ -5,10 +5,9 @@ import sMain from '../main.module.css'
 import s from './friendsPack.module.css'
 import { setFriendPageAC, setFriendPageCountAC, setFriendsCardsTC } from './friendsPackReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
-import { NavLink, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDebounce } from '../../../Common/Hooks/useDebounce'
 import { Title } from '../../../Common/Components/Title/title'
-import { KeyboardBackspace } from '@mui/icons-material'
 import {
   selectFriendsCardsPage,
   selectFriendsCardsPageCount,
@@ -16,6 +15,7 @@ import {
 } from '../../../Common/Selectors/friendsPackSelector'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
 import { FriendsPackTable } from './friendsPackTable'
+import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
@@ -24,6 +24,7 @@ export const FriendsPack = () => {
   const pageCount = UseAppSelector(selectFriendsCardsPageCount)
   const cardsTotalCount = UseAppSelector(selectFriendsCardsTotalCount)
 
+  const navigate = useNavigate()
   const { packId } = useParams()
   const packIdParams = packId ? packId : ''
 
@@ -31,6 +32,10 @@ export const FriendsPack = () => {
   const [sort, setSort] = useState('')
 
   const debouncedValue = useDebounce<string>(search, 500)
+
+  const handleNavigateToLearn = () => {
+    navigate(`/learn/${packIdParams}`)
+  }
 
   useEffect(() => {
     dispatch(
@@ -58,13 +63,12 @@ export const FriendsPack = () => {
 
   return (
     <div className={sMain.wrapper}>
-      <NavLink to={'/packs-list'} className={s.backLink}>
-        <KeyboardBackspace />
-        Back to Packs List
-      </NavLink>
+      <NavToMain />
       <div className={s.titleWrapper}>
         <Title title="Friend’s Pack" />
-        <Button variant="contained">Learn to pack</Button>
+        <Button variant="contained" onClick={handleNavigateToLearn}>
+          Learn to pack
+        </Button>
       </div>
       <TableSearchBar onChange={setSearch} />
       <FriendsPackTable sort={sort} handleSortCards={handleSortCards} />

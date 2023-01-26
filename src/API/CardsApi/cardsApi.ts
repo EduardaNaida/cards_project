@@ -61,7 +61,7 @@ export type ParamsTypeCards = {
 }
 
 export type CardsType = {
-  answer: number
+  answer: string
   question: string
   cardsPack_id: string
   grade: number
