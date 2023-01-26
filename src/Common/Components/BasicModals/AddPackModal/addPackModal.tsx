@@ -5,6 +5,7 @@ import SuperButton from '../../SuperButton/superButton'
 import {Button, TextField} from "@mui/material";
 import {Title} from "../../Title/title";
 import stylePack from "./addPackModal.module.css";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export const AddPackModal = (props: AddModalType) => {
@@ -36,6 +37,7 @@ export const AddPackModal = (props: AddModalType) => {
           <div className={stylePack.packBlock}>
             <div className={stylePack.title}>
               <Title title={props.title}/>
+              <CloseIcon fontSize={'medium'} onClick={handleClose}/>
             </div>
             <TextField
                 fullWidth
@@ -66,9 +68,10 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '2px',
+  borderRadius: '2px',
   boxShadow: 24,
-  p: 4,
+  p: 3,
 }
 
 const styleButton = {

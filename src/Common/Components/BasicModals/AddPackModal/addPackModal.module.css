@@ -6,6 +6,11 @@
 }
 
 .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
     border-bottom: 2px solid #d9d9d9;
 }
 

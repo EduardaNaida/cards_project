@@ -1,15 +1,25 @@
 .cardBlock {
     display: flex;
     flex-direction: column;
-    height: 240px;
+    height: 260px;
     justify-content: space-between;
 }
 
 .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
     border-bottom: 2px solid #d9d9d9;
 }
+
 
 .buttonBlock {
     display: flex;
     justify-content: flex-end;
 }
+
+/*.cardBlock div:not(:first-child) {*/
+/*    padding: 0 20px 0 20px;*/
+/*}*/

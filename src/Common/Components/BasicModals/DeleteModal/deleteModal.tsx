@@ -11,6 +11,7 @@ type DeleteModalType = {
 }
 
 export const DeleteModal = (props: DeleteModalType) => {
+
   const deleteHandler = () => {
     props.callback(props.id)
   }

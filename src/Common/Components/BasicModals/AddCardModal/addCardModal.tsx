@@ -5,6 +5,7 @@ import SuperButton from '../../SuperButton/superButton'
 import {Button, TextField} from "@mui/material";
 import {Title} from "../../Title/title";
 import styleCard from "./addCardModal.module.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 
 export const AddCardModal = (props: AddCardModalType) => {
@@ -41,23 +42,24 @@ export const AddCardModal = (props: AddCardModalType) => {
                     <div className={styleCard.cardBlock}>
                         <div className={styleCard.title}>
                             <Title title={props.title}/>
+                            <CloseIcon fontSize={'medium'} onClick={handleClose}/>
                         </div>
-                        <TextField
-                            fullWidth
-                            value={newQuestion}
-                            onChange={handleChangeQuestion}
-                            id="standard-basic"
-                            label="Question"
-                            variant="standard"
-                        />
-                        <TextField
-                            fullWidth
-                            value={newAnswer}
-                            onChange={handleChangeAnswer}
-                            id="standard-basic"
-                            label="Answer"
-                            variant="standard"
-                        />
+                            <TextField
+                                fullWidth
+                                value={newQuestion}
+                                onChange={handleChangeQuestion}
+                                id="standard-basic"
+                                label="Question"
+                                variant="standard"
+                            />
+                            <TextField
+                                fullWidth
+                                value={newAnswer}
+                                onChange={handleChangeAnswer}
+                                id="standard-basic"
+                                label="Answer"
+                                variant="standard"
+                            />
                         <div className={styleCard.buttonBlock}>
                             <Button sx={styleButton} onClick={handleButtonSubmit}>Save</Button>
                         </div>
@@ -82,7 +84,7 @@ const style = {
     border: '2px',
     borderRadius: '2px',
     boxShadow: 24,
-    p: 4,
+    p: 3,
 }
 
 const styleButton = {
