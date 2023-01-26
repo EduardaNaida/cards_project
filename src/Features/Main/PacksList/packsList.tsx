@@ -123,6 +123,14 @@ export const PacksList = () => {
     }
   }
 
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows = pageCount - cardPacks.length
+  const currentEmptyRows = emptyRows > 0 && (
+    <TableRow style={{ height: 53 * emptyRows }}>
+      <StyledTableCell colSpan={6} />
+    </TableRow>
+  )
+
   return (
     <div>
       <div className={s.wrapper}>
@@ -217,7 +225,10 @@ export const PacksList = () => {
                 <StyledTableCell align="right">Actions</StyledTableCell>
               </TableRow>
             </TableHead>
-            <TableBody>{mappedPacks}</TableBody>
+            <TableBody>
+              {mappedPacks}
+              {currentEmptyRows}
+            </TableBody>
           </Table>
         </TableContainer>
         <TablePaginationCustom

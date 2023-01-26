@@ -1,11 +1,10 @@
 import * as React from 'react'
+import { FC, ReactElement } from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { FC, ReactElement } from 'react'
 import { IconButton } from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
-import CloseIcon from '@mui/icons-material/Close'
 
 const style = {
   position: 'absolute' as 'absolute',

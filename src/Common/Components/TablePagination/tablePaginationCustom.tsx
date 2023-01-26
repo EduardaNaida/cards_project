@@ -33,7 +33,7 @@ export const TablePaginationCustom: FC<TablePaginationCustomPropsType> = ({
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
         >
-          <MenuItem value={pageCount}>{pageCount}</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
           <MenuItem value={7}>7</MenuItem>
           <MenuItem value={10}>10</MenuItem>
         </Select>
