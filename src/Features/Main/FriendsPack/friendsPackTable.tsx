@@ -27,7 +27,7 @@ export const FriendsPackTable: FC<FriendsPackPropsType> = ({ sort, handleSortCar
         <StyledTableCell>{row.answer}</StyledTableCell>
         <StyledTableCell>{formattedDate}</StyledTableCell>
         <StyledTableCell>
-          <Rating value={row.grade} />
+          <Rating name="simple-controlled" value={row.grade} />
         </StyledTableCell>
       </TableRow>
     )

@@ -12,6 +12,7 @@ import CheckEmailPage from '../../../Features/Password/CheckEmailPage/checkEmail
 import { PacksList } from '../../../Features/Main/PacksList/packsList'
 import { FriendsPack } from '../../../Features/Main/FriendsPack/friendsPack'
 import { MyPack } from '../../../Features/Main/MyPack/myPack'
+import { Learn } from '../../../Features/Learn/learn'
 
 const Main = () => {
   const userId = UseAppSelector((state) => state.user._id)
@@ -26,6 +27,7 @@ const Main = () => {
             <Route path={'/packs-list'} element={<PacksList />} />
             <Route path={'/friends-pack/:packId'} element={<FriendsPack />} />
             <Route path={'/my-pack/:packId'} element={<MyPack />} />
+            <Route path={'/learn/:packId'} element={<Learn />} />
             <Route path="/login" element={<Navigate to="/profile" replace />} />
             <Route path="*" element={<Navigate to="/profile" replace />} />
           </>
