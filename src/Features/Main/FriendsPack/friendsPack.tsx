@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useEffect, useState} from "react"
-import {TableSearchBar} from "../../../Common/Components/TableSearchbar/tableSearchbar"
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import {
   Button,
   Pagination,
@@ -10,23 +10,23 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-} from "@mui/material"
-import sMain from "../main.module.css"
-import s from "./friendsPack.module.css"
-import {StyledTableCell} from "../../../Common/Components/StyledTableComponents/styledTableCell"
-import {addFriendPaginationSwitchAC, setCardsTC} from "./friendsPackReducer"
-import {useAppDispatch, UseAppSelector} from "../../../App/store"
-import {formatingDate} from "../../../utils/formatDate"
-import {useParams} from "react-router-dom"
-import {useDebounce} from "../../../Common/Hooks/useDebounce"
-import {Title} from "../../../Common/Components/Title/title"
+} from '@mui/material'
+import sMain from '../main.module.css'
+import s from './friendsPack.module.css'
+import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import { addFriendPaginationSwitchAC, setCardsTC } from './friendsPackReducer'
+import { useAppDispatch, UseAppSelector } from '../../../App/store'
+import { formatingDate } from '../../../utils/formatDate'
+import { useParams } from 'react-router-dom'
+import { useDebounce } from '../../../Common/Hooks/useDebounce'
+import { Title } from '../../../Common/Components/Title/title'
 import {
   selectFriendsCards,
   selectFriendsCardsPage,
   selectFriendsCardsPageCount,
   selectFriendsCardsTotalCount,
-} from "../../../Common/Selectors/friendsPackSelector"
-import {NavToMain} from "../../../Common/Components/NavToMain/navToMain";
+} from '../../../Common/Selectors/friendsPackSelector'
+import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
@@ -59,7 +59,7 @@ export const FriendsPack = () => {
 
   return (
     <div className={sMain.wrapper}>
-      <NavToMain/>
+      <NavToMain />
       <div className={s.titleWrapper}>
         <Title title="Friend’s Pack" />
         <Button variant="contained">Learn to pack</Button>

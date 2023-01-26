@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from 'react'
 import {
   addCardsTC,
   getCardsTC,
@@ -7,27 +7,27 @@ import {
   setCardsPageCountAC,
   setSearchCardAC,
   updateCardsTC,
-} from "./cardReducer"
-import {AppDispatch, UseAppSelector} from "../../../App/store"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
-import Paper from "@mui/material/Paper"
-import {StyledTableCell} from "../../../Common/Components/StyledTableComponents/styledTableCell"
-import {formatingDate} from "../../../utils/formatDate"
-import {Rating, SelectChangeEvent} from "@mui/material"
-import {useParams} from "react-router-dom"
-import style from "./myPack.module.css"
-import {TableSearchBar} from "../../../Common/Components/TableSearchbar/tableSearchbar"
-import {Title} from "../../../Common/Components/Title/title"
-import {TablePaginationCustom} from "../../../Common/Components/TablePagination/tablePaginationCustom"
-import {AddPackModal} from "../../../Common/Components/BasicModals/AddPackModal/addPackModal"
-import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal"
-import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal"
-import {NavToMain} from "../../../Common/Components/NavToMain/navToMain";
-import {AddCardModal} from "../../../Common/Components/BasicModals/AddCardModal/addCardModal";
+} from './cardReducer'
+import { AppDispatch, UseAppSelector } from '../../../App/store'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import { formatingDate } from '../../../utils/formatDate'
+import { Rating, SelectChangeEvent } from '@mui/material'
+import { useParams } from 'react-router-dom'
+import style from './myPack.module.css'
+import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
+import { Title } from '../../../Common/Components/Title/title'
+import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
+import { AddPackModal } from '../../../Common/Components/BasicModals/AddPackModal/addPackModal'
+import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
+import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
@@ -81,7 +81,7 @@ export const MyPack = () => {
 
   return (
     <div className={style.container}>
-      <NavToMain/>
+      <NavToMain />
       <div className={style.main}>
         <Title title={'My pack'} />
         <AddCardModal title={'Add new card'} callback={addCard} />
@@ -126,7 +126,7 @@ export const MyPack = () => {
                           name={cards.question}
                           answer={cards.answer}
                           text={'Edit Card'}
-                          callback={()=>{}}
+                          callback={() => {}}
                           id={cards._id}
                           type={'card'}
                         />

@@ -11,7 +11,7 @@ import CheckEmailPage from '../../../Features/Password/CheckEmailPage/checkEmail
 import { PacksList } from '../../../Features/Main/PacksList/packsList'
 import { FriendsPack } from '../../../Features/Main/FriendsPack/friendsPack'
 import { MyPack } from '../../../Features/Main/MyPack/myPack'
-import Profile from "../../../Features/Profile/Profile";
+import Profile from '../../../Features/Profile/Profile'
 
 const Main = () => {
   const userId = UseAppSelector((state) => state.user._id)

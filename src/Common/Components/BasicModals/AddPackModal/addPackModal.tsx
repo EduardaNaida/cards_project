@@ -2,11 +2,10 @@ import React from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import SuperButton from '../../SuperButton/superButton'
-import {Button, TextField} from "@mui/material";
-import {Title} from "../../Title/title";
-import stylePack from "./addPackModal.module.css";
-import CloseIcon from '@mui/icons-material/Close';
-
+import { Button, TextField } from '@mui/material'
+import { Title } from '../../Title/title'
+import stylePack from './addPackModal.module.css'
+import CloseIcon from '@mui/icons-material/Close'
 
 export const AddPackModal = (props: AddModalType) => {
   const [open, setOpen] = React.useState(false)
@@ -36,19 +35,21 @@ export const AddPackModal = (props: AddModalType) => {
         <Box sx={style}>
           <div className={stylePack.packBlock}>
             <div className={stylePack.title}>
-              <Title title={props.title}/>
-              <CloseIcon fontSize={'medium'} onClick={handleClose}/>
+              <Title title={props.title} />
+              <CloseIcon fontSize={'medium'} onClick={handleClose} />
             </div>
             <TextField
-                fullWidth
-                value={inputValue}
-                onChange={handleChangeInputValue}
-                id="standard-basic"
-                label="Name pack"
-                variant="standard"
+              fullWidth
+              value={inputValue}
+              onChange={handleChangeInputValue}
+              id="standard-basic"
+              label="Name pack"
+              variant="standard"
             />
             <div className={stylePack.buttonBlock}>
-              <Button sx={styleButton} onClick={handleButtonSubmit}>Save</Button>
+              <Button sx={styleButton} onClick={handleButtonSubmit}>
+                Save
+              </Button>
             </div>
           </div>
         </Box>

@@ -1,8 +1,8 @@
-import React from "react"
-import s from "./navbar.module.css"
-import {NavLink} from "react-router-dom"
-import {UseAppSelector} from "../../../App/store"
-import {UserNavbarAvatar} from "../UserNavbarAvatar/userNavbarAvatar"
+import React from 'react'
+import s from './navbar.module.css'
+import { NavLink } from 'react-router-dom'
+import { UseAppSelector } from '../../../App/store'
+import { UserNavbarAvatar } from '../UserNavbarAvatar/userNavbarAvatar'
 
 export const Navbar = () => {
   const userName = UseAppSelector((state) => state.user.name)
