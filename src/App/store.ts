@@ -10,6 +10,7 @@ import {
   FriendsPackActionsType,
   friendsPackReducer,
 } from '../Features/Main/FriendsPack/friendsPackReducer'
+import { LearnActionsType, learnReducer } from '../Features/Learn/learnReducer'
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   cards: cardReducer,
   packsList: packsListReducer,
   friendsCards: friendsPackReducer,
+  learn: learnReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -37,6 +39,7 @@ export type AppActionsType =
   | CardReducerActionType
   | PacksListActionsType
   | FriendsPackActionsType
+  | LearnActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
