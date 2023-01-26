@@ -27,6 +27,7 @@ import {AddPackModal} from "../../../Common/Components/BasicModals/AddPackModal/
 import {EditModal} from "../../../Common/Components/BasicModals/EditModal/editModal"
 import {DeleteModal} from "../../../Common/Components/BasicModals/DeleteModal/deleteModal"
 import {NavToMain} from "../../../Common/Components/NavToMain/navToMain";
+import {AddCardModal} from "../../../Common/Components/BasicModals/AddCardModal/addCardModal";
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
@@ -39,12 +40,13 @@ export const MyPack = () => {
   const cardTotalCount = UseAppSelector((state) => state.cards.cardsTotalCount)
   const cards = UseAppSelector((state) => state.cards.cards)
   const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
+  const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
 
   useEffect(() => {
     if (packId) {
       dispatch(getCardsTC(packId))
     }
-  }, [dispatch, packId, page, pageCount, cardQuestion])
+  }, [dispatch, packId, page, pageCount, cardQuestion, cardAnswer])
 
   const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(setCardsPageAC(value))
@@ -54,13 +56,13 @@ export const MyPack = () => {
     dispatch(setCardsPageCountAC(+event.target.value))
   }
 
-  const addCard = () => {
+  const addCard = (newQuestion: string, newAnswer: string) => {
     if (packId) {
       dispatch(
         addCardsTC({
           cardsPack_id: packId,
-          question: 'Whats your name?',
-          answer: 'Anna',
+          question: newQuestion,
+          answer: newAnswer,
         }),
       )
     }
@@ -69,9 +71,9 @@ export const MyPack = () => {
   const removeCard = (id: string) => {
     dispatch(removeCardsTC(id))
   }
-  const updateCard = (id: string) => {
-    dispatch(updateCardsTC({ _id: id, question: 'hwwwwwww' }))
-  }
+  // const updateCard = (id: string) => {
+  //   dispatch(updateCardsTC({ _id: id, question: 'hwwwwwww' }))
+  // }
 
   const searchHandler = (value: string) => {
     dispatch(setSearchCardAC(value))
@@ -82,7 +84,7 @@ export const MyPack = () => {
       <NavToMain/>
       <div className={style.main}>
         <Title title={'My pack'} />
-        <AddPackModal title={'Add new card'} callback={addCard} />
+        <AddCardModal title={'Add new card'} callback={addCard} />
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
@@ -122,8 +124,9 @@ export const MyPack = () => {
                       <StyledTableCell align="right">
                         <EditModal
                           name={cards.question}
+                          answer={cards.answer}
                           text={'Edit Card'}
-                          callback={updateCard}
+                          callback={()=>{}}
                           id={cards._id}
                           type={'card'}
                         />

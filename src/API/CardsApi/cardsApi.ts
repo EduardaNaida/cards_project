@@ -61,7 +61,7 @@ export type ParamsTypeCards = {
 }
 
 export type CardsType = {
-  answer: number
+  answer: string
   question: string
   cardsPack_id: string
   grade: number
@@ -75,6 +75,7 @@ export type CardsType = {
 export type UpdateCardType = {
   _id: string
   question: string
+  answer?: string
 }
 export type ResponseCardsType = {
   cards: Array<CardsType>

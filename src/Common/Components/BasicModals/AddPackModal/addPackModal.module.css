@@ -1,0 +1,15 @@
+.packBlock {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-between;
+}
+
+.title {
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.buttonBlock {
+    display: flex;
+    justify-content: flex-end;
+}

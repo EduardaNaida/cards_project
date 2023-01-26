@@ -84,7 +84,7 @@ export const PacksList = () => {
   }
 
   const mappedPacks = cardPacks.map((packData) => {
-    return <PacksListTableRow packData={packData} />
+    return <PacksListTableRow key={packData._id} packData={packData} />
   })
 
   const handleSetPacksChoose = (

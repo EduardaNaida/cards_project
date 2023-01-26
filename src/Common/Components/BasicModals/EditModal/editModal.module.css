@@ -1,39 +1,46 @@
 .editBlock {
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .editPackBlock {
-  height: 130px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.editCardBlock {
+    display: flex;
+    flex-direction: column;
+    height: 180px;
+    justify-content: space-between;
 }
 
 .title {
-  display: flex;
-  align-items: center;
-  height: 45px;
-  font-size: 18px;
-  font-weight: 400;
-  width: 100%;
-  border-bottom: 2px solid #d9d9d9;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    font-size: 22px;
+    font-weight: 400;
+    width: 100%;
+    border-bottom: 2px solid #d9d9d9;
 }
 
 .inputBlock {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .checkbox {
-  display: flex;
-  height: 50px;
+    display: flex;
+    height: 50px;
 }
 
 .buttonBlock {
-  display: flex;
-  justify-content: flex-end;
-  height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
 }
