@@ -8,6 +8,7 @@ import { Logout } from '@mui/icons-material'
 import { changeProfileTC, logoutTC } from '../userReducer'
 import { Title } from '../../Common/Components/Title/title'
 import styleC from '../../Common/Components/Styles/container.module.css'
+import { NavToMain } from '../../Common/Components/NavToMain/navToMain'
 
 const Profile: FC = () => {
   const dispatch = AppDispatch()
@@ -23,18 +24,21 @@ const Profile: FC = () => {
   }
 
   return (
-    <div className={`${styleC.container} ${s.mainBlock}`}>
-      <Title title={'Personal Information'} />
-      <img src={userAvatar} className={s.avatar} alt="avatar" />
-      <div>
-        <EditableSpan name={user.name} changeName={changeNameHandler} />
-      </div>
-      <div className={s.mail}>{user.email}</div>
+    <div className={s.wrapper}>
+      <NavToMain />
+      <div className={`${styleC.container} ${s.mainBlock}`}>
+        <Title title={'Personal Information'} />
+        <img src={userAvatar} className={s.avatar} alt="avatar" />
+        <div>
+          <EditableSpan name={user.name} changeName={changeNameHandler} />
+        </div>
+        <div className={s.mail}>{user.email}</div>
 
-      <SuperButton onClick={logoutHandler} className={s.profileButton}>
-        <Logout fontSize="small" style={{ verticalAlign: 'middle' }} />
-        log out
-      </SuperButton>
+        <SuperButton onClick={logoutHandler} className={s.profileButton}>
+          <Logout fontSize="small" style={{ verticalAlign: 'middle' }} />
+          log out
+        </SuperButton>
+      </div>
     </div>
   )
 }

@@ -17,16 +17,16 @@ import { StyledTableCell } from '../../../Common/Components/StyledTableComponent
 import { addFriendPaginationSwitchAC, setCardsTC } from './friendsPackReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { formatingDate } from '../../../utils/formatDate'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useDebounce } from '../../../Common/Hooks/useDebounce'
 import { Title } from '../../../Common/Components/Title/title'
-import { KeyboardBackspace } from '@mui/icons-material'
 import {
   selectFriendsCards,
   selectFriendsCardsPage,
   selectFriendsCardsPageCount,
   selectFriendsCardsTotalCount,
 } from '../../../Common/Selectors/friendsPackSelector'
+import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
@@ -59,10 +59,7 @@ export const FriendsPack = () => {
 
   return (
     <div className={sMain.wrapper}>
-      <NavLink to={'/packs-list'} className={s.backLink}>
-        <KeyboardBackspace />
-        Back to Packs List
-      </NavLink>
+      <NavToMain />
       <div className={s.titleWrapper}>
         <Title title="Friend’s Pack" />
         <Button variant="contained">Learn to pack</Button>

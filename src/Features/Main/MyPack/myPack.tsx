@@ -6,7 +6,6 @@ import {
   setCardsPageAC,
   setCardsPageCountAC,
   setSearchCardAC,
-  updateCardsTC,
 } from './cardReducer'
 import { AppDispatch, UseAppSelector } from '../../../App/store'
 import Table from '@mui/material/Table'
@@ -16,23 +15,21 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { CardsType } from '../../../API/CardsApi/cardsApi'
 import { formatingDate } from '../../../utils/formatDate'
-import { IconButton, Rating, SelectChangeEvent } from '@mui/material'
-import BorderColorIcon from '@mui/icons-material/BorderColor'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import { useNavigate, useParams } from 'react-router-dom'
-import SuperButton from '../../../Common/Components/SuperButton/superButton'
+import { Rating, SelectChangeEvent } from '@mui/material'
+import { useParams } from 'react-router-dom'
 import style from './myPack.module.css'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { Title } from '../../../Common/Components/Title/title'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
+import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
+import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
   const { packId } = useParams()
-  const navigate = useNavigate()
 
   const [value, setValue] = useState<number | null>()
 
@@ -41,12 +38,13 @@ export const MyPack = () => {
   const cardTotalCount = UseAppSelector((state) => state.cards.cardsTotalCount)
   const cards = UseAppSelector((state) => state.cards.cards)
   const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
+  const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
 
   useEffect(() => {
     if (packId) {
       dispatch(getCardsTC(packId))
     }
-  }, [dispatch, packId, page, pageCount, cardQuestion])
+  }, [dispatch, packId, page, pageCount, cardQuestion, cardAnswer])
 
   const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(setCardsPageAC(value))
@@ -56,13 +54,13 @@ export const MyPack = () => {
     dispatch(setCardsPageCountAC(+event.target.value))
   }
 
-  const addCard = () => {
+  const addCard = (newQuestion: string, newAnswer: string) => {
     if (packId) {
       dispatch(
         addCardsTC({
           cardsPack_id: packId,
-          question: 'Whats your name?',
-          answer: 'Anna',
+          question: newQuestion,
+          answer: newAnswer,
         }),
       )
     }
@@ -71,9 +69,9 @@ export const MyPack = () => {
   const removeCard = (id: string) => {
     dispatch(removeCardsTC(id))
   }
-  const updateCard = (id: string) => {
-    dispatch(updateCardsTC({ _id: id, question: 'hwwwwwww' }))
-  }
+  // const updateCard = (id: string) => {
+  //   dispatch(updateCardsTC({ _id: id, question: 'hwwwwwww' }))
+  // }
 
   const searchHandler = (value: string) => {
     dispatch(setSearchCardAC(value))
@@ -81,20 +79,10 @@ export const MyPack = () => {
 
   return (
     <div className={style.container}>
-      <IconButton
-        sx={{ display: 'flex', justifyContent: 'flex-start', color: 'black' }}
-        onClick={() => {
-          navigate('/packs-list')
-        }}
-      >
-        <KeyboardBackspaceIcon />
-        <p className={style.text}>Back to Packs List</p>
-      </IconButton>
+      <NavToMain />
       <div className={style.main}>
         <Title title={'My pack'} />
-        <SuperButton className={style.button} onClick={addCard}>
-          Add new card
-        </SuperButton>
+        <AddCardModal title={'Add new card'} callback={addCard} />
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
@@ -132,20 +120,20 @@ export const MyPack = () => {
                         />
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        <IconButton
-                          onClick={() => {
-                            updateCard(cards._id)
-                          }}
-                        >
-                          <BorderColorIcon />
-                        </IconButton>
-                        <IconButton
-                          onClick={() => {
-                            removeCard(cards._id)
-                          }}
-                        >
-                          <DeleteForeverIcon />
-                        </IconButton>
+                        <EditModal
+                          name={cards.question}
+                          answer={cards.answer}
+                          text={'Edit Card'}
+                          callback={() => {}}
+                          id={cards._id}
+                          type={'card'}
+                        />
+                        <DeleteModal
+                          name={cards.question}
+                          text={'Delete Card'}
+                          callback={removeCard}
+                          id={cards._id}
+                        />
                       </StyledTableCell>
                     </TableRow>
                   )

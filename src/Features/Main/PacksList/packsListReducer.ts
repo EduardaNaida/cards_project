@@ -171,11 +171,11 @@ export const getPacksDataTC = (): AppThunk => {
   }
 }
 
-export const addNewPackTC = (): AppThunk => {
+export const addNewPackTC = (newPackName: string): AppThunk => {
   return (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packAPI
-      .postPack({ name: 'dsds' })
+      .postPack({ name: newPackName })
       .then(() => {
         dispatch(getPacksDataTC())
         dispatch(setAppStatusAC('succeeded'))

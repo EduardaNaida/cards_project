@@ -14,6 +14,7 @@ type SetNewPageType = ReturnType<typeof setCardsPageAC>
 type SetPageCountType = ReturnType<typeof setCardsPageCountAC>
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>
 type SetSearchCardType = ReturnType<typeof setSearchCardAC>
+type SetNewAnswerType = ReturnType<typeof setNewAnswer>
 
 export type CardReducerActionType =
   | GetCardActionType
@@ -22,6 +23,7 @@ export type CardReducerActionType =
   | SetPageCountType
   | SetCardsTotalCountType
   | SetSearchCardType
+  | SetNewAnswerType
 
 const initialState: InitialStateType = {
   cards: [],
@@ -32,10 +34,12 @@ const initialState: InitialStateType = {
   pageCount: 5,
   packUserId: '',
   cardQuestion: '',
+  cardAnswer: '',
 }
 
 type SearchType = {
   cardQuestion: string
+  cardAnswer: string
 }
 
 export type InitialStateType = ResponseCardsType & SearchType
@@ -56,6 +60,14 @@ export const cardReducer = (
         ...state,
         cards: state.cards.map((card) =>
           card._id === action._id ? { ...card, question: action.question } : card,
+        ),
+      }
+    }
+    case 'CARDS/SET-NEW-ANSWER': {
+      return {
+        ...state,
+        cards: state.cards.map((card) =>
+          card._id === action._id ? { ...card, answer: action.cardAnswer } : card,
         ),
       }
     }
@@ -89,11 +101,20 @@ export const cardReducer = (
 
 const getCardsAC = (cards: CardsType[]) =>
   ({ type: 'CARDS/GET-CARDS', payload: { cards } } as const)
+
 const setNewQuestion = (cards: CardsType, _id: string, question: string) =>
   ({
     type: 'CARDS/SET-NEW-QUESTION',
     _id,
     question,
+    cards,
+  } as const)
+
+const setNewAnswer = (cards: CardsType, _id: string, cardAnswer: string) =>
+  ({
+    type: 'CARDS/SET-NEW-ANSWER',
+    _id,
+    cardAnswer,
     cards,
   } as const)
 
@@ -173,6 +194,9 @@ export const updateCardsTC =
             res.data.updatedCard._id,
             res.data.updatedCard.question,
           ),
+        )
+        dispatch(
+          setNewAnswer(res.data.updatedCard, res.data.updatedCard._id, res.data.updatedCard.answer),
         )
       })
       .catch((e: AxiosError<{ error: string }>) => {
