@@ -2,7 +2,8 @@ import {AppThunk} from '../../../App/store'
 import {
   cardsAPI,
   CardsType,
-  CardType, GradeType,
+  CardType,
+  GradeType,
   ResponseCardsType,
   UpdateCardType,
 } from '../../../API/CardsApi/cardsApi'
@@ -98,13 +99,14 @@ export const cardReducer = (
         cardQuestion: action.searchQuestion,
       }
     }
-    case "CARDS/SET-GRADE": {
+    case 'CARDS/SET-GRADE': {
       return {
         ...state,
         cards: state.cards.map((card) =>
-          card._id === action.payload.card_id ?
-            {...card, shots: action.payload.updatedShot, grade: action.payload.grade}
-        : card)
+          card._id === action.payload.card_id
+            ? {...card, shots: action.payload.updatedShot, grade: action.payload.grade}
+            : card,
+        ),
       }
     }
   }
@@ -233,7 +235,6 @@ export const updateCardsTC =
         })
     }
 
-
 export const updateGradeTC =
   (grade: number | null, card_id: string): AppThunk =>
     (dispatch) => {
@@ -241,7 +242,13 @@ export const updateGradeTC =
       cardsAPI
         .gradeCards(grade, card_id)
         .then((res) => {
-          dispatch(setGradeCardAC(res.data.updatedGrade.card_id, res.data.updatedGrade.grade, res.data.updatedGrade.shots))
+          dispatch(
+            setGradeCardAC(
+              res.data.updatedGrade.card_id,
+              res.data.updatedGrade.grade,
+              res.data.updatedGrade.shots,
+            ),
+          )
           dispatch(setAppStatusAC('succeeded'))
         })
         .catch((e: AxiosError<{ error: string }>) => {

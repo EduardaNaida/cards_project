@@ -1,4 +1,4 @@
-import { instance } from '../axiosSettings'
+import {instance} from '../axiosSettings'
 
 export const packAPI = {
   getPack(params?: ParamsTypePacks) {
@@ -7,13 +7,13 @@ export const packAPI = {
     })
   },
   postPack(cardsPack: CardsPackType) {
-    return instance.post<ResponsePostPackType>('cards/pack', { cardsPack })
+    return instance.post<ResponsePostPackType>('cards/pack', {cardsPack})
   },
   deletePack(id: string) {
     return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`)
   },
   updatePack(cardsPack: CardPacksUpdateType) {
-    return instance.put<ResponseUpdatedPackType>('cards/pack', { cardsPack })
+    return instance.put<ResponseUpdatedPackType>('cards/pack', {cardsPack})
   },
 }
 
@@ -24,17 +24,17 @@ export const cardsAPI = {
     })
   },
   postCards(card: CardType) {
-    return instance.post<ResponsePostCardsType>('cards/card', { card })
+    return instance.post<ResponsePostCardsType>('cards/card', {card})
   },
   deleteCards(id: string) {
     return instance.delete<ResponseDeleteCardsType>(`cards/card?id=${id}`)
   },
   updateCards(card: UpdateCardType) {
-    return instance.put<ResponseUpdatedCardsType>('cards/card', { card })
+    return instance.put<ResponseUpdatedCardsType>('cards/card', {card})
   },
-  gradeCards(grade: number | null, card_id: string){
-    return instance.put<ResponseUpdatedGradeCardsType>('cards/grade', { grade, card_id })
-  }
+  gradeCards(grade: number | null, card_id: string) {
+    return instance.put<ResponseUpdatedGradeCardsType>('cards/grade', {grade, card_id})
+  },
 }
 
 // TYPES
@@ -110,7 +110,7 @@ export type GradeType = {
   grade: number
   shots: number
 }
-export type ResponseUpdatedGradeCardsType ={
+export type ResponseUpdatedGradeCardsType = {
   updatedGrade: GradeType
 }
 //Packs
