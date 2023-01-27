@@ -2,7 +2,7 @@ import {AppThunk} from '../../../App/store'
 import {
   cardsAPI,
   CardsType,
-  CardType,
+  CardType, GradeType,
   ResponseCardsType,
   UpdateCardType,
 } from '../../../API/CardsApi/cardsApi'
@@ -16,6 +16,7 @@ type SetPageCountType = ReturnType<typeof setCardsPageCountAC>
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>
 type SetSearchCardType = ReturnType<typeof setSearchCardAC>
 type SetNewAnswerType = ReturnType<typeof setNewAnswer>
+type SetGradeCardType = ReturnType<typeof setGradeCardAC>
 
 export type CardReducerActionType =
   | GetCardActionType
@@ -25,6 +26,7 @@ export type CardReducerActionType =
   | SetCardsTotalCountType
   | SetSearchCardType
   | SetNewAnswerType
+  | SetGradeCardType
 
 const initialState: InitialStateType = {
   cards: [],
@@ -96,6 +98,15 @@ export const cardReducer = (
         cardQuestion: action.searchQuestion,
       }
     }
+    case "CARDS/SET-GRADE": {
+      return {
+        ...state,
+        cards: state.cards.map((card) =>
+          card._id === action.payload.card_id ?
+            {...card, shots: action.payload.updatedShot, grade: action.payload.grade}
+        : card)
+      }
+    }
   }
   return state
 }
@@ -130,6 +141,9 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) =>
 
 export const setSearchCardAC = (searchQuestion: string) =>
   ({type: 'CARDS/SET-SEARCH-QUESTION', searchQuestion} as const)
+
+export const setGradeCardAC = (card_id: string, grade: number, updatedShot: number) =>
+  ({type: 'CARDS/SET-GRADE', payload: {card_id, grade, updatedShot}} as const)
 
 export const getCardsTC =
   (cardsPack_id: string): AppThunk =>
@@ -208,6 +222,26 @@ export const updateCardsTC =
           dispatch(
             setNewAnswer(res.data.updatedCard, res.data.updatedCard._id, res.data.updatedCard.answer),
           )
+          dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((e: AxiosError<{ error: string }>) => {
+          dispatch(setAppStatusAC('failed'))
+          const error = e.response
+            ? e.response.data.error
+            : e.message + ', more details in the console'
+          dispatch(setAppErrorAC(error))
+        })
+    }
+
+
+export const updateGradeTC =
+  (grade: number | null, card_id: string): AppThunk =>
+    (dispatch) => {
+      dispatch(setAppStatusAC('loading'))
+      cardsAPI
+        .gradeCards(grade, card_id)
+        .then((res) => {
+          dispatch(setGradeCardAC(res.data.updatedGrade.card_id, res.data.updatedGrade.grade, res.data.updatedGrade.shots))
           dispatch(setAppStatusAC('succeeded'))
         })
         .catch((e: AxiosError<{ error: string }>) => {

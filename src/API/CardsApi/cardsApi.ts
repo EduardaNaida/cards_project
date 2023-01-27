@@ -32,6 +32,9 @@ export const cardsAPI = {
   updateCards(card: UpdateCardType) {
     return instance.put<ResponseUpdatedCardsType>('cards/card', { card })
   },
+  gradeCards(grade: number | null, card_id: string){
+    return instance.put<ResponseUpdatedGradeCardsType>('cards/grade', { grade, card_id })
+  }
 }
 
 // TYPES
@@ -99,6 +102,17 @@ export type ResponseUpdatedCardsType = {
   updatedCard: CardsType
 }
 
+export type GradeType = {
+  _id: string
+  cardsPack_id: string
+  card_id: string
+  user_id: string
+  grade: number
+  shots: number
+}
+export type ResponseUpdatedGradeCardsType ={
+  updatedGrade: GradeType
+}
 //Packs
 
 export type ParamsTypePacks = {

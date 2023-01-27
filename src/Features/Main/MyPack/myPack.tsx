@@ -5,7 +5,7 @@ import {
   removeCardsTC,
   setCardsPageAC,
   setCardsPageCountAC,
-  setSearchCardAC,
+  setSearchCardAC, updateGradeTC,
 } from './cardReducer'
 import { AppDispatch, UseAppSelector } from '../../../App/store'
 import Table from '@mui/material/Table'
@@ -40,6 +40,7 @@ export const MyPack = () => {
   const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
   const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
 
+  console.log(cards)
   useEffect(() => {
     if (packId) {
       dispatch(getCardsTC(packId))
@@ -69,14 +70,14 @@ export const MyPack = () => {
   const removeCard = (id: string) => {
     dispatch(removeCardsTC(id))
   }
-  // const updateCard = (id: string) => {
-  //   dispatch(updateCardsTC({ _id: id, question: 'hwwwwwww' }))
-  // }
 
   const searchHandler = (value: string) => {
     dispatch(setSearchCardAC(value))
   }
 
+  const updateGrade = (grade: number | null, card_id: string) => {
+    dispatch(updateGradeTC(grade, card_id))
+  }
   return (
     <div className={style.container}>
       <NavToMain />
@@ -116,7 +117,9 @@ export const MyPack = () => {
                           value={cards.grade}
                           onChange={(event, newValue) => {
                             setValue(newValue)
+                            updateGrade(newValue, cards._id)
                           }}
+                          /*updateGrade(cards.grade, cards._id)*/
                         />
                       </StyledTableCell>
                       <StyledTableCell align="right">
