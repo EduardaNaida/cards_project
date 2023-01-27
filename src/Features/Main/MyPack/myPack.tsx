@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   addCardsTC,
   getCardsTC,
@@ -6,30 +6,31 @@ import {
   setCardsPageAC,
   setCardsPageCountAC,
   setSearchCardAC,
+  updateGradeTC,
 } from './cardReducer'
-import { AppDispatch, UseAppSelector } from '../../../App/store'
+import {AppDispatch, UseAppSelector} from '../../../App/store'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import { formatingDate } from '../../../utils/formatDate'
-import { Rating, SelectChangeEvent } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import {StyledTableCell} from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import {formatingDate} from '../../../utils/formatDate'
+import {Rating, SelectChangeEvent} from '@mui/material'
+import {useParams} from 'react-router-dom'
 import style from './myPack.module.css'
-import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import { Title } from '../../../Common/Components/Title/title'
-import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
-import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
-import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
-import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
+import {TableSearchBar} from '../../../Common/Components/TableSearchbar/tableSearchbar'
+import {Title} from '../../../Common/Components/Title/title'
+import {TablePaginationCustom} from '../../../Common/Components/TablePagination/tablePaginationCustom'
+import {EditModal} from '../../../Common/Components/BasicModals/EditModal/editModal'
+import {DeleteModal} from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import {NavToMain} from '../../../Common/Components/NavToMain/navToMain'
+import {AddCardModal} from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
-  const { packId } = useParams()
+  const {packId} = useParams()
 
   const [value, setValue] = useState<number | null>()
 
@@ -40,6 +41,7 @@ export const MyPack = () => {
   const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
   const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
 
+  console.log(cards)
   useEffect(() => {
     if (packId) {
       dispatch(getCardsTC(packId))
@@ -69,28 +71,28 @@ export const MyPack = () => {
   const removeCard = (id: string) => {
     dispatch(removeCardsTC(id))
   }
-  // const updateCard = (id: string) => {
-  //   dispatch(updateCardsTC({ _id: id, question: 'hwwwwwww' }))
-  // }
 
   const searchHandler = (value: string) => {
     dispatch(setSearchCardAC(value))
   }
 
+  const updateGrade = (grade: number | null, card_id: string) => {
+    dispatch(updateGradeTC(grade, card_id))
+  }
   return (
     <div className={style.container}>
-      <NavToMain />
+      <NavToMain/>
       <div className={style.main}>
-        <Title title={'My pack'} />
-        <AddCardModal title={'Add new card'} callback={addCard} />
+        <Title title={'My pack'}/>
+        <AddCardModal title={'Add new card'} callback={addCard}/>
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
       ) : (
         <div className={style.tableContainer}>
-          <TableSearchBar onChange={searchHandler} />
+          <TableSearchBar onChange={searchHandler}/>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table sx={{minWidth: 700}} aria-label="customized table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Question</StyledTableCell>
@@ -116,7 +118,9 @@ export const MyPack = () => {
                           value={cards.grade}
                           onChange={(event, newValue) => {
                             setValue(newValue)
+                            updateGrade(newValue, cards._id)
                           }}
+                          /*updateGrade(cards.grade, cards._id)*/
                         />
                       </StyledTableCell>
                       <StyledTableCell align="right">
@@ -124,7 +128,8 @@ export const MyPack = () => {
                           name={cards.question}
                           answer={cards.answer}
                           text={'Edit Card'}
-                          callback={() => {}}
+                          callback={() => {
+                          }}
                           id={cards._id}
                           type={'card'}
                         />
