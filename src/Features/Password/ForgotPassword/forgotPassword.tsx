@@ -28,10 +28,6 @@ const ForgotPassword: FC = () => {
     },
   })
 
-  /*  const toCheckEmailPage = () => {
-      navigate('/check-email-page')
-    }*/
-
   return (
     <Container component="main" className={style.mainBlock}>
       <CssBaseline />

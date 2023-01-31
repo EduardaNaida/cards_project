@@ -1,27 +1,24 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import { Button, SelectChangeEvent } from '@mui/material'
-import sMain from '../main.module.css'
-import s from './friendsPack.module.css'
-import { setFriendPageAC, setFriendPageCountAC, setFriendsCardsTC } from './friendsPackReducer'
-import { useAppDispatch, UseAppSelector } from '../../../App/store'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useDebounce } from '../../../Common/Hooks/useDebounce'
-import { Title } from '../../../Common/Components/Title/title'
-import { KeyboardBackspace } from '@mui/icons-material'
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import {TableSearchBar} from '../../../Common/Components/TableSearchbar/tableSearchbar';
+import {Button, SelectChangeEvent} from '@mui/material';
+import sMain from '../main.module.css';
+import s from './friendsPack.module.css';
+import {setFriendPageAC, setFriendPageCountAC, setFriendsCardsTC} from './friendsPackReducer';
+import {useAppDispatch, UseAppSelector} from '../../../App/store';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDebounce} from '../../../Common/Hooks/useDebounce';
+import {Title} from '../../../Common/Components/Title/title';
 import {
-  selectFriendsCards,
-  selectFriendsCardsPage,
-  selectFriendsCardsPageCount,
-  selectFriendsCardsTotalCount,
-} from '../../../Common/Selectors/friendsPackSelector'
-import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import { FriendsPackTable } from './friendsPackTable'
-import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
+    selectFriendsCardsPage,
+    selectFriendsCardsPageCount,
+    selectFriendsCardsTotalCount
+} from '../../../Common/Selectors/friendsPackSelector';
+import {TablePaginationCustom} from '../../../Common/Components/TablePagination/tablePaginationCustom';
+import {FriendsPackTable} from './friendsPackTable';
+import {NavToMain} from '../../../Common/Components/NavToMain/navToMain';
 
 export const FriendsPack = () => {
   const dispatch = useAppDispatch()
-  const cards = UseAppSelector(selectFriendsCards)
   const page = UseAppSelector(selectFriendsCardsPage)
   const pageCount = UseAppSelector(selectFriendsCardsPageCount)
   const cardsTotalCount = UseAppSelector(selectFriendsCardsTotalCount)

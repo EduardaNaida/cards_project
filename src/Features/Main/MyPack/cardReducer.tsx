@@ -1,14 +1,7 @@
-import {AppThunk} from '../../../App/store'
-import {
-  cardsAPI,
-  CardsType,
-  CardType,
-  GradeType,
-  ResponseCardsType,
-  UpdateCardType,
-} from '../../../API/CardsApi/cardsApi'
-import {AxiosError} from 'axios'
-import {setAppErrorAC, setAppStatusAC} from '../../../App/appReducer'
+import {AppThunk} from '../../../App/store';
+import {cardsAPI, CardsType, CardType, ResponseCardsType, UpdateCardType} from '../../../API/CardsApi/cardsApi';
+import {AxiosError} from 'axios';
+import {setAppErrorAC, setAppStatusAC} from '../../../App/appReducer';
 
 type GetCardActionType = ReturnType<typeof getCardsAC>
 type SetNewQuestionType = ReturnType<typeof setNewQuestion>

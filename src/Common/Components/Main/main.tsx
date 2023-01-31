@@ -4,7 +4,6 @@ import Login from '../../../Features/Login/login'
 import SignUp from '../../../Features/Register/signUp'
 import Profile from '../../../Features/Profile/Profile'
 import { Navbar } from '../Navbar/navbar'
-import Password from '../../../Features/Password/password'
 import NewPassword from '../../../Features/Password/NewPassword/newPassword'
 import ForgotPassword from '../../../Features/Password/ForgotPassword/forgotPassword'
 import { UseAppSelector } from '../../../App/store'
@@ -23,7 +22,7 @@ const Main = () => {
       <Routes>
         {isUserLogined ? (
           <>
-            <Route path={'/Profile'} element={<Profile />} />
+            <Route path={'/profile'} element={<Profile />} />
             <Route path={'/packs-list'} element={<PacksList />} />
             <Route path={'/friends-pack/:packId'} element={<FriendsPack />} />
             <Route path={'/my-pack/:packId'} element={<MyPack />} />
@@ -34,8 +33,7 @@ const Main = () => {
         ) : (
           <>
             <Route path={'/signup'} element={<SignUp />} />
-            <Route path={'/Login'} element={<Login />} />
-            <Route path={'/Password'} element={<Password />} />
+            <Route path={'/login'} element={<Login />} />
             <Route path={'/forgot-Password'} element={<ForgotPassword />} />
             <Route path={'/check-email-page'} element={<CheckEmailPage />} />
             <Route path={'/create-new-Password/:token'} element={<NewPassword />} />
