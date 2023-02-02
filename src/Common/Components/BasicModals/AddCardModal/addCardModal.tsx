@@ -73,33 +73,36 @@ export const AddCardModal = (props: AddCardModalType) => {
             </FormControl>
 
             {item === 'text' ?
-              <div>
-                <TextField
-                  fullWidth
-                  value={question}
-                  onChange={handleChangeQuestion}
-                  id="standard-basic"
-                  label="Question"
-                  variant="standard"
-                />
-                <TextField
-                  fullWidth
-                  value={answer}
-                  onChange={handleChangeAnswer}
-                  id="standard-basic"
-                  label="Answer"
-                  variant="standard"
-                />
+              <>
+                <div>
+                  <TextField
+                    fullWidth
+                    value={question}
+                    onChange={handleChangeQuestion}
+                    id="standard-basic"
+                    label="Question"
+                    variant="standard"
+                  />
+                  <TextField
+                    fullWidth
+                    value={answer}
+                    onChange={handleChangeAnswer}
+                    id="standard-basic"
+                    label="Answer"
+                    variant="standard"
+                  />
+                </div>
                 <div className={styleCard.buttonBlock}>
                   <Button sx={styleButton} onClick={handleButtonSubmit}>
                     Save
                   </Button>
                 </div>
-              </div>
+              </>
               :
-              <div>
+              <>
                 <AddPicture onChange={props.onChange}/>
-              </div>}
+              </>
+            }
           </div>
         </Box>
       </Modal>

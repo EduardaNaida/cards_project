@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, useState} from 'react';
-import {Button} from "@mui/material";
-import {uploadImg} from "../../../InputTypeFile/InputTypeFile";
+import {Button, TextField} from "@mui/material";
+import {uploadImg} from "../../../../../utils/InputTypeFile/InputTypeFile";
 import {NewCardType} from "../../../../../Features/Main/MyPack/myPack";
-import styleCard from "../addCardModal.module.css";
+import style from "./addPicture.module.css";
 
 
 type AddPictureType = {
@@ -11,10 +11,14 @@ type AddPictureType = {
 export const AddPicture: FC<AddPictureType> = ({onChange}) => {
 
   const [questionImg, setQuestionImg] = useState<string>('')
+  const [answer, setNewAnswer] = React.useState('')
 
   const onChangeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     uploadImg(e, setQuestionImg)
+  }
 
+  const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewAnswer(event.currentTarget.value)
   }
 
   const handleButtonSubmit = () => {
@@ -22,11 +26,8 @@ export const AddPicture: FC<AddPictureType> = ({onChange}) => {
   }
 
   return (
-    <div>
+    <div className={style.pictureBlock}>
       <div>
-        {questionImg &&
-            <img src={questionImg} alt="image"/>
-        }
         <label>
           <input type="file"
                  onChange={onChangeQuestion}
@@ -35,15 +36,29 @@ export const AddPicture: FC<AddPictureType> = ({onChange}) => {
           <Button variant="contained" component="span">
             Upload question
           </Button>
+          <div className={style.uploadPicture}>
+            {questionImg &&
+                <img src={questionImg} alt="image" className={style.image}/>
+            }
+          </div>
         </label>
       </div>
-      <div className={styleCard.buttonBlock}>
+      <div className={style.answerBlock}>
+        <TextField
+          fullWidth
+          value={answer}
+          onChange={handleChangeAnswer}
+          id="standard-basic"
+          label="Answer"
+          variant="standard"
+        />
+      </div>
+      <div className={style.buttonBlock}>
         <Button sx={styleButton} onClick={handleButtonSubmit}>
           Save
         </Button>
       </div>
     </div>
-
   );
 };
 

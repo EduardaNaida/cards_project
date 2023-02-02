@@ -1,7 +1,7 @@
 .cardBlock {
   display: flex;
   flex-direction: column;
-  height: 300px;
+  min-height: 320px;
   justify-content: space-between;
 }
 
