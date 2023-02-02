@@ -42,8 +42,8 @@ export const cardsAPI = {
 //Cards
 export type CardType = {
   cardsPack_id: string | null
-  question: string | null
-  answer: string | null
+  question?: string | null
+  answer?: string | null
   grade?: number | null
   shots?: number | null
   answerImg?: string | null
@@ -66,6 +66,8 @@ export type ParamsTypeCards = {
 export type CardsType = {
   answer: string
   question: string
+  answerImg: string | null
+  questionImg: string | null
   cardsPack_id: string
   grade: number
   shots: number

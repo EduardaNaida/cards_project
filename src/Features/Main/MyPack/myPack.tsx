@@ -28,6 +28,13 @@ import {DeleteModal} from '../../../Common/Components/BasicModals/DeleteModal/de
 import {NavToMain} from '../../../Common/Components/NavToMain/navToMain'
 import {AddCardModal} from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
 
+export type NewCardType = {
+  answer?: string
+  question?: string
+  questionImg?: string
+  answerImg?: string
+}
+
 export const MyPack = () => {
   const dispatch = AppDispatch()
   const {packId} = useParams()
@@ -42,6 +49,7 @@ export const MyPack = () => {
   const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
 
   console.log(cards)
+
   useEffect(() => {
     if (packId) {
       dispatch(getCardsTC(packId))
@@ -56,14 +64,11 @@ export const MyPack = () => {
     dispatch(setCardsPageCountAC(+event.target.value))
   }
 
-  const addCard = (newQuestion: string, newAnswer: string) => {
+  const addCard = (data: NewCardType) => {
+    console.log(data)
     if (packId) {
       dispatch(
-        addCardsTC({
-          cardsPack_id: packId,
-          question: newQuestion,
-          answer: newAnswer,
-        }),
+        addCardsTC({...data}, packId)
       )
     }
   }
@@ -79,12 +84,13 @@ export const MyPack = () => {
   const updateGrade = (grade: number | null, card_id: string) => {
     dispatch(updateGradeTC(grade, card_id))
   }
+
   return (
     <div className={style.container}>
       <NavToMain/>
       <div className={style.main}>
         <Title title={'My pack'}/>
-        <AddCardModal title={'Add new card'} callback={addCard}/>
+        <AddCardModal title={'Add new card'} onChange={addCard}/>
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
@@ -108,7 +114,7 @@ export const MyPack = () => {
                   return (
                     <TableRow key={cards._id}>
                       <StyledTableCell component="th" scope="row">
-                        {cards.question}
+                        {cards.questionImg ? <img src={cards.questionImg} alt="img"/> : cards.question}
                       </StyledTableCell>
                       <StyledTableCell align="right">{cards.answer}</StyledTableCell>
                       <StyledTableCell align="right">{formattedDate}</StyledTableCell>

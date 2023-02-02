@@ -1,4 +1,4 @@
-import {AppThunk} from '../../../App/store'
+import {AppRootStateType, AppThunk} from '../../../App/store'
 import {
   cardsAPI,
   CardsType,
@@ -39,6 +39,11 @@ const initialState: InitialStateType = {
   packUserId: '',
   cardQuestion: '',
   cardAnswer: '',
+  cardsPack_id: ''
+}
+
+type CreateType = {
+  cardsPack_id: string
 }
 
 type SearchType = {
@@ -46,7 +51,13 @@ type SearchType = {
   cardAnswer: string
 }
 
-export type InitialStateType = ResponseCardsType & SearchType
+export type CreateCardDataType = {
+  answer?: string
+  question?: string
+  grade?: number
+}
+
+export type InitialStateType = ResponseCardsType & SearchType & CreateType
 
 export const cardReducer = (
   state: InitialStateType = initialState,
@@ -170,11 +181,12 @@ export const getCardsTC =
     }
 
 export const addCardsTC =
-  (card: CardType): AppThunk =>
+  (card: CreateCardDataType, cardsPack_id: string): AppThunk =>
     (dispatch) => {
+
       dispatch(setAppStatusAC('loading'))
       cardsAPI
-        .postCards(card)
+        .postCards( {...card, cardsPack_id})
         .then((res) => {
           dispatch(getCardsTC(res.data.newCard.cardsPack_id))
           dispatch(setAppStatusAC('succeeded'))

@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import SuperButton from '../../SuperButton/superButton'
-import { Button, TextField } from '@mui/material'
-import { Title } from '../../Title/title'
+import {Button, FormControl, InputLabel, MenuItem, SelectChangeEvent, TextField} from '@mui/material'
+import {Title} from '../../Title/title'
 import styleCard from './addCardModal.module.css'
 import CloseIcon from '@mui/icons-material/Close'
+import Select from '@mui/material/Select';
+import {AddPicture} from "./AddPicture/addPicture";
+import {NewCardType} from "../../../../Features/Main/MyPack/myPack";
+
 
 export const AddCardModal = (props: AddCardModalType) => {
   const [open, setOpen] = React.useState(false)
@@ -13,21 +17,31 @@ export const AddCardModal = (props: AddCardModalType) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const [newQuestion, setNewQuestion] = React.useState('')
-  const [newAnswer, setNewAnswer] = React.useState('')
+  const [question, setNewQuestion] = React.useState('')
+  const [answer, setNewAnswer] = React.useState('')
+  const [item, setItem] = React.useState('');
 
-  const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectItem = (event: SelectChangeEvent) => {
+    setItem(event.target.value.toString());
+  };
+
+  const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewQuestion(event.currentTarget.value)
   }
+
   const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewAnswer(event.currentTarget.value)
   }
+
+
   const handleButtonSubmit = () => {
-    props.callback(newQuestion, newAnswer)
+    props.onChange({question, answer})
     handleClose()
     setNewQuestion('')
     setNewAnswer('')
   }
+
+
   return (
     <>
       <SuperButton onClick={handleOpen}>{props.title}</SuperButton>
@@ -40,30 +54,52 @@ export const AddCardModal = (props: AddCardModalType) => {
         <Box sx={style}>
           <div className={styleCard.cardBlock}>
             <div className={styleCard.title}>
-              <Title title={props.title} />
-              <CloseIcon fontSize={'medium'} onClick={handleClose} />
+              <Title title={props.title}/>
+              <CloseIcon fontSize={'medium'} onClick={handleClose}/>
             </div>
-            <TextField
-              fullWidth
-              value={newQuestion}
-              onChange={handleChangeQuestion}
-              id="standard-basic"
-              label="Question"
-              variant="standard"
-            />
-            <TextField
-              fullWidth
-              value={newAnswer}
-              onChange={handleChangeAnswer}
-              id="standard-basic"
-              label="Answer"
-              variant="standard"
-            />
-            <div className={styleCard.buttonBlock}>
-              <Button sx={styleButton} onClick={handleButtonSubmit}>
-                Save
-              </Button>
-            </div>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Choose a question format</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Choose a question format"
+                value={item}
+                onChange={handleSelectItem}
+                displayEmpty
+              >
+                <MenuItem value={'picture'}>Picture</MenuItem>
+                <MenuItem value={'text'}>Text</MenuItem>
+              </Select>
+            </FormControl>
+
+            {item === 'text' ?
+              <div>
+                <TextField
+                  fullWidth
+                  value={question}
+                  onChange={handleChangeQuestion}
+                  id="standard-basic"
+                  label="Question"
+                  variant="standard"
+                />
+                <TextField
+                  fullWidth
+                  value={answer}
+                  onChange={handleChangeAnswer}
+                  id="standard-basic"
+                  label="Answer"
+                  variant="standard"
+                />
+                <div className={styleCard.buttonBlock}>
+                  <Button sx={styleButton} onClick={handleButtonSubmit}>
+                    Save
+                  </Button>
+                </div>
+              </div>
+              :
+              <div>
+                <AddPicture onChange={props.onChange}/>
+              </div>}
           </div>
         </Box>
       </Modal>
@@ -73,7 +109,7 @@ export const AddCardModal = (props: AddCardModalType) => {
 
 type AddCardModalType = {
   title: string
-  callback: (newQuestion: string, newAnswer: string) => void
+  onChange: (data: NewCardType) => void
 }
 const style = {
   position: 'absolute' as 'absolute',
