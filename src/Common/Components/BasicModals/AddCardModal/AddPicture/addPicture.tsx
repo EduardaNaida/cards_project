@@ -7,8 +7,9 @@ import style from "./addPicture.module.css";
 
 type AddPictureType = {
   onChange: (data: NewCardType) => void
+  onClose: () => void
 }
-export const AddPicture: FC<AddPictureType> = ({onChange}) => {
+export const AddPicture: FC<AddPictureType> = ({onChange, onClose}) => {
 
   const [questionImg, setQuestionImg] = useState<string>('')
   const [answer, setNewAnswer] = React.useState('')
@@ -22,12 +23,13 @@ export const AddPicture: FC<AddPictureType> = ({onChange}) => {
   }
 
   const handleButtonSubmit = () => {
-    onChange({questionImg})
+    onChange({questionImg, answer})
+    onClose()
   }
 
   return (
     <div className={style.pictureBlock}>
-      <div>
+      <div className={style.input}>
         <label>
           <input type="file"
                  onChange={onChangeQuestion}

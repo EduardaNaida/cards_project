@@ -113,8 +113,8 @@ export const MyPack = () => {
                   const formattedDate = formatingDate(cards.updated)
                   return (
                     <TableRow key={cards._id}>
-                      <StyledTableCell component="th" scope="row" className={style.questionBlock}>
-                        {cards.questionImg ? <img src={cards.questionImg} alt="img"/> : cards.question}
+                      <StyledTableCell component="th" scope="row">
+                        {cards.questionImg ? <img src={cards.questionImg} alt="img" style={{maxHeight: '200px', maxWidth: '100%'}}/> : cards.question}
                       </StyledTableCell>
                       <StyledTableCell align="right">{cards.answer}</StyledTableCell>
                       <StyledTableCell align="right">{formattedDate}</StyledTableCell>

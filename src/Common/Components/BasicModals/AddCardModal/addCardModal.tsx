@@ -57,7 +57,8 @@ export const AddCardModal = (props: AddCardModalType) => {
               <Title title={props.title}/>
               <CloseIcon fontSize={'medium'} onClick={handleClose}/>
             </div>
-            <FormControl fullWidth>
+
+            <FormControl fullWidth sx={{marginTop: '20px'}}>
               <InputLabel id="demo-simple-select-label">Choose a question format</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -67,8 +68,8 @@ export const AddCardModal = (props: AddCardModalType) => {
                 onChange={handleSelectItem}
                 displayEmpty
               >
-                <MenuItem value={'picture'}>Picture</MenuItem>
                 <MenuItem value={'text'}>Text</MenuItem>
+                <MenuItem value={'picture'}>Picture</MenuItem>
               </Select>
             </FormControl>
 
@@ -82,6 +83,7 @@ export const AddCardModal = (props: AddCardModalType) => {
                     id="standard-basic"
                     label="Question"
                     variant="standard"
+                    sx={{height: '60px'}}
                   />
                   <TextField
                     fullWidth
@@ -100,7 +102,7 @@ export const AddCardModal = (props: AddCardModalType) => {
               </>
               :
               <>
-                <AddPicture onChange={props.onChange}/>
+                <AddPicture onChange={props.onChange} onClose={handleClose}/>
               </>
             }
           </div>
