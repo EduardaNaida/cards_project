@@ -1,8 +1,6 @@
-import React, {ChangeEvent} from 'react';
-
+import React, { ChangeEvent } from 'react'
 
 export const uploadImg = (e: ChangeEvent<HTMLInputElement>, callBack: (value: string) => void) => {
-
   if (e.target.files && e.target.files.length) {
     const file = e.target.files[0]
     console.log('file: ', file)
@@ -18,7 +16,7 @@ export const uploadImg = (e: ChangeEvent<HTMLInputElement>, callBack: (value: st
 }
 
 export const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
-  const reader = new FileReader();
+  const reader = new FileReader()
   reader.onloadend = () => {
     const file64 = reader.result as string
     callBack(file64)

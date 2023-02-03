@@ -1,20 +1,20 @@
-import React, {FC} from 'react'
-import {formatingDate} from '../../../utils/formatDate'
-import {IconButton, TableRow, Tooltip} from '@mui/material'
-import {StyledTableCell} from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import React, { FC } from 'react'
+import { formatingDate } from '../../../utils/formatDate'
+import { IconButton, TableRow, Tooltip } from '@mui/material'
+import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import SchoolIcon from '@mui/icons-material/School'
-import {CardPacksUpdateType} from '../../../API/CardsApi/cardsApi'
-import {deletePackTC, updatePackTC} from './packsListReducer'
-import {useAppDispatch, UseAppSelector} from '../../../App/store'
-import {useNavigate} from 'react-router-dom'
-import {DeleteModal} from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
-import {EditModal} from '../../../Common/Components/BasicModals/EditModal/editModal'
+import { CardPacksUpdateType } from '../../../API/CardsApi/cardsApi'
+import { deletePackTC, updatePackTC } from './packsListReducer'
+import { useAppDispatch, UseAppSelector } from '../../../App/store'
+import { useNavigate } from 'react-router-dom'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
 }
 
-export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) => {
+export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -53,7 +53,7 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
       <StyledTableCell align="right">
         <Tooltip title={tooltipLearn}>
           <IconButton onClick={hanldeNavigateToLearn} disabled={packData.cardsCount === 0}>
-            <SchoolIcon/>
+            <SchoolIcon />
           </IconButton>
         </Tooltip>
         {isMyPack && (
@@ -62,8 +62,7 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
               <EditModal
                 name={packData.name}
                 text={'Edit pack'}
-                callback={() => {
-                }}
+                callback={() => {}}
                 id={packData._id}
                 type={'pack'}
               />

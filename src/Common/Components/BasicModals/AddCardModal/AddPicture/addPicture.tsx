@@ -1,16 +1,14 @@
-import React, {ChangeEvent, FC, useState} from 'react';
-import {Button, TextField} from "@mui/material";
-import {uploadImg} from "../../../../../utils/InputTypeFile/InputTypeFile";
-import {NewCardType} from "../../../../../Features/Main/MyPack/myPack";
-import style from "./addPicture.module.css";
-
+import React, { ChangeEvent, FC, useState } from 'react'
+import { Button, TextField } from '@mui/material'
+import { uploadImg } from '../../../../../utils/InputTypeFile/InputTypeFile'
+import { NewCardType } from '../../../../../Features/Main/MyPack/myPack'
+import style from './addPicture.module.css'
 
 type AddPictureType = {
   onChange: (data: NewCardType) => void
   onClose: () => void
 }
-export const AddPicture: FC<AddPictureType> = ({onChange, onClose}) => {
-
+export const AddPicture: FC<AddPictureType> = ({ onChange, onClose }) => {
   const [questionImg, setQuestionImg] = useState<string>('')
   const [answer, setNewAnswer] = React.useState('')
 
@@ -23,7 +21,7 @@ export const AddPicture: FC<AddPictureType> = ({onChange, onClose}) => {
   }
 
   const handleButtonSubmit = () => {
-    onChange({questionImg, answer})
+    onChange({ questionImg, answer })
     onClose()
   }
 
@@ -31,17 +29,12 @@ export const AddPicture: FC<AddPictureType> = ({onChange, onClose}) => {
     <div className={style.pictureBlock}>
       <div className={style.input}>
         <label>
-          <input type="file"
-                 onChange={onChangeQuestion}
-                 style={{display: 'none'}}
-          />
+          <input type="file" onChange={onChangeQuestion} style={{ display: 'none' }} />
           <Button variant="contained" component="span">
             Upload question
           </Button>
           <div className={style.uploadPicture}>
-            {questionImg &&
-                <img src={questionImg} alt="image" className={style.image}/>
-            }
+            {questionImg && <img src={questionImg} alt="image" className={style.image} />}
           </div>
         </label>
       </div>
@@ -61,9 +54,8 @@ export const AddPicture: FC<AddPictureType> = ({onChange, onClose}) => {
         </Button>
       </div>
     </div>
-  );
-};
-
+  )
+}
 
 const styleButton = {
   display: 'flex',

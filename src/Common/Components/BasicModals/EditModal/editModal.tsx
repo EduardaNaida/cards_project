@@ -34,7 +34,7 @@ export const EditModal = (props: EditModalType) => {
       }
     },
   })
-
+  console.log(props.name)
   return (
     <BasicModal type={'edit'}>
       <div className={style.editBlock}>

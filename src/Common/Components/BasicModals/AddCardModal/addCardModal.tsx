@@ -1,15 +1,21 @@
-import React, {ChangeEvent} from 'react'
+import React, { ChangeEvent } from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import SuperButton from '../../SuperButton/superButton'
-import {Button, FormControl, InputLabel, MenuItem, SelectChangeEvent, TextField} from '@mui/material'
-import {Title} from '../../Title/title'
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  SelectChangeEvent,
+  TextField,
+} from '@mui/material'
+import { Title } from '../../Title/title'
 import styleCard from './addCardModal.module.css'
 import CloseIcon from '@mui/icons-material/Close'
-import Select from '@mui/material/Select';
-import {AddPicture} from "./AddPicture/addPicture";
-import {NewCardType} from "../../../../Features/Main/MyPack/myPack";
-
+import Select from '@mui/material/Select'
+import { AddPicture } from './AddPicture/addPicture'
+import { NewCardType } from '../../../../Features/Main/MyPack/myPack'
 
 export const AddCardModal = (props: AddCardModalType) => {
   const [open, setOpen] = React.useState(false)
@@ -19,11 +25,11 @@ export const AddCardModal = (props: AddCardModalType) => {
 
   const [question, setNewQuestion] = React.useState('')
   const [answer, setNewAnswer] = React.useState('')
-  const [item, setItem] = React.useState('');
+  const [item, setItem] = React.useState('')
 
   const handleSelectItem = (event: SelectChangeEvent) => {
-    setItem(event.target.value.toString());
-  };
+    setItem(event.target.value.toString())
+  }
 
   const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewQuestion(event.currentTarget.value)
@@ -33,14 +39,12 @@ export const AddCardModal = (props: AddCardModalType) => {
     setNewAnswer(event.currentTarget.value)
   }
 
-
   const handleButtonSubmit = () => {
-    props.onChange({question, answer})
+    props.onChange({ question, answer })
     handleClose()
     setNewQuestion('')
     setNewAnswer('')
   }
-
 
   return (
     <>
@@ -54,11 +58,11 @@ export const AddCardModal = (props: AddCardModalType) => {
         <Box sx={style}>
           <div className={styleCard.cardBlock}>
             <div className={styleCard.title}>
-              <Title title={props.title}/>
-              <CloseIcon fontSize={'medium'} onClick={handleClose}/>
+              <Title title={props.title} />
+              <CloseIcon fontSize={'medium'} onClick={handleClose} />
             </div>
 
-            <FormControl fullWidth sx={{marginTop: '20px'}}>
+            <FormControl fullWidth sx={{ marginTop: '20px' }}>
               <InputLabel id="demo-simple-select-label">Choose a question format</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -73,7 +77,7 @@ export const AddCardModal = (props: AddCardModalType) => {
               </Select>
             </FormControl>
 
-            {item === 'text' ?
+            {item === 'text' ? (
               <>
                 <div>
                   <TextField
@@ -83,7 +87,7 @@ export const AddCardModal = (props: AddCardModalType) => {
                     id="standard-basic"
                     label="Question"
                     variant="standard"
-                    sx={{height: '60px'}}
+                    sx={{ height: '60px' }}
                   />
                   <TextField
                     fullWidth
@@ -100,11 +104,11 @@ export const AddCardModal = (props: AddCardModalType) => {
                   </Button>
                 </div>
               </>
-              :
+            ) : (
               <>
-                <AddPicture onChange={props.onChange} onClose={handleClose}/>
+                <AddPicture onChange={props.onChange} onClose={handleClose} />
               </>
-            }
+            )}
           </div>
         </Box>
       </Modal>
