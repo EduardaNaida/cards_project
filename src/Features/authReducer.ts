@@ -68,7 +68,7 @@ export const forgotPassword =
                     Password recovery:
                     <a href="${
                       process.env.NODE_ENV !== 'development'
-                        ? process.env.REACT_APP_RECOVERY_PASSWORD_URL
+                        ? process.env.REACT_APP_BACK_URL
                         : 'http://localhost:3000/'
                     }#/create-new-password/$token$">link</a>
                     </div>`
