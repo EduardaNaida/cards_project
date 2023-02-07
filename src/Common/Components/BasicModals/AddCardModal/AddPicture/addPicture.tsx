@@ -1,7 +1,7 @@
-import React, {ChangeEvent, FC} from 'react'
-import {Button, TextField} from '@mui/material'
-import {uploadImg} from '../../../../../utils/InputTypeFile/InputTypeFile'
-import {NewCardType} from '../../../../../Features/Main/MyPack/myPack'
+import React, { ChangeEvent, FC } from 'react'
+import { Button, TextField } from '@mui/material'
+import { uploadImg } from '../../../../../utils/InputTypeFile/InputTypeFile'
+import { NewCardType } from '../../../../../Features/Main/MyPack/myPack'
 import style from './addPicture.module.css'
 
 type AddPictureType = {
@@ -13,7 +13,7 @@ type AddPictureType = {
   onChangeQuestion: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onChangeAnswer: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
-export const AddPicture: FC<AddPictureType> = ({onChange, onClose, buttonText, ...props}) => {
+export const AddPicture: FC<AddPictureType> = ({ onChange, onClose, buttonText, ...props }) => {
   const [questionImg, setQuestionImg] = React.useState<string | undefined>(props.question)
   const [answer, setNewAnswer] = React.useState<string | undefined>(props.answer)
 
@@ -26,7 +26,7 @@ export const AddPicture: FC<AddPictureType> = ({onChange, onClose, buttonText, .
   }
 
   const handleButtonSubmit = () => {
-    onChange({questionImg, answer})
+    onChange({ questionImg, answer })
     onClose()
   }
 
@@ -35,16 +35,14 @@ export const AddPicture: FC<AddPictureType> = ({onChange, onClose, buttonText, .
       <div className={style.input}>
         <span className={style.text}>Question: </span>
         <label>
-          <input type="file" onChange={onChangeQuestion} style={{display: 'none'}}/>
+          <input type="file" onChange={onChangeQuestion} style={{ display: 'none' }} />
           <div className={style.buttonBlock}>
             <Button variant="outlined" component="span">
               {buttonText}
             </Button>
           </div>
           <div className={style.uploadPicture}>
-            {questionImg &&
-                <img src={questionImg} alt="image" className={style.image}/>
-            }
+            {questionImg && <img src={questionImg} alt="image" className={style.image} />}
           </div>
         </label>
       </div>

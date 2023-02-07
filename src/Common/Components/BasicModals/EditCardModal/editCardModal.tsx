@@ -1,10 +1,10 @@
-import React, {ChangeEvent, FC} from 'react'
-import {BasicModal} from '../basicModal'
-import {useAppDispatch} from '../../../../App/store'
-import {updateCardsTC} from '../../../../Features/Main/MyPack/cardReducer'
-import {BasicCardForm} from '../../../../Features/Main/Cards/BasicCardForm/basicCardForm'
-import {NewCardType} from '../../../../Features/Main/MyPack/myPack'
-import style from "../EditModal/editModal.module.css";
+import React, { ChangeEvent, FC } from 'react'
+import { BasicModal } from '../basicModal'
+import { useAppDispatch } from '../../../../App/store'
+import { updateCardsTC } from '../../../../Features/Main/MyPack/cardReducer'
+import { BasicCardForm } from '../../../../Features/Main/Cards/BasicCardForm/basicCardForm'
+import { NewCardType } from '../../../../Features/Main/MyPack/myPack'
+import style from '../EditModal/editModal.module.css'
 
 type EditCardModalType = {
   text: string
@@ -17,23 +17,26 @@ type EditCardModalType = {
 }
 
 export const EditCardModal: FC<EditCardModalType> = ({
-                                                       text,
-                                                       answer,
-                                                       id,
-                                                       question,
-                                                       handleClose,
-                                                       onChangeQuestion,
-                                                       onChangeAnswer
-                                                     }) => {
+  text,
+  answer,
+  id,
+  question,
+  handleClose,
+  onChangeQuestion,
+  onChangeAnswer,
+}) => {
   const dispatch = useAppDispatch()
 
   const handleEditCard = (data: NewCardType) => {
-    dispatch(updateCardsTC({_id: id,
-      question: data.question,
-      answer: data.answer,
-      questionImg: data.questionImg}))
+    dispatch(
+      updateCardsTC({
+        _id: id,
+        question: data.question,
+        answer: data.answer,
+        questionImg: data.questionImg,
+      }),
+    )
   }
-
 
   return (
     <BasicModal type={'edit'}>
@@ -41,8 +44,15 @@ export const EditCardModal: FC<EditCardModalType> = ({
         <div className={style.title}>
           <p>{text}</p>
         </div>
-        <BasicCardForm onClose={handleClose} question={question} answer={answer} buttonText={'Change question'}
-                       onSubmit={handleEditCard} onChangeQuestion={onChangeQuestion} onChangeAnswer={onChangeAnswer}/>
+        <BasicCardForm
+          onClose={handleClose}
+          question={question}
+          answer={answer}
+          buttonText={'Change question'}
+          onSubmit={handleEditCard}
+          onChangeQuestion={onChangeQuestion}
+          onChangeAnswer={onChangeAnswer}
+        />
       </div>
     </BasicModal>
   )
