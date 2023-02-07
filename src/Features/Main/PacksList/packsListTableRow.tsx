@@ -12,9 +12,10 @@ import { EditModal } from '../../../Common/Components/BasicModals/EditModal/edit
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
+  questionImg: string | null
 }
 
-export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) => {
+export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData , questionImg}) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -61,6 +62,7 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) 
             <Tooltip title="update pack name">
               <EditModal
                 name={packData.name}
+                questionImg={questionImg}
                 text={'Edit pack'}
                 callback={() => {}}
                 id={packData._id}

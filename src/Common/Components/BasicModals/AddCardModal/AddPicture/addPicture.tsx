@@ -7,8 +7,10 @@ import style from './addPicture.module.css'
 type AddPictureType = {
   onChange: (data: NewCardType) => void
   onClose: () => void
+  buttonText: string
+  questionImg: string | null
 }
-export const AddPicture: FC<AddPictureType> = ({ onChange, onClose }) => {
+export const AddPicture: FC<AddPictureType> = ({ onChange, onClose, buttonText, ...props }) => {
   const [questionImg, setQuestionImg] = useState<string>('')
   const [answer, setNewAnswer] = React.useState('')
 
@@ -31,11 +33,14 @@ export const AddPicture: FC<AddPictureType> = ({ onChange, onClose }) => {
         <label>
           <input type="file" onChange={onChangeQuestion} style={{ display: 'none' }} />
           <Button variant="contained" component="span">
-            Upload question
+            {buttonText}
           </Button>
-          <div className={style.uploadPicture}>
-            {questionImg && <img src={questionImg} alt="image" className={style.image} />}
-          </div>
+          {props.questionImg ? props.questionImg :
+            <div className={style.uploadPicture}>
+              {questionImg &&
+                  <img src={questionImg} alt="image" className={style.image} />}
+            </div>
+          }
         </label>
       </div>
       <div className={style.answerBlock}>

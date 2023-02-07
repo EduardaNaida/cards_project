@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import {
   addCardsTC,
   getCardsTC,
@@ -26,7 +26,7 @@ import { TablePaginationCustom } from '../../../Common/Components/TablePaginatio
 import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
 import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
 import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
-import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
+import {AddCardModal} from "../../../Common/Components/BasicModals/AddCardModal/addCardModal";
 
 export type NewCardType = {
   answer?: string
@@ -40,6 +40,8 @@ export const MyPack = () => {
   const { packId } = useParams()
 
   const [value, setValue] = useState<number | null>()
+  const [question, setNewQuestion] = React.useState('')
+  const [answer, setNewAnswer] = React.useState('')
 
   const page = UseAppSelector((state) => state.cards.page)
   const pageCount = UseAppSelector((state) => state.cards.pageCount)
@@ -66,6 +68,8 @@ export const MyPack = () => {
     if (packId) {
       dispatch(addCardsTC({ ...data }, packId))
     }
+    setNewAnswer('')
+    setNewQuestion('')
   }
 
   const removeCard = (id: string) => {
@@ -80,12 +84,28 @@ export const MyPack = () => {
     dispatch(updateGradeTC(grade, card_id))
   }
 
+
+  const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setNewQuestion(event.currentTarget.value)
+  }
+
+  const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewAnswer(event.currentTarget.value)
+  }
+
   return (
     <div className={style.container}>
       <NavToMain />
       <div className={style.main}>
         <Title title={'My pack'} />
-        <AddCardModal title={'Add new card'} onChange={addCard} />
+        {/*<AddCardModal title={'Add new card'} onChange={addCard} /> */}
+        <AddCardModal title={'Add new card'}
+                      onChange={addCard}
+                      question={question}
+                      answer={answer}
+                      onChangeQuestion={handleChangeQuestion}
+                      onChangeAnswer={handleChangeAnswer}
+        />
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
@@ -134,6 +154,7 @@ export const MyPack = () => {
                       <StyledTableCell align="right">
                         <EditModal
                           name={cards.questionImg ? cards.questionImg : cards.question}
+                          questionImg={cards.questionImg}
                           answer={cards.answer}
                           text={'Edit Card'}
                           callback={() => {}}
