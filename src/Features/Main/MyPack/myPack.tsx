@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import {
   addCardsTC,
   getCardsTC,
@@ -26,7 +26,7 @@ import { TablePaginationCustom } from '../../../Common/Components/TablePaginatio
 import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
 import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
 import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
-import {AddCardModal} from "../../../Common/Components/BasicModals/AddCardModal/addCardModal";
+import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
 
 export type NewCardType = {
   answer?: string
@@ -40,8 +40,6 @@ export const MyPack = () => {
   const { packId } = useParams()
 
   const [value, setValue] = useState<number | null>()
-  const [question, setNewQuestion] = React.useState('')
-  const [answer, setNewAnswer] = React.useState('')
 
   const page = UseAppSelector((state) => state.cards.page)
   const pageCount = UseAppSelector((state) => state.cards.pageCount)
@@ -49,6 +47,9 @@ export const MyPack = () => {
   const cards = UseAppSelector((state) => state.cards.cards)
   const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
   const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
+
+  const [question, setNewQuestion] = React.useState<string>(cardQuestion)
+  const [answer, setNewAnswer] = React.useState(cardAnswer)
 
   useEffect(() => {
     if (packId) {
@@ -65,6 +66,7 @@ export const MyPack = () => {
   }
 
   const addCard = (data: NewCardType) => {
+    debugger
     if (packId) {
       dispatch(addCardsTC({ ...data }, packId))
     }
@@ -84,7 +86,6 @@ export const MyPack = () => {
     dispatch(updateGradeTC(grade, card_id))
   }
 
-
   const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setNewQuestion(event.currentTarget.value)
   }
@@ -98,13 +99,13 @@ export const MyPack = () => {
       <NavToMain />
       <div className={style.main}>
         <Title title={'My pack'} />
-        {/*<AddCardModal title={'Add new card'} onChange={addCard} /> */}
-        <AddCardModal title={'Add new card'}
-                      onChange={addCard}
-                      question={question}
-                      answer={answer}
-                      onChangeQuestion={handleChangeQuestion}
-                      onChangeAnswer={handleChangeAnswer}
+        <AddCardModal
+          title={'Add new card'}
+          onChange={addCard}
+          question={question}
+          answer={answer}
+          onChangeQuestion={handleChangeQuestion}
+          onChangeAnswer={handleChangeAnswer}
         />
       </div>
       {cards.length === 0 ? (

@@ -15,7 +15,7 @@ export type PacksListTableRowPropsType = {
   questionImg: string | null
 }
 
-export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData , questionImg}) => {
+export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData, questionImg }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 

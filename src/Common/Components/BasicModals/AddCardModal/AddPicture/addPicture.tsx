@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import { Button, TextField } from '@mui/material'
 import { uploadImg } from '../../../../../utils/InputTypeFile/InputTypeFile'
 import { NewCardType } from '../../../../../Features/Main/MyPack/myPack'
@@ -8,11 +8,14 @@ type AddPictureType = {
   onChange: (data: NewCardType) => void
   onClose: () => void
   buttonText: string
-  questionImg: string | null
+  question: string
+  answer: string
+  onChangeQuestion: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChangeAnswer: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 export const AddPicture: FC<AddPictureType> = ({ onChange, onClose, buttonText, ...props }) => {
-  const [questionImg, setQuestionImg] = useState<string>('')
-  const [answer, setNewAnswer] = React.useState('')
+  const [questionImg, setQuestionImg] = React.useState<string | undefined>(props.question)
+  const [answer, setNewAnswer] = React.useState<string | undefined>(undefined)
 
   const onChangeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
     uploadImg(e, setQuestionImg)
@@ -35,12 +38,9 @@ export const AddPicture: FC<AddPictureType> = ({ onChange, onClose, buttonText, 
           <Button variant="contained" component="span">
             {buttonText}
           </Button>
-          {props.questionImg ? props.questionImg :
-            <div className={style.uploadPicture}>
-              {questionImg &&
-                  <img src={questionImg} alt="image" className={style.image} />}
-            </div>
-          }
+          <div className={style.uploadPicture}>
+            {questionImg && <img src={questionImg} alt="image" className={style.image} />}
+          </div>
         </label>
       </div>
       <div className={style.answerBlock}>

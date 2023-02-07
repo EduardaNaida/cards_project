@@ -1,12 +1,12 @@
-import React, {ChangeEvent, FC} from 'react'
+import React, { ChangeEvent, FC } from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import SuperButton from '../../SuperButton/superButton'
-import {Title} from '../../Title/title'
+import { Title } from '../../Title/title'
 import styleCard from './addCardModal.module.css'
 import CloseIcon from '@mui/icons-material/Close'
-import {NewCardType} from '../../../../Features/Main/MyPack/myPack'
-import {BasicCardForm} from "../../../../Features/Main/Cards/BasicCardForm/basicCardForm";
+import { NewCardType } from '../../../../Features/Main/MyPack/myPack'
+import { BasicCardForm } from '../../../../Features/Main/Cards/BasicCardForm/basicCardForm'
 
 type AddCardModalType = {
   title: string
@@ -17,17 +17,18 @@ type AddCardModalType = {
   onChangeAnswer: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const AddCardModal: FC<AddCardModalType> = ({title, answer, question, onChange, onChangeAnswer, onChangeQuestion}) => {
+export const AddCardModal: FC<AddCardModalType> = ({
+  title,
+  answer,
+  question,
+  onChange,
+  onChangeAnswer,
+  onChangeQuestion,
+}) => {
   const [open, setOpen] = React.useState(false)
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
-
-  const handleButtonSubmit = () => {
-    onChange({question, answer})
-    handleClose()
-  }
 
   return (
     <>
@@ -41,17 +42,20 @@ export const AddCardModal: FC<AddCardModalType> = ({title, answer, question, onC
         <Box sx={style}>
           <div className={styleCard.cardBlock}>
             <div className={styleCard.title}>
-              <Title title={title}/>
-              <CloseIcon fontSize={'medium'} onClick={handleClose}/>
+              <Title title={title} />
+              <CloseIcon fontSize={'medium'} onClick={handleClose} />
             </div>
 
-            <BasicCardForm onClose={handleClose}
-                           question={question}
-                           answer={answer}
-                           buttonText={'save'}
-                           onChange={handleButtonSubmit}
-                           onChangeQuestion={onChangeQuestion}
-                           onChangeAnswer={onChangeAnswer}/>
+            <BasicCardForm
+              onClose={handleClose}
+              question={question}
+              answer={answer}
+              buttonText={'save'}
+              // onChange={handleButtonSubmit}
+              onSubmit={onChange}
+              onChangeQuestion={onChangeQuestion}
+              onChangeAnswer={onChangeAnswer}
+            />
           </div>
         </Box>
       </Modal>
@@ -71,4 +75,3 @@ const style = {
   boxShadow: 24,
   p: 3,
 }
-

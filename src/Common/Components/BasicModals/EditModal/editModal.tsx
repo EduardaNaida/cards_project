@@ -1,13 +1,13 @@
 import React from 'react'
-import {BasicModal} from '../basicModal'
+import { BasicModal } from '../basicModal'
 import SuperCheckbox from '../../SuperCheckbox/superCheckbox'
 import style from './editModal.module.css'
-import {Box, Button, FormControl, Input, InputLabel, TextField} from '@mui/material'
-import {useFormik} from 'formik'
-import {updatePackTC} from '../../../../Features/Main/PacksList/packsListReducer'
-import {useAppDispatch} from '../../../../App/store'
-import {updateCardsTC} from '../../../../Features/Main/MyPack/cardReducer'
-import {AddPicture} from "../AddCardModal/AddPicture/addPicture";
+import { Box, Button, FormControl, Input, InputLabel, TextField } from '@mui/material'
+import { useFormik } from 'formik'
+import { updatePackTC } from '../../../../Features/Main/PacksList/packsListReducer'
+import { useAppDispatch } from '../../../../App/store'
+import { updateCardsTC } from '../../../../Features/Main/MyPack/cardReducer'
+import { AddPicture } from '../AddCardModal/AddPicture/addPicture'
 
 type EditModalType = {
   text: string
@@ -31,9 +31,9 @@ export const EditModal = (props: EditModalType) => {
     },
     onSubmit: (values) => {
       if (values.type === 'pack') {
-        dispatch(updatePackTC({_id: props.id, name: values.name}))
+        dispatch(updatePackTC({ _id: props.id, name: values.name }))
       } else {
-        dispatch(updateCardsTC({_id: props.id, question: values.name, answer: values.answer}))
+        dispatch(updateCardsTC({ _id: props.id, question: values.name, answer: values.answer }))
       }
     },
   })
@@ -48,7 +48,7 @@ export const EditModal = (props: EditModalType) => {
                 <p>{props.text}</p>
               </div>
               <div className={style.inputBlock}>
-                <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
+                <FormControl sx={{ width: '100% ' }} variant="standard" fullWidth>
                   <InputLabel htmlFor="text">Pack name</InputLabel>
                   <Input
                     name={'name'}
@@ -65,20 +65,24 @@ export const EditModal = (props: EditModalType) => {
                 <div className={style.title}>
                   <p>{props.text}</p>
                 </div>
-                {formik.values.questionImg ?
+                {formik.values.questionImg ? (
                   <div className={style.imageEditBlock}>
                     <div className={style.imageBlock}>
-                      <img src={formik.values.questionImg} alt="image" className={style.image}/>
+                      <img src={formik.values.questionImg} alt="image" className={style.image} />
                     </div>
-                    <AddPicture onChange={formik.handleChange}
-                                onClose={formik.handleSubmit}
-                                buttonText={'Change question'}
-                                questionImg={formik.values.questionImg}
+                    <AddPicture
+                      onChange={formik.handleChange}
+                      onClose={formik.handleSubmit}
+                      buttonText={'Change question'}
+                      onChangeAnswer={() => {}}
+                      answer={''}
+                      question={''}
+                      onChangeQuestion={() => {}}
                     />
                   </div>
-                  :
+                ) : (
                   <div className={style.inputBlock}>
-                    <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
+                    <FormControl sx={{ width: '100% ' }} variant="standard" fullWidth>
                       <TextField
                         fullWidth
                         value={formik.values.name}
@@ -99,7 +103,7 @@ export const EditModal = (props: EditModalType) => {
                       />
                     </FormControl>
                   </div>
-                }
+                )}
               </div>
             </>
           )}

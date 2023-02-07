@@ -1,27 +1,30 @@
-import React, {ChangeEvent, FC} from 'react'
-import {
-  Button,
-  TextField,
-} from '@mui/material'
-import styleCard from "../../../../Common/Components/BasicModals/AddCardModal/addCardModal.module.css";
+import React, { ChangeEvent, FC } from 'react'
+import { Button, TextField } from '@mui/material'
+import styleCard from '../../../../Common/Components/BasicModals/AddCardModal/addCardModal.module.css'
+import { NewCardType } from '../../MyPack/myPack'
 
 type TextFieldsType = {
   question: string
   answer: string
   buttonText: string
-  onChange: () => void
+  onClose: () => void
+  onChange: (data: NewCardType) => void
   onChangeQuestion: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   onChangeAnswer: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 export const TextFields: FC<TextFieldsType> = ({
-                                                 question,
-                                                 answer,
-                                                 buttonText,
-                                                 onChange,
-                                                 onChangeAnswer,
-                                                 onChangeQuestion
-                                               }) => {
-
+  question,
+  answer,
+  buttonText,
+  onChange,
+  onChangeAnswer,
+  onChangeQuestion,
+  onClose,
+}) => {
+  const handleButtonSubmit = () => {
+    onChange({ question, answer })
+    onClose()
+  }
 
   return (
     <div>
@@ -30,7 +33,7 @@ export const TextFields: FC<TextFieldsType> = ({
         id="standard-basic"
         label="Question"
         variant="standard"
-        sx={{height: '60px'}}
+        sx={{ height: '60px' }}
         defaultValue={question}
         onChange={onChangeQuestion}
       />
@@ -43,14 +46,13 @@ export const TextFields: FC<TextFieldsType> = ({
         onChange={onChangeAnswer}
       />
       <div className={styleCard.buttonBlock}>
-        <Button onClick={onChange} sx={styleButton}>
+        <Button onClick={handleButtonSubmit} sx={styleButton}>
           {buttonText}
         </Button>
       </div>
     </div>
   )
 }
-
 
 const styleButton = {
   display: 'flex',
