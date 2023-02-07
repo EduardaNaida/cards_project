@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { FC, ReactElement } from 'react'
+import {FC, ReactElement} from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import { IconButton } from '@mui/material'
+import {IconButton} from '@mui/material'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import BorderColorIcon from '@mui/icons-material/BorderColor'
 
@@ -19,20 +19,22 @@ const style = {
   p: 2,
 }
 
-export const BasicModal: FC<BasicModalType> = ({ children, type }) => {
+export const BasicModal: FC<BasicModalType> = ({children, type}) => {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   return (
     <>
-      {type === 'delete' ? (
+      {type === 'delete' && (
         <IconButton onClick={handleOpen}>
-          <DeleteForeverIcon />
+          <DeleteForeverIcon/>
         </IconButton>
-      ) : (
+      )}
+
+      {type === 'edit' && (
         <IconButton onClick={handleOpen}>
-          <BorderColorIcon />
+          <BorderColorIcon/>
         </IconButton>
       )}
 

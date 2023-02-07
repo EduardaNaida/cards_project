@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FC } from 'react'
-import { FormControl, InputLabel, MenuItem, SelectChangeEvent } from '@mui/material'
+import React, {ChangeEvent, FC} from 'react'
+import {FormControl, InputLabel, MenuItem, SelectChangeEvent} from '@mui/material'
 import Select from '@mui/material/Select'
-import { AddPicture } from '../../../../Common/Components/BasicModals/AddCardModal/AddPicture/addPicture'
-import { TextFields } from '../TextFields/textFields'
-import { NewCardType } from '../../MyPack/myPack'
+import {AddPicture} from '../../../../Common/Components/BasicModals/AddCardModal/AddPicture/addPicture'
+import {TextFields} from '../TextFields/textFields'
+import {NewCardType} from '../../MyPack/myPack'
 
 type BasicCardFormType = {
   onClose: () => void
@@ -16,15 +16,16 @@ type BasicCardFormType = {
 }
 
 export const BasicCardForm: FC<BasicCardFormType> = ({
-  question,
-  answer,
-  onClose,
-  onChangeAnswer,
-  onChangeQuestion,
-  onSubmit,
-}) => {
-  console.log(question, answer)
-  const [item, setItem] = React.useState('')
+                                                       question,
+                                                       answer,
+                                                       onClose,
+                                                       onChangeAnswer,
+                                                       onChangeQuestion,
+                                                       onSubmit,
+                                                       buttonText
+                                                     }) => {
+
+  const [item, setItem] = React.useState('text')
 
   const handleSelectItem = (event: SelectChangeEvent) => {
     setItem(event.target.value.toString())
@@ -32,7 +33,7 @@ export const BasicCardForm: FC<BasicCardFormType> = ({
 
   return (
     <>
-      <FormControl fullWidth sx={{ marginTop: '20px' }}>
+      <FormControl fullWidth sx={{marginTop: '20px'}}>
         <InputLabel id="demo-simple-select-label">Choose a question format</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -47,30 +48,28 @@ export const BasicCardForm: FC<BasicCardFormType> = ({
         </Select>
       </FormControl>
 
-      {item === 'text' ? (
-        <>
-          <TextFields
-            buttonText={'Save'}
-            onChange={onSubmit}
-            question={question}
-            onClose={onClose}
-            answer={answer}
-            onChangeQuestion={onChangeQuestion}
-            onChangeAnswer={onChangeAnswer}
-          />
-        </>
-      ) : (
-        <>
-          <AddPicture
-            onChange={onSubmit}
-            onClose={onClose}
-            question={question}
-            answer={answer}
-            onChangeQuestion={onChangeQuestion}
-            onChangeAnswer={onChangeAnswer}
-            buttonText={'Upload question'}
-          />
-        </>
+      {item === 'picture' && (
+        <AddPicture
+          onChange={onSubmit}
+          onClose={onClose}
+          question={question}
+          answer={answer}
+          onChangeQuestion={onChangeQuestion}
+          onChangeAnswer={onChangeAnswer}
+          buttonText={buttonText}
+        />
+      )}
+
+      {item === 'text' && (
+        <TextFields
+          buttonText={'Save'}
+          onChange={onSubmit}
+          question={question}
+          onClose={onClose}
+          answer={answer}
+          onChangeQuestion={onChangeQuestion}
+          onChangeAnswer={onChangeAnswer}
+        />
       )}
     </>
   )

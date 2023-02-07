@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FC } from 'react'
-import { Button, TextField } from '@mui/material'
+import React, {ChangeEvent, FC} from 'react'
+import {Button, TextField} from '@mui/material'
 import styleCard from '../../../../Common/Components/BasicModals/AddCardModal/addCardModal.module.css'
-import { NewCardType } from '../../MyPack/myPack'
+import {NewCardType} from '../../MyPack/myPack'
 
 type TextFieldsType = {
   question: string
@@ -13,16 +13,19 @@ type TextFieldsType = {
   onChangeAnswer: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 export const TextFields: FC<TextFieldsType> = ({
-  question,
-  answer,
-  buttonText,
-  onChange,
-  onChangeAnswer,
-  onChangeQuestion,
-  onClose,
-}) => {
+                                                 buttonText,
+                                                 onChange,
+                                                 onChangeAnswer,
+                                                 onChangeQuestion,
+                                                 onClose,
+                                                 ...props
+                                               }) => {
+
+  const [question, setNewQuestion] = React.useState<string>('')
+  const [answer, setNewAnswer] = React.useState<string>('')
+
   const handleButtonSubmit = () => {
-    onChange({ question, answer })
+    onChange({question, answer})
     onClose()
   }
 
@@ -33,17 +36,19 @@ export const TextFields: FC<TextFieldsType> = ({
         id="standard-basic"
         label="Question"
         variant="standard"
-        sx={{ height: '60px' }}
-        defaultValue={question}
-        onChange={onChangeQuestion}
+        sx={{height: '60px'}}
+        defaultValue={props.question}
+        //onChange={onChangeQuestion}
+        onChange={(e)=>{setNewQuestion(e.currentTarget.value)}}
       />
       <TextField
         fullWidth
         id="standard-basic"
         label="Answer"
         variant="standard"
-        defaultValue={answer}
-        onChange={onChangeAnswer}
+        defaultValue={props.answer}
+        //onChange={onChangeAnswer}
+        onChange={(e)=>{setNewAnswer(e.currentTarget.value)}}
       />
       <div className={styleCard.buttonBlock}>
         <Button onClick={handleButtonSubmit} sx={styleButton}>

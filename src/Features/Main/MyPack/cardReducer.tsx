@@ -11,22 +11,22 @@ import { AxiosError } from 'axios'
 import { setAppErrorAC, setAppStatusAC } from '../../../App/appReducer'
 
 type GetCardActionType = ReturnType<typeof getCardsAC>
-type SetNewQuestionType = ReturnType<typeof setNewQuestion>
+// type SetNewQuestionType = ReturnType<typeof setNewQuestion>
 type SetNewPageType = ReturnType<typeof setCardsPageAC>
 type SetPageCountType = ReturnType<typeof setCardsPageCountAC>
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>
 type SetSearchCardType = ReturnType<typeof setSearchCardAC>
-type SetNewAnswerType = ReturnType<typeof setNewAnswer>
+// type SetNewAnswerType = ReturnType<typeof setNewAnswer>
 type SetGradeCardType = ReturnType<typeof setGradeCardAC>
 
 export type CardReducerActionType =
   | GetCardActionType
-  | SetNewQuestionType
+  // | SetNewQuestionType
   | SetNewPageType
   | SetPageCountType
   | SetCardsTotalCountType
   | SetSearchCardType
-  | SetNewAnswerType
+  // | SetNewAnswerType
   | SetGradeCardType
 
 const initialState: InitialStateType = {
@@ -70,22 +70,22 @@ export const cardReducer = (
         cards: [...action.payload.cards],
       }
     }
-    case 'CARDS/SET-NEW-QUESTION': {
-      return {
-        ...state,
-        cards: state.cards.map((card) =>
-          card._id === action._id ? { ...card, question: action.question } : card,
-        ),
-      }
-    }
-    case 'CARDS/SET-NEW-ANSWER': {
-      return {
-        ...state,
-        cards: state.cards.map((card) =>
-          card._id === action._id ? { ...card, answer: action.cardAnswer } : card,
-        ),
-      }
-    }
+    // case 'CARDS/SET-NEW-QUESTION': {
+    //   return {
+    //     ...state,
+    //     cards: state.cards.map((card) =>
+    //       card._id === action._id ? { ...card, question: action.question } : card,
+    //     ),
+    //   }
+    // }
+    // case 'CARDS/SET-NEW-ANSWER': {
+    //   return {
+    //     ...state,
+    //     cards: state.cards.map((card) =>
+    //       card._id === action._id ? { ...card, answer: action.cardAnswer } : card,
+    //     ),
+    //   }
+    // }
     case 'CARDS/SET-PAGE': {
       return {
         ...state,
@@ -127,21 +127,21 @@ export const cardReducer = (
 const getCardsAC = (cards: CardsType[]) =>
   ({ type: 'CARDS/GET-CARDS', payload: { cards } } as const)
 
-const setNewQuestion = (cards: CardsType, _id: string, question: string) =>
-  ({
-    type: 'CARDS/SET-NEW-QUESTION',
-    _id,
-    question,
-    cards,
-  } as const)
+// const setNewQuestion = (cards: CardsType, _id: string, question: string) =>
+//   ({
+//     type: 'CARDS/SET-NEW-QUESTION',
+//     _id,
+//     question,
+//     cards,
+//   } as const)
 
-const setNewAnswer = (cards: CardsType, _id: string, cardAnswer: string) =>
-  ({
-    type: 'CARDS/SET-NEW-ANSWER',
-    _id,
-    cardAnswer,
-    cards,
-  } as const)
+// const setNewAnswer = (cards: CardsType, _id: string, cardAnswer: string) =>
+//   ({
+//     type: 'CARDS/SET-NEW-ANSWER',
+//     _id,
+//     cardAnswer,
+//     cards,
+//   } as const)
 
 export const setCardsPageAC = (page: number) => ({ type: 'CARDS/SET-PAGE', page } as const)
 export const setCardsPageCountAC = (pageCount: number) =>
@@ -225,16 +225,7 @@ export const updateCardsTC =
     cardsAPI
       .updateCards(card)
       .then((res) => {
-        dispatch(
-          setNewQuestion(
-            res.data.updatedCard,
-            res.data.updatedCard._id,
-            res.data.updatedCard.question,
-          ),
-        )
-        dispatch(
-          setNewAnswer(res.data.updatedCard, res.data.updatedCard._id, res.data.updatedCard.answer),
-        )
+        dispatch(getCardsTC(res.data.updatedCard.cardsPack_id))
         dispatch(setAppStatusAC('succeeded'))
       })
       .catch((e: AxiosError<{ error: string }>) => {

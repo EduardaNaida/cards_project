@@ -45,13 +45,11 @@ export const AddCardModal: FC<AddCardModalType> = ({
               <Title title={title} />
               <CloseIcon fontSize={'medium'} onClick={handleClose} />
             </div>
-
             <BasicCardForm
               onClose={handleClose}
               question={question}
               answer={answer}
-              buttonText={'save'}
-              // onChange={handleButtonSubmit}
+              buttonText={'Upload question'}
               onSubmit={onChange}
               onChangeQuestion={onChangeQuestion}
               onChangeAnswer={onChangeAnswer}
