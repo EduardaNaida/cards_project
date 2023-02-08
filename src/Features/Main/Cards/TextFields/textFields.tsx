@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC } from 'react'
 import { Button, TextField } from '@mui/material'
 import styleCard from '../../../../Common/Components/BasicModals/AddCardModal/addCardModal.module.css'
 import { NewCardType } from '../../MyPack/myPack'
+import style from './textFields.module.css'
 
 type TextFieldsType = {
   question: string
@@ -29,7 +30,7 @@ export const TextFields: FC<TextFieldsType> = ({
   }
 
   return (
-    <div>
+    <div className={style.inputBlock}>
       <TextField
         fullWidth
         id="standard-basic"
@@ -53,7 +54,7 @@ export const TextFields: FC<TextFieldsType> = ({
           setNewAnswer(e.currentTarget.value)
         }}
       />
-      <div className={styleCard.buttonBlock}>
+      <div className={style.buttonBlock}>
         <Button onClick={handleButtonSubmit} sx={styleButton}>
           {buttonText}
         </Button>
