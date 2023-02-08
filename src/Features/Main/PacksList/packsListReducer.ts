@@ -1,5 +1,6 @@
 import {
   CardPacksUpdateType,
+  CardsPackType,
   packAPI,
   ParamsTypePacks,
   ResponseCardsPacksType,
@@ -171,11 +172,11 @@ export const getPacksDataTC = (): AppThunk => {
   }
 }
 
-export const addNewPackTC = (newPackName: string): AppThunk => {
+export const addNewPackTC = (data: CardsPackType): AppThunk => {
   return (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packAPI
-      .postPack({ name: newPackName })
+      .postPack({ ...data })
       .then(() => {
         dispatch(getPacksDataTC())
         dispatch(setAppStatusAC('succeeded'))

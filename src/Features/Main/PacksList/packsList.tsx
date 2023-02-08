@@ -37,6 +37,7 @@ import { PacksListTableRow } from './packsListTableRow'
 import Slider from '@mui/material/Slider'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import { AddPackModal } from '../../../Common/Components/BasicModals/AddPackModal/addPackModal'
+import { CardsPackType } from '../../../API/CardsApi/cardsApi'
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(() => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -69,10 +70,9 @@ export const PacksList = () => {
   useEffect(() => {
     dispatch(getPacksDataTC())
   }, [page, pageCount, packsChoose, searchVal, dispatch, searchParamsMin, searchParamsMax])
-  console.log(searchParamsMin)
 
-  const handleAddNewPack = (newPackName: string) => {
-    dispatch(addNewPackTC(newPackName))
+  const handleAddNewPack = (data: CardsPackType) => {
+    dispatch(addNewPackTC({ ...data }))
   }
 
   const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -84,7 +84,7 @@ export const PacksList = () => {
   }
 
   const mappedPacks = cardPacks.map((packData) => {
-    return <PacksListTableRow key={packData._id} packData={packData} questionImg={''} />
+    return <PacksListTableRow key={packData._id} packData={packData} />
   })
 
   const handleSetPacksChoose = (

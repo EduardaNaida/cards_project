@@ -1,6 +1,5 @@
 import React, { ChangeEvent, FC } from 'react'
 import { Button, TextField } from '@mui/material'
-import styleCard from '../../../../Common/Components/BasicModals/AddCardModal/addCardModal.module.css'
 import { NewCardType } from '../../MyPack/myPack'
 import style from './textFields.module.css'
 

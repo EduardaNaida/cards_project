@@ -1,0 +1,13 @@
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 120px;
+  padding-top: 10px;
+}
+
+.buttonBlock {
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
+}

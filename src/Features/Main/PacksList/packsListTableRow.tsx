@@ -4,7 +4,7 @@ import { IconButton, TableRow, Tooltip } from '@mui/material'
 import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import SchoolIcon from '@mui/icons-material/School'
 import { CardPacksUpdateType } from '../../../API/CardsApi/cardsApi'
-import { deletePackTC, updatePackTC } from './packsListReducer'
+import { deletePackTC } from './packsListReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { useNavigate } from 'react-router-dom'
 import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
@@ -12,10 +12,9 @@ import { EditModal } from '../../../Common/Components/BasicModals/EditModal/edit
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
-  questionImg: string | null
 }
 
-export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData, questionImg }) => {
+export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -34,6 +33,8 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData, qu
     alert('Learn in developing')
   }
 
+  console.log(packData.deckCover)
+
   const myUserId = UseAppSelector((state) => state.user._id)
   const formattedDate = formatingDate(packData.updated)
   const isMyPack = packData.user_id === myUserId
@@ -44,9 +45,19 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData, qu
   return (
     <TableRow key={packData._id}>
       <StyledTableCell component="th" scope="row" onClick={handleNavigateToPack}>
-        <Tooltip title={tooltipName}>
-          <b>{packData.name}</b>
-        </Tooltip>
+        {packData.deckCover ? (
+          <Tooltip title={tooltipName}>
+            <img
+              src={packData.deckCover}
+              alt="img"
+              style={{ maxHeight: '150px', maxWidth: '100%' }}
+            />
+          </Tooltip>
+        ) : (
+          <Tooltip title={tooltipName}>
+            <b>{packData.name}</b>
+          </Tooltip>
+        )}
       </StyledTableCell>
       <StyledTableCell align="right">{packData.cardsCount}</StyledTableCell>
       <StyledTableCell align="right">{formattedDate}</StyledTableCell>
@@ -62,7 +73,7 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData, qu
             <Tooltip title="update pack name">
               <EditModal
                 name={packData.name}
-                questionImg={questionImg}
+                questionImg={packData.deckCover ? packData.deckCover : ''}
                 text={'Edit pack'}
                 callback={() => {}}
                 id={packData._id}
