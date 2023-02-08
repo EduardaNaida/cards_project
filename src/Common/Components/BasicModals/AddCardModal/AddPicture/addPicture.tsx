@@ -21,7 +21,6 @@ export const AddPicture: FC<AddPictureType> = ({ onChange, onClose, buttonText, 
     uploadImg(e, setQuestionImg)
   }
 
-
   const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewAnswer(event.currentTarget.value)
   }

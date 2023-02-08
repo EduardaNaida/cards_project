@@ -21,8 +21,7 @@ export const TextFields: FC<TextFieldsType> = ({
   onClose,
   ...props
 }) => {
-
-  const [question, setNewQuestion] = React.useState<string | undefined>('')
+  const [question, setNewQuestion] = React.useState<string>('')
   const [answer, setNewAnswer] = React.useState<string>('')
 
   const handleButtonSubmit = () => {

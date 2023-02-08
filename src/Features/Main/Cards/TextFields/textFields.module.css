@@ -1,18 +1,18 @@
 .inputBlock {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 170px;
-    padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 170px;
+  padding-top: 10px;
 }
 
 .checkbox {
-    display: flex;
-    height: 50px;
+  display: flex;
+  height: 50px;
 }
 
 .buttonBlock {
-    display: flex;
-    justify-content: flex-end;
-    height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
 }
