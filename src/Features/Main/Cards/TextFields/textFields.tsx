@@ -21,7 +21,8 @@ export const TextFields: FC<TextFieldsType> = ({
   onClose,
   ...props
 }) => {
-  const [question, setNewQuestion] = React.useState<string>('')
+
+  const [question, setNewQuestion] = React.useState<string | undefined>('')
   const [answer, setNewAnswer] = React.useState<string>('')
 
   const handleButtonSubmit = () => {
@@ -43,6 +44,7 @@ export const TextFields: FC<TextFieldsType> = ({
           setNewQuestion(e.currentTarget.value)
         }}
       />
+
       <TextField
         fullWidth
         id="standard-basic"
