@@ -9,6 +9,7 @@ import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { useNavigate } from 'react-router-dom'
 import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
 import { EditPackModal } from '../../../Common/Components/BasicModals/EditModal/editPackModal'
+import style from '../main.module.css'
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
@@ -47,11 +48,11 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) 
       <StyledTableCell component="th" scope="row" onClick={handleNavigateToPack}>
         {packData.deckCover ? (
           <Tooltip title={tooltipName}>
-            <div>
+            <div className={style.packName}>
               <img
                 src={packData.deckCover}
                 alt="img"
-                style={{ maxHeight: '150px', maxWidth: '100%' }}
+                style={{ maxHeight: '50px', maxWidth: '50px', marginRight: '10px' }}
               />
               <b>{packData.name}</b>
             </div>

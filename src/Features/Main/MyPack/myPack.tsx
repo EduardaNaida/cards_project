@@ -131,7 +131,7 @@ export const MyPack = () => {
                           <img
                             src={cards.questionImg}
                             alt="img"
-                            style={{ maxHeight: '150px', maxWidth: '100%' }}
+                            style={{ maxHeight: '50px', maxWidth: '50px', marginRight: '10px' }}
                           />
                         ) : (
                           cards.question

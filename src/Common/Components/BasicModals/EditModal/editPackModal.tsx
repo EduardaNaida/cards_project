@@ -1,12 +1,12 @@
-import React, {ChangeEvent} from 'react'
-import {BasicModal} from '../basicModal'
+import React, { ChangeEvent } from 'react'
+import { BasicModal } from '../basicModal'
 import SuperCheckbox from '../../SuperCheckbox/superCheckbox'
 import style from './editModal.module.css'
-import {Box, Button, FormControl, Input, InputLabel} from '@mui/material'
-import {useFormik} from 'formik'
-import {updatePackTC} from '../../../../Features/Main/PacksList/packsListReducer'
-import {useAppDispatch} from '../../../../App/store'
-import {uploadImg} from "../../../../utils/InputTypeFile/InputTypeFile";
+import { Box, Button, FormControl, Input, InputLabel } from '@mui/material'
+import { useFormik } from 'formik'
+import { updatePackTC } from '../../../../Features/Main/PacksList/packsListReducer'
+import { useAppDispatch } from '../../../../App/store'
+import { uploadImg } from '../../../../utils/InputTypeFile/InputTypeFile'
 
 type EditModalType = {
   callback: (id: string) => void
@@ -33,10 +33,9 @@ export const EditPackModal = (props: EditModalType) => {
       name: '' || props.packName,
     },
     onSubmit: (values) => {
-      dispatch(updatePackTC({_id: props.id, name: values.name, deckCover: image}))
+      dispatch(updatePackTC({ _id: props.id, name: values.name, deckCover: image }))
     },
   })
-
 
   return (
     <BasicModal type={'edit'}>
@@ -46,33 +45,36 @@ export const EditPackModal = (props: EditModalType) => {
             <div className={style.title}>
               <p>{props.text}</p>
             </div>
-              <div>
-                <label>
-                  <input type="file" onChange={onChangePackName} style={{display: 'none'}}/>
-                  <div className={style.buttonBlock}>
-                    <Button variant="outlined" component="span">Change cover</Button>
+            <div>
+              <label>
+                <input type="file" onChange={onChangePackName} style={{ display: 'none' }} />
+                <div className={style.buttonBlock}>
+                  <Button variant="outlined" component="span">
+                    Change cover
+                  </Button>
+                </div>
+              </label>
+              <div className={style.uploadPicture}>
+                {image && (
+                  <div>
+                    <img src={image} alt="image" className={style.image} />
+                    <Button onClick={deletePicture}>Delete cover</Button>
                   </div>
-                </label>
-                  <div className={style.uploadPicture}>
-                    {image && <div>
-                        <img src={image} alt="image" className={style.image}/>
-                        <Button onClick={deletePicture}>Delete cover</Button>
-                    </div>
-                    }
-                  </div>
+                )}
               </div>
+            </div>
 
-              <div className={style.inputBlock}>
-                <FormControl sx={{width: '100% '}} variant="standard" fullWidth>
-                  <InputLabel htmlFor="text">Pack name</InputLabel>
-                  <Input
-                    name={'name'}
-                    type={'text'}
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                  />
-                </FormControl>
-              </div>
+            <div className={style.inputBlock}>
+              <FormControl sx={{ width: '100% ' }} variant="standard" fullWidth>
+                <InputLabel htmlFor="text">Pack name</InputLabel>
+                <Input
+                  name={'name'}
+                  type={'text'}
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                />
+              </FormControl>
+            </div>
           </div>
 
           <div className={style.checkbox}>
