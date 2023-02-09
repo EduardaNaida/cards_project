@@ -2,12 +2,13 @@ import React from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import SuperButton from '../../SuperButton/superButton'
-import { Button, TextField } from '@mui/material'
 import { Title } from '../../Title/title'
 import stylePack from './addPackModal.module.css'
 import CloseIcon from '@mui/icons-material/Close'
+import { BasicPackForm } from '../../../../Features/Main/Packs/basicPackForm'
+import { CardsPackType } from '../../../../API/CardsApi/cardsApi'
 
-export const AddPackModal = (props: AddModalType) => {
+export const AddPackModal = (props: AddPackModalType) => {
   const [open, setOpen] = React.useState(false)
 
   const handleOpen = () => setOpen(true)
@@ -18,8 +19,8 @@ export const AddPackModal = (props: AddModalType) => {
   const handleChangeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.currentTarget.value)
   }
-  const handleButtonSubmit = () => {
-    props.callback(inputValue)
+  const handleButtonSubmit = (data: CardsPackType) => {
+    props.callback({ ...data })
     handleClose()
     setInputValue('')
   }
@@ -38,19 +39,13 @@ export const AddPackModal = (props: AddModalType) => {
               <Title title={props.title} />
               <CloseIcon fontSize={'medium'} onClick={handleClose} />
             </div>
-            <TextField
-              fullWidth
-              value={inputValue}
-              onChange={handleChangeInputValue}
-              id="standard-basic"
-              label="Name pack"
-              variant="standard"
+            <BasicPackForm
+              onClose={handleClose}
+              packName={inputValue}
+              buttonText={'Save'}
+              onSubmit={handleButtonSubmit}
+              onChangeName={handleChangeInputValue}
             />
-            <div className={stylePack.buttonBlock}>
-              <Button sx={styleButton} onClick={handleButtonSubmit}>
-                Save
-              </Button>
-            </div>
           </div>
         </Box>
       </Modal>
@@ -58,9 +53,9 @@ export const AddPackModal = (props: AddModalType) => {
   )
 }
 
-type AddModalType = {
+type AddPackModalType = {
   title: string
-  callback: (newValue: string) => void
+  callback: (data: CardsPackType) => void
 }
 const style = {
   position: 'absolute' as 'absolute',
@@ -73,18 +68,4 @@ const style = {
   borderRadius: '2px',
   boxShadow: 24,
   p: 3,
-}
-
-const styleButton = {
-  bgcolor: '#366EFF',
-  color: 'white',
-  borderRadius: 30,
-  width: 111,
-  height: 36,
-  fontSize: 15,
-  fontFamily: `'Montserrat', sans-serif`,
-  textTransform: 'none',
-  '&:hover': {
-    color: '#366EFF',
-  },
 }

@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../../App/store'
 import { updateCardsTC } from '../../../../Features/Main/MyPack/cardReducer'
 import { BasicCardForm } from '../../../../Features/Main/Cards/BasicCardForm/basicCardForm'
 import { NewCardType } from '../../../../Features/Main/MyPack/myPack'
-import style from '../EditModal/editModal.module.css'
+import style from './editCardModal.module.css'
 
 type EditCardModalType = {
   text: string

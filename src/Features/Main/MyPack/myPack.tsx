@@ -23,7 +23,6 @@ import style from './myPack.module.css'
 import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
 import { Title } from '../../../Common/Components/Title/title'
 import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
 import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
 import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
 import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
@@ -132,7 +131,7 @@ export const MyPack = () => {
                           <img
                             src={cards.questionImg}
                             alt="img"
-                            style={{ maxHeight: '150px', maxWidth: '100%' }}
+                            style={{ maxHeight: '50px', maxWidth: '50px', marginRight: '10px' }}
                           />
                         ) : (
                           cards.question

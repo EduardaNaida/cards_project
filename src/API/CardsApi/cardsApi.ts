@@ -143,6 +143,7 @@ export type CardPacksUpdateType = {
   cardsCount?: number
   created?: string
   updated?: string
+  deckCover?: string
 }
 
 export type ResponseCardsPacksType = {
