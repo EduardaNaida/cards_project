@@ -8,7 +8,7 @@ import { deletePackTC } from './packsListReducer'
 import { useAppDispatch, UseAppSelector } from '../../../App/store'
 import { useNavigate } from 'react-router-dom'
 import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
-import { EditModal } from '../../../Common/Components/BasicModals/EditModal/editModal'
+import { EditPackModal } from '../../../Common/Components/BasicModals/EditModal/editPackModal'
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
@@ -47,11 +47,14 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) 
       <StyledTableCell component="th" scope="row" onClick={handleNavigateToPack}>
         {packData.deckCover ? (
           <Tooltip title={tooltipName}>
-            <img
-              src={packData.deckCover}
-              alt="img"
-              style={{ maxHeight: '150px', maxWidth: '100%' }}
-            />
+            <div>
+              <img
+                src={packData.deckCover}
+                alt="img"
+                style={{ maxHeight: '150px', maxWidth: '100%' }}
+              />
+              <b>{packData.name}</b>
+            </div>
           </Tooltip>
         ) : (
           <Tooltip title={tooltipName}>
@@ -71,13 +74,12 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) 
         {isMyPack && (
           <>
             <Tooltip title="update pack name">
-              <EditModal
-                name={packData.name}
-                questionImg={packData.deckCover ? packData.deckCover : ''}
+              <EditPackModal
+                packName={packData.name}
+                deckCover={packData.deckCover ? packData.deckCover : ''}
                 text={'Edit pack'}
                 callback={() => {}}
                 id={packData._id}
-                type={'pack'}
               />
             </Tooltip>
             <Tooltip title="delete my pack">

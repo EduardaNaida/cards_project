@@ -1,22 +1,24 @@
-import React, { ChangeEvent, FC } from 'react'
-import { Button } from '@mui/material'
+import React, {ChangeEvent, FC} from 'react'
+import {Button, TextField} from '@mui/material'
 import style from './addPicturePack.module.css'
-import { uploadImg } from '../../../../utils/InputTypeFile/InputTypeFile'
-import { CardsPackType } from '../../../../API/CardsApi/cardsApi'
+import {uploadImg} from '../../../../utils/InputTypeFile/InputTypeFile'
+import {CardsPackType} from '../../../../API/CardsApi/cardsApi'
 
 type AddPicturePackType = {
   onChange: (data: CardsPackType) => void
   onClose: () => void
   buttonText: string
   packName: string
+  onChangeName: (event: ChangeEvent<HTMLInputElement>) => void
 }
 export const AddPicturePack: FC<AddPicturePackType> = ({
-  onChange,
-  onClose,
-  buttonText,
-  packName,
-  ...props
-}) => {
+                                                         onChange,
+                                                         onClose,
+                                                         buttonText,
+                                                         packName,
+                                                         onChangeName,
+                                                         ...props
+                                                       }) => {
   const [image, setImage] = React.useState<string | undefined>(undefined)
 
   const onChangePackName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,25 +26,42 @@ export const AddPicturePack: FC<AddPicturePackType> = ({
   }
 
   const handleButtonSubmit = () => {
-    onChange({ deckCover: image })
+    onChange({deckCover: image, name: packName})
     onClose()
+  }
+
+  const deletePicture = () => {
+    setImage('')
   }
 
   return (
     <div className={style.pictureBlock}>
       <div className={style.input}>
-        <span className={style.text}>Pack name: </span>
         <label>
-          <input type="file" onChange={onChangePackName} style={{ display: 'none' }} />
+          <input type="file" onChange={onChangePackName} style={{display: 'none'}}/>
           <div className={style.buttonBlock}>
             <Button variant="outlined" component="span">
               {buttonText}
             </Button>
           </div>
-          <div className={style.uploadPicture}>
-            {image && <img src={image} alt="image" className={style.image} />}
-          </div>
         </label>
+          <div className={style.uploadPicture}>
+            {image && <div>
+                <img src={image} alt="image" className={style.image}/>
+                <Button onClick={deletePicture}>Delete cover</Button>
+            </div>
+            }
+          </div>
+      </div>
+      <div className={style.inputBlock}>
+        <TextField
+          fullWidth
+          id="standard-basic"
+          label="Pack name"
+          variant="standard"
+          value={packName}
+          onChange={onChangeName}
+        />
       </div>
       <div className={style.buttonBlock}>
         <Button sx={styleButton} onClick={handleButtonSubmit}>

@@ -49,6 +49,7 @@ export const BasicPackForm: FC<BasicPackFormType> = ({
           onClose={onClose}
           buttonText={'Change cover'}
           packName={packName}
+          onChangeName={onChangeName}
         />
       )}
 

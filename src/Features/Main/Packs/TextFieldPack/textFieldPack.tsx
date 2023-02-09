@@ -31,9 +31,6 @@ export const TextFieldPack: FC<TextFieldPackType> = ({
         variant="standard"
         value={packName}
         onChange={onChangeName}
-        // onChange={(e) => {
-        //   setNewQuestion(e.currentTarget.value)
-        // }}
       />
 
       <div className={style.buttonBlock}>
