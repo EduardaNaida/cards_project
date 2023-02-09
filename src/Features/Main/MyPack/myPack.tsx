@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import {
   addCardsTC,
   getCardsTC,
@@ -8,29 +8,36 @@ import {
   setSearchCardAC,
   updateGradeTC,
 } from './cardReducer'
-import {AppDispatch, UseAppSelector} from '../../../App/store'
+import { AppDispatch, UseAppSelector } from '../../../App/store'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import {StyledTableCell} from '../../../Common/Components/StyledTableComponents/styledTableCell'
-import {formatingDate} from '../../../utils/formatDate'
-import {Rating, SelectChangeEvent} from '@mui/material'
-import {useParams} from 'react-router-dom'
+import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import { formatingDate } from '../../../utils/formatDate'
+import { Rating, SelectChangeEvent } from '@mui/material'
+import { useParams } from 'react-router-dom'
 import style from './myPack.module.css'
-import {TableSearchBar} from '../../../Common/Components/TableSearchbar/tableSearchbar'
-import {Title} from '../../../Common/Components/Title/title'
-import {TablePaginationCustom} from '../../../Common/Components/TablePagination/tablePaginationCustom'
-import {EditModal} from '../../../Common/Components/BasicModals/EditModal/editModal'
-import {DeleteModal} from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
-import {NavToMain} from '../../../Common/Components/NavToMain/navToMain'
-import {AddCardModal} from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
+import { TableSearchBar } from '../../../Common/Components/TableSearchbar/tableSearchbar'
+import { Title } from '../../../Common/Components/Title/title'
+import { TablePaginationCustom } from '../../../Common/Components/TablePagination/tablePaginationCustom'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import { NavToMain } from '../../../Common/Components/NavToMain/navToMain'
+import { AddCardModal } from '../../../Common/Components/BasicModals/AddCardModal/addCardModal'
+import { EditCardModal } from '../../../Common/Components/BasicModals/EditCardModal/editCardModal'
+
+export type NewCardType = {
+  answer?: string
+  question?: string
+  questionImg?: string
+  answerImg?: string
+}
 
 export const MyPack = () => {
   const dispatch = AppDispatch()
-  const {packId} = useParams()
+  const { packId } = useParams()
 
   const [value, setValue] = useState<number | null>()
 
@@ -38,15 +45,15 @@ export const MyPack = () => {
   const pageCount = UseAppSelector((state) => state.cards.pageCount)
   const cardTotalCount = UseAppSelector((state) => state.cards.cardsTotalCount)
   const cards = UseAppSelector((state) => state.cards.cards)
-  const cardQuestion = UseAppSelector((state) => state.cards.cardQuestion)
-  const cardAnswer = UseAppSelector((state) => state.cards.cardAnswer)
 
-  console.log(cards)
+  const [question, setNewQuestion] = React.useState<string>('')
+  const [answer, setNewAnswer] = React.useState<string>('')
+
   useEffect(() => {
     if (packId) {
       dispatch(getCardsTC(packId))
     }
-  }, [dispatch, packId, page, pageCount, cardQuestion, cardAnswer])
+  }, [dispatch, packId, page, pageCount, question, answer])
 
   const handleSetPage = (event: React.ChangeEvent<unknown>, value: number) => {
     dispatch(setCardsPageAC(value))
@@ -56,16 +63,12 @@ export const MyPack = () => {
     dispatch(setCardsPageCountAC(+event.target.value))
   }
 
-  const addCard = (newQuestion: string, newAnswer: string) => {
+  const addCard = (data: NewCardType) => {
     if (packId) {
-      dispatch(
-        addCardsTC({
-          cardsPack_id: packId,
-          question: newQuestion,
-          answer: newAnswer,
-        }),
-      )
+      dispatch(addCardsTC({ ...data }, packId))
     }
+    setNewAnswer('')
+    setNewQuestion('')
   }
 
   const removeCard = (id: string) => {
@@ -79,20 +82,36 @@ export const MyPack = () => {
   const updateGrade = (grade: number | null, card_id: string) => {
     dispatch(updateGradeTC(grade, card_id))
   }
+
+  const handleChangeQuestion = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setNewQuestion(event.currentTarget.value)
+  }
+
+  const handleChangeAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewAnswer(event.currentTarget.value)
+  }
+
   return (
     <div className={style.container}>
-      <NavToMain/>
+      <NavToMain />
       <div className={style.main}>
-        <Title title={'My pack'}/>
-        <AddCardModal title={'Add new card'} callback={addCard}/>
+        <Title title={'My pack'} />
+        <AddCardModal
+          title={'Add new card'}
+          onChange={addCard}
+          question={question}
+          answer={answer}
+          onChangeQuestion={handleChangeQuestion}
+          onChangeAnswer={handleChangeAnswer}
+        />
       </div>
       {cards.length === 0 ? (
         <div>My pack is empty</div>
       ) : (
         <div className={style.tableContainer}>
-          <TableSearchBar onChange={searchHandler}/>
-          <TableContainer component={Paper}>
-            <Table sx={{minWidth: 700}} aria-label="customized table">
+          <TableSearchBar onChange={searchHandler} />
+          <TableContainer component={Paper} sx={{ marginTop: '24px' }}>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Question</StyledTableCell>
@@ -108,7 +127,15 @@ export const MyPack = () => {
                   return (
                     <TableRow key={cards._id}>
                       <StyledTableCell component="th" scope="row">
-                        {cards.question}
+                        {cards.questionImg ? (
+                          <img
+                            src={cards.questionImg}
+                            alt="img"
+                            style={{ maxHeight: '50px', maxWidth: '50px', marginRight: '10px' }}
+                          />
+                        ) : (
+                          cards.question
+                        )}
                       </StyledTableCell>
                       <StyledTableCell align="right">{cards.answer}</StyledTableCell>
                       <StyledTableCell align="right">{formattedDate}</StyledTableCell>
@@ -120,18 +147,17 @@ export const MyPack = () => {
                             setValue(newValue)
                             updateGrade(newValue, cards._id)
                           }}
-                          /*updateGrade(cards.grade, cards._id)*/
                         />
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        <EditModal
-                          name={cards.question}
+                        <EditCardModal
+                          question={cards.questionImg ? cards.questionImg : cards.question}
                           answer={cards.answer}
                           text={'Edit Card'}
-                          callback={() => {
-                          }}
                           id={cards._id}
-                          type={'card'}
+                          handleClose={() => {}}
+                          onChangeQuestion={handleChangeQuestion}
+                          onChangeAnswer={handleChangeAnswer}
                         />
                         <DeleteModal
                           name={cards.question}

@@ -1,20 +1,18 @@
-.cardBlock {
+.inputBlock {
   display: flex;
   flex-direction: column;
-  min-height: 320px;
   justify-content: space-between;
+  height: 170px;
+  padding-top: 10px;
 }
 
-.title {
+.checkbox {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   height: 50px;
-  border-bottom: 2px solid #d9d9d9;
 }
 
 .buttonBlock {
   display: flex;
   justify-content: flex-end;
+  height: 50px;
 }

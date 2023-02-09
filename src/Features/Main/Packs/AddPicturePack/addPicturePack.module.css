@@ -1,0 +1,45 @@
+.pictureBlock {
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  justify-content: space-around;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.text {
+  font-family: 'Montserrat', sans-serif;
+  padding-bottom: 10px;
+}
+
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.uploadPicture {
+  width: 100%;
+  height: 130px;
+  border-radius: 5px;
+}
+
+.image {
+  margin-top: 20px;
+  width: 150px;
+  height: 130px;
+}
+
+.answerBlock {
+  height: 50px;
+}
+
+.buttonBlock {
+  display: flex;
+  justify-content: flex-end;
+}

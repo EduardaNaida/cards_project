@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .title {
   display: flex;
   justify-content: space-between;
@@ -12,10 +13,12 @@
   margin-top: 36px;
   margin-bottom: 34px;
 }
+
 .title > button {
   margin: 0;
   height: 36px;
 }
+
 .title > h2 {
   font-style: normal;
   font-weight: 600;
@@ -28,4 +31,15 @@
   justify-content: space-between;
   align-items: end;
   margin-bottom: 24px;
+}
+
+.searchbar {
+  width: 25ch;
+}
+
+.packName {
+  display: flex;
+  width: 150px;
+  flex-direction: row;
+  align-items: center;
 }

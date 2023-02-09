@@ -1,20 +1,21 @@
-import React, {FC} from 'react'
-import {formatingDate} from '../../../utils/formatDate'
-import {IconButton, TableRow, Tooltip} from '@mui/material'
-import {StyledTableCell} from '../../../Common/Components/StyledTableComponents/styledTableCell'
+import React, { FC } from 'react'
+import { formatingDate } from '../../../utils/formatDate'
+import { IconButton, TableRow, Tooltip } from '@mui/material'
+import { StyledTableCell } from '../../../Common/Components/StyledTableComponents/styledTableCell'
 import SchoolIcon from '@mui/icons-material/School'
-import {CardPacksUpdateType} from '../../../API/CardsApi/cardsApi'
-import {deletePackTC, updatePackTC} from './packsListReducer'
-import {useAppDispatch, UseAppSelector} from '../../../App/store'
-import {useNavigate} from 'react-router-dom'
-import {DeleteModal} from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
-import {EditModal} from '../../../Common/Components/BasicModals/EditModal/editModal'
+import { CardPacksUpdateType } from '../../../API/CardsApi/cardsApi'
+import { deletePackTC } from './packsListReducer'
+import { useAppDispatch, UseAppSelector } from '../../../App/store'
+import { useNavigate } from 'react-router-dom'
+import { DeleteModal } from '../../../Common/Components/BasicModals/DeleteModal/deleteModal'
+import { EditPackModal } from '../../../Common/Components/BasicModals/EditModal/editPackModal'
+import style from '../main.module.css'
 
 export type PacksListTableRowPropsType = {
   packData: CardPacksUpdateType
 }
 
-export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) => {
+export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({ packData }) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -33,6 +34,8 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
     alert('Learn in developing')
   }
 
+  console.log(packData.deckCover)
+
   const myUserId = UseAppSelector((state) => state.user._id)
   const formattedDate = formatingDate(packData.updated)
   const isMyPack = packData.user_id === myUserId
@@ -43,9 +46,22 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
   return (
     <TableRow key={packData._id}>
       <StyledTableCell component="th" scope="row" onClick={handleNavigateToPack}>
-        <Tooltip title={tooltipName}>
-          <b>{packData.name}</b>
-        </Tooltip>
+        {packData.deckCover ? (
+          <Tooltip title={tooltipName}>
+            <div className={style.packName}>
+              <img
+                src={packData.deckCover}
+                alt="img"
+                style={{ maxHeight: '50px', maxWidth: '50px', marginRight: '10px' }}
+              />
+              <b>{packData.name}</b>
+            </div>
+          </Tooltip>
+        ) : (
+          <Tooltip title={tooltipName}>
+            <b>{packData.name}</b>
+          </Tooltip>
+        )}
       </StyledTableCell>
       <StyledTableCell align="right">{packData.cardsCount}</StyledTableCell>
       <StyledTableCell align="right">{formattedDate}</StyledTableCell>
@@ -53,19 +69,18 @@ export const PacksListTableRow: FC<PacksListTableRowPropsType> = ({packData}) =>
       <StyledTableCell align="right">
         <Tooltip title={tooltipLearn}>
           <IconButton onClick={hanldeNavigateToLearn} disabled={packData.cardsCount === 0}>
-            <SchoolIcon/>
+            <SchoolIcon />
           </IconButton>
         </Tooltip>
         {isMyPack && (
           <>
             <Tooltip title="update pack name">
-              <EditModal
-                name={packData.name}
+              <EditPackModal
+                packName={packData.name}
+                deckCover={packData.deckCover ? packData.deckCover : ''}
                 text={'Edit pack'}
-                callback={() => {
-                }}
+                callback={() => {}}
                 id={packData._id}
-                type={'pack'}
               />
             </Tooltip>
             <Tooltip title="delete my pack">

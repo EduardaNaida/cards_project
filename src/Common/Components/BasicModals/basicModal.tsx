@@ -26,11 +26,13 @@ export const BasicModal: FC<BasicModalType> = ({ children, type }) => {
 
   return (
     <>
-      {type === 'delete' ? (
+      {type === 'delete' && (
         <IconButton onClick={handleOpen}>
           <DeleteForeverIcon />
         </IconButton>
-      ) : (
+      )}
+
+      {type === 'edit' && (
         <IconButton onClick={handleOpen}>
           <BorderColorIcon />
         </IconButton>
