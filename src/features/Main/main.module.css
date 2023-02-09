@@ -29,3 +29,7 @@
   align-items: end;
   margin-bottom: 24px;
 }
+
+.searchbar {
+  width: 25ch;
+}

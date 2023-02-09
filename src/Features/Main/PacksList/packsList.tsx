@@ -84,7 +84,7 @@ export const PacksList = () => {
   }
 
   const mappedPacks = cardPacks.map((packData) => {
-    return <PacksListTableRow key={packData._id} packData={packData} />
+    return <PacksListTableRow key={packData._id} packData={packData} questionImg={''} />
   })
 
   const handleSetPacksChoose = (
@@ -139,7 +139,9 @@ export const PacksList = () => {
           <AddPackModal title={'Add new pack'} callback={handleAddNewPack} />
         </div>
         <div className={s.toolbar}>
-          <TableSearchBar onChange={hanldeSetSearchValue} />
+          <div className={s.searchbar}>
+            <TableSearchBar onChange={hanldeSetSearchValue} />
+          </div>
           <FormControl variant="standard">
             <FormLabel component="legend" sx={{ color: '#000000', marginBottom: '9px' }}>
               Show packs cards

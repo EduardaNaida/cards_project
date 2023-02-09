@@ -7,6 +7,7 @@ import { useFormik } from 'formik'
 import { updatePackTC } from '../../../../Features/Main/PacksList/packsListReducer'
 import { useAppDispatch } from '../../../../App/store'
 import { updateCardsTC } from '../../../../Features/Main/MyPack/cardReducer'
+import { AddPicture } from '../AddCardModal/AddPicture/addPicture'
 
 type EditModalType = {
   text: string
@@ -14,6 +15,7 @@ type EditModalType = {
   id: string
   name: string
   type: string
+  questionImg: string | null
   answer?: string
 }
 
@@ -23,6 +25,7 @@ export const EditModal = (props: EditModalType) => {
   const formik = useFormik({
     initialValues: {
       name: '' || props.name,
+      questionImg: '' || props.questionImg,
       type: '' || props.type,
       answer: '' || props.answer,
     },
@@ -62,28 +65,45 @@ export const EditModal = (props: EditModalType) => {
                 <div className={style.title}>
                   <p>{props.text}</p>
                 </div>
-                <div className={style.inputBlock}>
-                  <FormControl sx={{ width: '100% ' }} variant="standard" fullWidth>
-                    <TextField
-                      fullWidth
-                      value={formik.values.name}
+                {formik.values.questionImg ? (
+                  <div className={style.imageEditBlock}>
+                    <div className={style.imageBlock}>
+                      <img src={formik.values.questionImg} alt="image" className={style.image} />
+                    </div>
+                    <AddPicture
                       onChange={formik.handleChange}
-                      id="standard-basic"
-                      label="Question"
-                      name="name"
-                      variant="standard"
+                      onClose={formik.handleSubmit}
+                      buttonText={'Change question'}
+                      onChangeAnswer={() => {}}
+                      answer={''}
+                      question={''}
+                      onChangeQuestion={() => {}}
                     />
-                    <TextField
-                      fullWidth
-                      value={formik.values.answer}
-                      onChange={formik.handleChange}
-                      id="standard-basic"
-                      label="Answer"
-                      name="answer"
-                      variant="standard"
-                    />
-                  </FormControl>
-                </div>
+                  </div>
+                ) : (
+                  <div className={style.inputBlock}>
+                    <FormControl sx={{ width: '100% ' }} variant="standard" fullWidth>
+                      <TextField
+                        fullWidth
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        id="standard-basic"
+                        label="Question"
+                        name="name"
+                        variant="standard"
+                      />
+                      <TextField
+                        fullWidth
+                        value={formik.values.answer}
+                        onChange={formik.handleChange}
+                        id="standard-basic"
+                        label="Answer"
+                        name="answer"
+                        variant="standard"
+                      />
+                    </FormControl>
+                  </div>
+                )}
               </div>
             </>
           )}
